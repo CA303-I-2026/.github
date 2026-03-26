@@ -140,13 +140,60 @@ jobs:
           def chi_square_balance(qmd_map):
               """Chi-squared goodness-of-fit statistic for equal contribution (H0).
               χ² = Σ (Oᵢ − E)² / E  where E = total / n.
-              Returns None when group has no .qmd activity or fewer than 2 members."""
+              Returns (stat, df) or (None, None) when no activity / fewer than 2 members."""
               total = sum(qmd_map.values())
               n = len(qmd_map)
               if total == 0 or n < 2:
-                  return None
+                  return None, None
               expected = total / n
-              return sum((obs - expected) ** 2 / expected for obs in qmd_map.values())
+              stat = sum((obs - expected) ** 2 / expected for obs in qmd_map.values())
+              return stat, n - 1
+
+          def _gammainc_lower_series(a, x, max_iter=300, tol=1e-12):
+              """Lower regularized incomplete gamma P(a,x) via series expansion."""
+              if abs(x) < 1e-15:
+                  return 0.0
+              term = 1.0 / a
+              total = term
+              for n in range(1, max_iter + 1):
+                  term *= x / (a + n)
+                  total += term
+                  if abs(term) < tol * abs(total):
+                      break
+              return math.exp(-x + a * math.log(x) - math.lgamma(a + 1)) * total
+
+          def _gammaincc_cf(a, x, max_iter=300, tol=1e-12):
+              """Upper regularized incomplete gamma Q(a,x) via Lentz continued fraction."""
+              TINY = 1e-30
+              b = x + 1.0 - a
+              c = 1.0 / TINY
+              d = 1.0 / (b if abs(b) > TINY else TINY)
+              h = d
+              for i in range(1, max_iter + 1):
+                  an = -i * (i - a)
+                  b += 2.0
+                  d = an * d + b
+                  if abs(d) < TINY: d = TINY
+                  c = b + an / c
+                  if abs(c) < TINY: c = TINY
+                  d = 1.0 / d
+                  delta = d * c
+                  h *= delta
+                  if abs(delta - 1.0) < tol:
+                      break
+              return math.exp(-x + a * math.log(x) - math.lgamma(a)) * h
+
+          def chi2_pvalue(stat, df):
+              """Upper-tail p-value: P(χ² > stat | df) using pure Python."""
+              if stat is None or df is None or df < 1:
+                  return None
+              if stat < 1e-15:
+                  return 1.0
+              a = df / 2.0
+              x = stat / 2.0
+              if x < a + 1.0:
+                  return 1.0 - _gammainc_lower_series(a, x)
+              return _gammaincc_cf(a, x)
 
           qmd_lines = [
               "<!-- REPOSENSE-QMD-START -->",
@@ -177,12 +224,16 @@ jobs:
           for row in rows:
               qmd_map = row["qmd_per_author"]
               total_qmd = sum(qmd_map.values())
+              chi2_stat, chi2_df = chi_square_balance(qmd_map)
+              pvalue = chi2_pvalue(chi2_stat, chi2_df)
               group_stats.append({
                   "group": row["group"],
                   "repo_url": row["repo_url"],
                   "total_qmd": total_qmd,
                   "sigma": balance_stddev(qmd_map),
-                  "chi2": chi_square_balance(qmd_map),
+                  "chi2": chi2_stat,
+                  "chi2_df": chi2_df,
+                  "pvalue": pvalue,
                   "rank_total": None,
                   "rank_sigma": None,
                   "rank_chi2": None,
@@ -219,14 +270,14 @@ jobs:
               "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
-              "La columna χ² es una métrica independiente de verificación.  ")
+              "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
           qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
           qmd_lines.append(
-              "| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | Rango χ² | Puntaje | |"
+              "| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
           )
           qmd_lines.append(
-              "|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:--------:|:-------:|:-:|"
+              "|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
           )
 
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
@@ -236,6 +287,13 @@ jobs:
               trophy = "🏆" if is_winner else ""
               sigma_str = f"{g['sigma']:.2f}" if g["sigma"] is not None else "—"
               chi2_str  = f"{g['chi2']:.2f}"  if g["chi2"]  is not None else "—"
+              pval = g["pvalue"]
+              if pval is None:
+                  pval_str = "—"
+              elif pval < 0.001:
+                  pval_str = f"{pval:.2e}"
+              else:
+                  pval_str = f"{pval:.3f}"
               rank_t  = str(g["rank_total"]) if g["rank_total"] != last_rank else "—"
               rank_s  = str(g["rank_sigma"]) if g["rank_sigma"] != last_rank else "—"
               rank_c  = str(g["rank_chi2"])  if g["rank_chi2"]  != last_rank else "—"
@@ -247,6 +305,7 @@ jobs:
                   f"| {sigma_str} "
                   f"| {rank_s} "
                   f"| {chi2_str} "
+                  f"| {pval_str} "
                   f"| {rank_c} "
                   f"| {score_str} "
                   f"| {trophy} |"
@@ -288,16 +347,30 @@ jobs:
               "$$\\chi^2 = \\sum_{i=1}^{n}\\frac{(O_i - E)^2}{E}, \\quad E = \\frac{T}{n}, \\quad gl = n-1$$")
           qmd_lines.append("")
           qmd_lines.append(
+              "El **p-valor** es la probabilidad de observar un estadístico tan extremo o más "
+              "asumiendo H₀ (distribución uniforme): "
+              "p = P(χ² > estadístico | gl). "
+              "Se calcula mediante la función gamma incompleta superior regularizada Q(gl/2, estadístico/2):")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "$$p = Q\\!\\left(\\frac{gl}{2},\\,\\frac{\\chi^2}{2}\\right) "
+              "= \\frac{\\Gamma(gl/2,\\;\\chi^2/2)}{\\Gamma(gl/2)}$$")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "**Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); "
+              "p ≤ 0.05 indica evidencia de desequilibrio. "
               "χ² = 0 indica distribución perfectamente igualitaria. "
               "A diferencia de σ, χ² **no** está normalizado por el volumen total, "
               "por lo que grupos con más líneas en total pueden obtener χ² más alto "
               "aunque su distribución sea más equilibrada en términos relativos. "
-              "Por eso se usa como **verificación independiente** y no como métrica principal. "
-              "**Menor χ² = mejor equilibrio** (dentro del mismo tamaño de grupo).")
+              "El p-valor corrige parcialmente este sesgo al escalar internamente por E. "
+              "Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. "
+              "**Menor χ² (mayor p-valor) = mejor equilibrio** (dentro del mismo tamaño de grupo).")
           qmd_lines.append("")
           qmd_lines.append(
               "**Combinación de rangos:** El puntaje final es "
-              "`Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ, "
+              "`Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ "
+              "y el p-valor confirma rechazo/aceptación de H₀, "
               "el resultado queda verificado por ambas métricas.")
           qmd_lines.append("")
           qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
