@@ -23,7 +23,6 @@ jobs:
           import json
           import urllib.request
           import sys
-          from datetime import datetime, timezone
 
           BASE_URL = "https://raw.githubusercontent.com/CA303-I-2026/publish-RepoSense/gh-pages"
           REPOSENSE_SITE = "https://ca303-i-2026.github.io/publish-RepoSense"
@@ -75,13 +74,20 @@ jobs:
               if commits_data:
                   author_map = commits_data.get("authorDisplayNameMap", {})
                   daily_map = commits_data.get("authorDailyContributionsMap", {})
+                  ft_map = commits_data.get("authorFileTypeContributionMap", {})
                   members = list(author_map.values())
                   num_commits = count_commits(daily_map)
                   num_insertions = count_insertions(daily_map)
+                  # QMD lines per author: authorFileTypeContributionMap[username]["qmd"]
+                  qmd_per_author = {
+                      author_map[u]: ft_map.get(u, {}).get("qmd", 0)
+                      for u in author_map
+                  }
               else:
                   members = []
                   num_commits = 0
                   num_insertions = 0
+                  qmd_per_author = {}
 
               rows.append({
                   "group": group_name,
@@ -89,17 +95,19 @@ jobs:
                   "members": members,
                   "commits": num_commits,
                   "insertions": num_insertions,
+                  "qmd_per_author": qmd_per_author,
               })
 
+          # ── Section 1: overall progress table ──────────────────────────────────
           lines = [
-              f"<!-- REPOSENSE-PROGRESS-START -->",
-              f"## 📊 Progreso de los grupos",
-              f"",
+              "<!-- REPOSENSE-PROGRESS-START -->",
+              "## 📊 Progreso de los grupos",
+              "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
               f"> Fuente: [RepoSense Report]({REPOSENSE_SITE})",
-              f"",
-              f"| Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |",
-              f"|-------|-------------|-------------|:-------:|:---------------:|",
+              "",
+              "| Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |",
+              "|-------|-------------|-------------|:-------:|:---------------:|",
           ]
 
           for row in rows:
@@ -115,22 +123,89 @@ jobs:
           lines.append("<!-- REPOSENSE-PROGRESS-END -->")
           progress_block = "\n".join(lines)
 
+          # ── Section 2: per-group QMD tables + global summary ──────────────────
+          qmd_lines = [
+              "<!-- REPOSENSE-QMD-START -->",
+              "## 📝 Cambios en archivos `.qmd` por integrante",
+              "",
+              f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
+              "",
+          ]
+
+          # Accumulate global totals: display_name -> total qmd lines
+          global_qmd = {}
+          global_total = 0
+
+          for row in rows:
+              qmd_map = row["qmd_per_author"]
+              group_total = sum(qmd_map.values())
+
+              qmd_lines.append(f"### {row['group']}")
+              qmd_lines.append("")
+              qmd_lines.append("| Integrante | Cambios (líneas `.qmd`) | Cambios % |")
+              qmd_lines.append("|------------|:-----------------------:|:---------:|")
+
+              for name, count in qmd_map.items():
+                  pct_str = f"{count/group_total*100:.1f}%" if group_total > 0 else "—"
+                  qmd_lines.append(f"| {name} | {count} | {pct_str} |")
+
+              qmd_lines.append("")
+
+              # Accumulate global
+              for name, count in qmd_map.items():
+                  global_qmd[name] = global_qmd.get(name, 0) + count
+              global_total += group_total
+
+          # Global summary table
+          qmd_lines.append("### 🌐 Resumen global (todos los grupos)")
+          qmd_lines.append("")
+          qmd_lines.append("| Grupo | Integrante | Cambios (líneas `.qmd`) | Cambios % |")
+          qmd_lines.append("|-------|------------|:-----------------------:|:---------:|")
+
+          for row in rows:
+              qmd_map = row["qmd_per_author"]
+              for name, count in qmd_map.items():
+                  pct_str = f"{count/global_total*100:.1f}%" if global_total > 0 else "—"
+                  qmd_lines.append(
+                      f"| [{row['group']}]({row['repo_url']}) | {name} | {count} | {pct_str} |"
+                  )
+
+          qmd_lines.append("")
+          if global_total > 0:
+              qmd_lines.append(f"**Total líneas `.qmd` en todos los grupos: {global_total}**")
+          else:
+              qmd_lines.append("_No se registraron cambios en archivos `.qmd` en el período._")
+
+          qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
+          qmd_block = "\n".join(qmd_lines)
+
+          # ── Write both sections to README ──────────────────────────────────────
           readme_path = "README.md"
           with open(readme_path, "r", encoding="utf-8") as f:
               content = f.read()
 
-          start_marker = "<!-- REPOSENSE-PROGRESS-START -->"
-          end_marker = "<!-- REPOSENSE-PROGRESS-END -->"
-          start_idx = content.find(start_marker)
-          end_idx = content.find(end_marker)
+          def replace_or_append(text, start_marker, end_marker, new_block):
+              s = text.find(start_marker)
+              e = text.find(end_marker)
+              if s != -1 and e != -1:
+                  return text[:s] + new_block + text[e + len(end_marker):]
+              return text.rstrip("\n") + "\n\n" + new_block + "\n"
 
-          if start_idx != -1 and end_idx != -1:
-              new_content = content[:start_idx] + progress_block + content[end_idx + len(end_marker):]
-          else:
-              new_content = content.rstrip("\n") + "\n\n" + progress_block + "\n"
+          content = replace_or_append(
+              content,
+              "<!-- REPOSENSE-PROGRESS-START -->",
+              "<!-- REPOSENSE-PROGRESS-END -->",
+              progress_block,
+          )
+          content = replace_or_append(
+              content,
+              "<!-- REPOSENSE-QMD-START -->",
+              "<!-- REPOSENSE-QMD-END -->",
+              qmd_block,
+          )
 
           with open(readme_path, "w", encoding="utf-8") as f:
-              f.write(new_content)
+              f.write(content)
 
           print("README.md updated successfully.")
           EOF
