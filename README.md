@@ -79,17 +79,17 @@ Bienvenidos a la organización del curso **CA303 - Estadística Computacional I 
 ### 🏆 Competencia entre grupos
 
 > **Criterio de victoria**: mayor total de cambios `.qmd` **y** distribución más equilibrada entre sus integrantes.  
-> **Puntaje** = Rango volumen + Rango σ (menor = mejor). La columna χ² es una métrica independiente de verificación.  
+> **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
-| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | Rango χ² | Puntaje | |
-|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2 | 2 | 🏆 |
-| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.30 | 3 | 270.00 | 3 | 5 |  |
-| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.30 | 2 | 15.00 | 1 | 5 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — |  |
+| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
+|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2.26e-54 | 2 | 2 | 🏆 |
+| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.30 | 3 | 270.00 | 3.09e-58 | 3 | 5 |  |
+| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.30 | 2 | 15.00 | 0.002 | 1 | 5 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — | — |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
 
@@ -111,8 +111,12 @@ Compara los conteos observados (Oᵢ) contra los esperados bajo distribución un
 
 $$\chi^2 = \sum_{i=1}^{n}\frac{(O_i - E)^2}{E}, \quad E = \frac{T}{n}, \quad gl = n-1$$
 
-χ² = 0 indica distribución perfectamente igualitaria. A diferencia de σ, χ² **no** está normalizado por el volumen total, por lo que grupos con más líneas en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. Por eso se usa como **verificación independiente** y no como métrica principal. **Menor χ² = mejor equilibrio** (dentro del mismo tamaño de grupo).
+El **p-valor** es la probabilidad de observar un estadístico tan extremo o más asumiendo H₀ (distribución uniforme): p = P(χ² > estadístico | gl). Se calcula mediante la función gamma incompleta superior regularizada Q(gl/2, estadístico/2):
 
-**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ, el resultado queda verificado por ambas métricas.
+$$p = Q\!\left(\frac{gl}{2},\,\frac{\chi^2}{2}\right) = \frac{\Gamma(gl/2,\;\chi^2/2)}{\Gamma(gl/2)}$$
+
+**Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); p ≤ 0.05 indica evidencia de desequilibrio. χ² = 0 indica distribución perfectamente igualitaria. A diferencia de σ, χ² **no** está normalizado por el volumen total, por lo que grupos con más líneas en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. El p-valor corrige parcialmente este sesgo al escalar internamente por E. Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. **Menor χ² (mayor p-valor) = mejor equilibrio** (dentro del mismo tamaño de grupo).
+
+**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ y el p-valor confirma rechazo/aceptación de H₀, el resultado queda verificado por ambas métricas.
 
 <!-- REPOSENSE-QMD-END -->
