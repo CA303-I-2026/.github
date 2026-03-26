@@ -1,0 +1,148 @@
+name: Actualizar progreso en README
+
+on:
+  schedule:
+    # Runs daily at 02:00 UTC, after publish-RepoSense (00:00 UTC)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch RepoSense data and update README
+        run: |
+          python3 - <<'EOF'
+          import json
+          import urllib.request
+          import sys
+          from datetime import datetime, timezone
+
+          BASE_URL = "https://raw.githubusercontent.com/CA303-I-2026/publish-RepoSense/gh-pages"
+          REPOSENSE_SITE = "https://ca303-i-2026.github.io/publish-RepoSense"
+
+          def fetch_json(url):
+              try:
+                  with urllib.request.urlopen(url, timeout=30) as r:
+                      return json.loads(r.read().decode())
+              except Exception as e:
+                  print(f"Warning: could not fetch {url}: {e}", file=sys.stderr)
+                  return None
+
+          def count_commits(author_daily_map):
+              total = 0
+              for daily_list in author_daily_map.values():
+                  for day in daily_list:
+                      if isinstance(day, dict):
+                          total += len(day.get("commitResults", []))
+              return total
+
+          def count_insertions(author_daily_map):
+              total = 0
+              for daily_list in author_daily_map.values():
+                  for day in daily_list:
+                      if isinstance(day, dict):
+                          for cr in day.get("commitResults", []):
+                              for ft in cr.get("fileTypesAndContributionMap", {}).values():
+                                  total += ft.get("insertions", 0)
+              return total
+
+          summary = fetch_json(f"{BASE_URL}/summary.json")
+          if summary is None:
+              print("ERROR: could not fetch summary.json", file=sys.stderr)
+              sys.exit(1)
+
+          generated_time = summary.get("reportGeneratedTime", "N/A")
+          since = summary.get("sinceDate", "")[:10]
+          until = summary.get("untilDate", "")[:10]
+          repos = summary.get("repos", [])
+
+          rows = []
+          for repo in repos:
+              folder = repo["outputFolderName"]
+              group_name = repo["location"]["repoName"]
+              org = repo["location"]["organization"]
+              repo_url = f"https://github.com/{org}/{group_name}"
+
+              commits_data = fetch_json(f"{BASE_URL}/{folder}/commits.json")
+              if commits_data:
+                  author_map = commits_data.get("authorDisplayNameMap", {})
+                  daily_map = commits_data.get("authorDailyContributionsMap", {})
+                  members = list(author_map.values())
+                  num_commits = count_commits(daily_map)
+                  num_insertions = count_insertions(daily_map)
+              else:
+                  members = []
+                  num_commits = 0
+                  num_insertions = 0
+
+              rows.append({
+                  "group": group_name,
+                  "repo_url": repo_url,
+                  "members": members,
+                  "commits": num_commits,
+                  "insertions": num_insertions,
+              })
+
+          lines = [
+              f"<!-- REPOSENSE-PROGRESS-START -->",
+              f"## 📊 Progreso de los grupos",
+              f"",
+              f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
+              f"> Fuente: [RepoSense Report]({REPOSENSE_SITE})",
+              f"",
+              f"| Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |",
+              f"|-------|-------------|-------------|:-------:|:---------------:|",
+          ]
+
+          for row in rows:
+              members_str = "<br>".join(row["members"]) if row["members"] else "—"
+              lines.append(
+                  f"| [{row['group']}]({row['repo_url']}) "
+                  f"| [🔗 Ver repo]({row['repo_url']}) "
+                  f"| {members_str} "
+                  f"| {row['commits']} "
+                  f"| {row['insertions']} |"
+              )
+
+          lines.append("<!-- REPOSENSE-PROGRESS-END -->")
+          progress_block = "\n".join(lines)
+
+          readme_path = "README.md"
+          with open(readme_path, "r", encoding="utf-8") as f:
+              content = f.read()
+
+          start_marker = "<!-- REPOSENSE-PROGRESS-START -->"
+          end_marker = "<!-- REPOSENSE-PROGRESS-END -->"
+          start_idx = content.find(start_marker)
+          end_idx = content.find(end_marker)
+
+          if start_idx != -1 and end_idx != -1:
+              new_content = content[:start_idx] + progress_block + content[end_idx + len(end_marker):]
+          else:
+              new_content = content.rstrip("\n") + "\n\n" + progress_block + "\n"
+
+          with open(readme_path, "w", encoding="utf-8") as f:
+              f.write(new_content)
+
+          print("README.md updated successfully.")
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: actualizar progreso de grupos [skip ci]"
+            git push
+          fi
