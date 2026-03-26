@@ -123,7 +123,19 @@ jobs:
           lines.append("<!-- REPOSENSE-PROGRESS-END -->")
           progress_block = "\n".join(lines)
 
-          # ── Section 2: per-group QMD tables + global summary ──────────────────
+          # ── Section 2: per-group QMD tables + competition ranking ────────────
+          import math
+
+          def balance_stddev(qmd_map):
+              """Std-dev of member percentage shares (0 = perfect balance, None = no activity)."""
+              total = sum(qmd_map.values())
+              if total == 0 or len(qmd_map) == 0:
+                  return None
+              n = len(qmd_map)
+              mean_pct = 100.0 / n
+              pcts = [v / total * 100 for v in qmd_map.values()]
+              return math.sqrt(sum((p - mean_pct) ** 2 for p in pcts) / n)
+
           qmd_lines = [
               "<!-- REPOSENSE-QMD-START -->",
               "## 📝 Cambios en archivos `.qmd` por integrante",
@@ -131,10 +143,6 @@ jobs:
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
               "",
           ]
-
-          # Accumulate global totals: display_name -> total qmd lines
-          global_qmd = {}
-          global_total = 0
 
           for row in rows:
               qmd_map = row["qmd_per_author"]
@@ -151,31 +159,80 @@ jobs:
 
               qmd_lines.append("")
 
-              # Accumulate global
-              for name, count in qmd_map.items():
-                  global_qmd[name] = global_qmd.get(name, 0) + count
-              global_total += group_total
-
-          # Global summary table
-          qmd_lines.append("### 🌐 Resumen global (todos los grupos)")
-          qmd_lines.append("")
-          qmd_lines.append("| Grupo | Integrante | Cambios (líneas `.qmd`) | Cambios % |")
-          qmd_lines.append("|-------|------------|:-----------------------:|:---------:|")
-
+          # ── Competition ranking ────────────────────────────────────────────────
+          # Compute per-group stats
+          group_stats = []
           for row in rows:
               qmd_map = row["qmd_per_author"]
-              for name, count in qmd_map.items():
-                  pct_str = f"{count/global_total*100:.1f}%" if global_total > 0 else "—"
-                  qmd_lines.append(
-                      f"| [{row['group']}]({row['repo_url']}) | {name} | {count} | {pct_str} |"
-                  )
+              total_qmd = sum(qmd_map.values())
+              bal = balance_stddev(qmd_map)
+              group_stats.append({
+                  "group": row["group"],
+                  "repo_url": row["repo_url"],
+                  "total_qmd": total_qmd,
+                  "balance": bal,
+                  "rank_total": None,
+                  "rank_balance": None,
+                  "score": None,
+              })
+
+          active = [g for g in group_stats if g["total_qmd"] > 0]
+          inactive = [g for g in group_stats if g["total_qmd"] == 0]
+          n_active = len(active)
+          last_rank = n_active + 1
+
+          for rank, g in enumerate(sorted(active, key=lambda x: -x["total_qmd"]), 1):
+              g["rank_total"] = rank
+          for rank, g in enumerate(sorted(active, key=lambda x: x["balance"]), 1):
+              g["rank_balance"] = rank
+          for g in inactive:
+              g["rank_total"] = last_rank
+              g["rank_balance"] = last_rank
+
+          for g in group_stats:
+              # Only active groups (total_qmd > 0) get a numeric score
+              g["score"] = (g["rank_total"] + g["rank_balance"]) if g["total_qmd"] > 0 else float("inf")
+
+          ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_qmd"]))
+          winner_score = ranked[0]["score"] if ranked and ranked[0]["total_qmd"] > 0 else None
+
+          qmd_lines.append("### 🏆 Competencia entre grupos")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "> **Criterio de victoria**: mayor total de cambios `.qmd` "
+              "**y** distribución más equilibrada entre integrantes.  ")
+          qmd_lines.append(
+              "> El puntaje combina el rango en cambios totales y el rango en equilibrio "
+              "(σ de porcentajes de cada miembro — menor σ = más equilibrado).  ")
+          qmd_lines.append("> Menor puntaje = mejor posición. 🏆 indica el grupo ganador.")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "| Pos. | Grupo | Total `.qmd` | Rango cambios | Equilibrio (σ pp) | Rango equilibrio | Puntaje | |"
+          )
+          qmd_lines.append(
+              "|:----:|-------|:------------:|:-------------:|:-----------------:|:----------------:|:-------:|:-:|"
+          )
+
+          medals = {1: "🥇", 2: "🥈", 3: "🥉"}
+          for pos, g in enumerate(ranked, 1):
+              medal = medals.get(pos, str(pos))
+              is_winner = winner_score is not None and g["score"] == winner_score and g["total_qmd"] > 0
+              trophy = "🏆" if is_winner else ""
+              bal_str = f"{g['balance']:.1f}" if g["balance"] is not None else "—"
+              rank_t = str(g["rank_total"]) if g["rank_total"] != last_rank else "—"
+              rank_b = str(g["rank_balance"]) if g["rank_balance"] != last_rank else "—"
+              score_str = str(g["score"]) if g["score"] != float("inf") else "—"
+              qmd_lines.append(
+                  f"| {medal} | [{g['group']}]({g['repo_url']}) "
+                  f"| {g['total_qmd']} "
+                  f"| {rank_t} "
+                  f"| {bal_str} "
+                  f"| {rank_b} "
+                  f"| {score_str} "
+                  f"| {trophy} |"
+              )
 
           qmd_lines.append("")
-          if global_total > 0:
-              qmd_lines.append(f"**Total líneas `.qmd` en todos los grupos: {global_total}**")
-          else:
-              qmd_lines.append("_No se registraron cambios en archivos `.qmd` en el período._")
-
           qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
           qmd_block = "\n".join(qmd_lines)
 

@@ -76,33 +76,19 @@ Bienvenidos a la organización del curso **CA303 - Estadística Computacional I 
 | Jeremy Garcia | 0 | — |
 | KatiaMorenoUAB | 0 | — |
 
-### �� Resumen global (todos los grupos)
+### 🏆 Competencia entre grupos
 
-| Grupo | Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|-------|------------|:-----------------------:|:---------:|
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | AndreyGonzalez10 | 0 | 0.0% |
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Anthonny | 0 | 0.0% |
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Randal Picado Bermudez | 0 | 0.0% |
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | leouniversidad967 | 0 | 0.0% |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | emilysanchezm | 0 | 0.0% |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | Debbie Con Ortega | 0 | 0.0% |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | Ashly Garro | 0 | 0.0% |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | Alessandro111105 | 0 | 0.0% |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Estefania Mora | 0 | 0.0% |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Alegobe23 | 0 | 0.0% |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Daniela Prado | 0 | 0.0% |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | JoseMiguel11 | 5 | 1.6% |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | sebas-miranda | 0 | 0.0% |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Gabo0122 | 0 | 0.0% |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | KevinCalderon | 0 | 0.0% |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Benjamin Padua | 90 | 28.3% |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabr64 | 0 | 0.0% |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | OMECXD | 0 | 0.0% |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Andrés Montero | 140 | 44.0% |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | César Salazar | 83 | 26.1% |
-| [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | JavaLuisdi | 0 | 0.0% |
-| [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | Jeremy Garcia | 0 | 0.0% |
-| [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | KatiaMorenoUAB | 0 | 0.0% |
+> **Criterio de victoria**: mayor total de cambios `.qmd` **y** distribución más equilibrada entre integrantes.  
+> El puntaje combina el rango en cambios totales y el rango en equilibrio (σ de porcentajes de cada miembro — menor σ = más equilibrado).  
+> Menor puntaje = mejor posición. 🏆 indica el grupo ganador.
 
-**Total líneas `.qmd` en todos los grupos: 318**
+| Pos. | Grupo | Total `.qmd` | Rango cambios | Equilibrio (σ pp) | Rango equilibrio | Puntaje | |
+|:----:|-------|:------------:|:-------------:|:-----------------:|:----------------:|:-------:|:-:|
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.6 | 1 | 2 | 🏆 |
+| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.3 | 3 | 5 | |
+| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.3 | 2 | 5 | |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | |
+
 <!-- REPOSENSE-QMD-END -->
