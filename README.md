@@ -93,6 +93,28 @@ Bienvenidos a la organización del curso **CA303 - Estadística Computacional I 
 
 ---
 
+#### 🗺️ Guía de columnas
+
+La siguiente tabla explica cada columna del ranking para que puedas interpretar exactamente cómo fue evaluado tu grupo.
+
+| Columna | Qué mide | Cómo leerla | Mejor valor |
+|---------|----------|-------------|-------------|
+| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas `.qmd` | 🥇 (posición 1) |
+| **Grupo** | Nombre del grupo con enlace al repositorio | Click para ver el repo directamente | — |
+| **Total `.qmd`** | Suma de todas las líneas `.qmd` añadidas por el grupo en el período | Más líneas = mayor volumen de trabajo en archivos Quarto | Mayor |
+| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total `.qmd` | 1 = grupo con más líneas; — = grupo sin actividad | 1 |
+| **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | 0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |
+| **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
+| **χ² bondad** | Estadístico chi-cuadrado de bondad de ajuste (H₀: distribución uniforme) | 0 = aporte perfectamente igualitario; valores altos indican desequilibrio. **Ojo:** no es comparable entre grupos de diferente volumen total | 0 |
+| **p-valor** | Probabilidad de observar un χ² tan extremo o mayor si el reparto fuera uniforme | p > 0.05 → no se rechaza H₀ (equilibrado); p ≤ 0.05 → evidencia de desequilibrio; p ≤ 0.01 → evidencia fuerte; p ≤ 0.001 → evidencia muy fuerte | > 0.05 |
+| **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango σ | 1 |
+| **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
+| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total `.qmd`) | 🏆 |
+
+> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos `.qmd` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
+
+---
+
 #### 📐 Metodología de las métricas de equilibrio
 
 Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas `.qmd`.
