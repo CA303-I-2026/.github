@@ -127,14 +127,26 @@ jobs:
           import math
 
           def balance_stddev(qmd_map):
-              """Std-dev of member percentage shares (0 = perfect balance, None = no activity)."""
+              """Population std-dev of member percentage shares (σ).
+              Returns None when group has no .qmd activity."""
               total = sum(qmd_map.values())
               if total == 0 or len(qmd_map) == 0:
                   return None
               n = len(qmd_map)
-              mean_pct = 100.0 / n
+              mean_pct = 100.0 / n          # expected percentage per member under equal distribution
               pcts = [v / total * 100 for v in qmd_map.values()]
               return math.sqrt(sum((p - mean_pct) ** 2 for p in pcts) / n)
+
+          def chi_square_balance(qmd_map):
+              """Chi-squared goodness-of-fit statistic for equal contribution (H0).
+              χ² = Σ (Oᵢ − E)² / E  where E = total / n.
+              Returns None when group has no .qmd activity or fewer than 2 members."""
+              total = sum(qmd_map.values())
+              n = len(qmd_map)
+              if total == 0 or n < 2:
+                  return None
+              expected = total / n
+              return sum((obs - expected) ** 2 / expected for obs in qmd_map.values())
 
           qmd_lines = [
               "<!-- REPOSENSE-QMD-START -->",
@@ -165,14 +177,15 @@ jobs:
           for row in rows:
               qmd_map = row["qmd_per_author"]
               total_qmd = sum(qmd_map.values())
-              bal = balance_stddev(qmd_map)
               group_stats.append({
                   "group": row["group"],
                   "repo_url": row["repo_url"],
                   "total_qmd": total_qmd,
-                  "balance": bal,
+                  "sigma": balance_stddev(qmd_map),
+                  "chi2": chi_square_balance(qmd_map),
                   "rank_total": None,
-                  "rank_balance": None,
+                  "rank_sigma": None,
+                  "rank_chi2": None,
                   "score": None,
               })
 
@@ -183,15 +196,18 @@ jobs:
 
           for rank, g in enumerate(sorted(active, key=lambda x: -x["total_qmd"]), 1):
               g["rank_total"] = rank
-          for rank, g in enumerate(sorted(active, key=lambda x: x["balance"]), 1):
-              g["rank_balance"] = rank
+          for rank, g in enumerate(sorted(active, key=lambda x: x["sigma"]), 1):
+              g["rank_sigma"] = rank
+          for rank, g in enumerate(sorted(active, key=lambda x: x["chi2"]), 1):
+              g["rank_chi2"] = rank
           for g in inactive:
-              g["rank_total"] = last_rank
-              g["rank_balance"] = last_rank
+              for key in ("rank_total", "rank_sigma", "rank_chi2"):
+                  g[key] = last_rank
 
           for g in group_stats:
-              # Only active groups (total_qmd > 0) get a numeric score
-              g["score"] = (g["rank_total"] + g["rank_balance"]) if g["total_qmd"] > 0 else float("inf")
+              # Primary score: volume rank + σ-balance rank (lower = better).
+              # χ² rank is shown as an independent cross-check.
+              g["score"] = (g["rank_total"] + g["rank_sigma"]) if g["total_qmd"] > 0 else float("inf")
 
           ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_qmd"]))
           winner_score = ranked[0]["score"] if ranked and ranked[0]["total_qmd"] > 0 else None
@@ -200,17 +216,17 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "> **Criterio de victoria**: mayor total de cambios `.qmd` "
-              "**y** distribución más equilibrada entre integrantes.  ")
+              "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
-              "> El puntaje combina el rango en cambios totales y el rango en equilibrio "
-              "(σ de porcentajes de cada miembro — menor σ = más equilibrado).  ")
-          qmd_lines.append("> Menor puntaje = mejor posición. 🏆 indica el grupo ganador.")
+              "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
+              "La columna χ² es una métrica independiente de verificación.  ")
+          qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
           qmd_lines.append(
-              "| Pos. | Grupo | Total `.qmd` | Rango cambios | Equilibrio (σ pp) | Rango equilibrio | Puntaje | |"
+              "| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | Rango χ² | Puntaje | |"
           )
           qmd_lines.append(
-              "|:----:|-------|:------------:|:-------------:|:-----------------:|:----------------:|:-------:|:-:|"
+              "|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:--------:|:-------:|:-:|"
           )
 
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
@@ -218,20 +234,71 @@ jobs:
               medal = medals.get(pos, str(pos))
               is_winner = winner_score is not None and g["score"] == winner_score and g["total_qmd"] > 0
               trophy = "🏆" if is_winner else ""
-              bal_str = f"{g['balance']:.1f}" if g["balance"] is not None else "—"
-              rank_t = str(g["rank_total"]) if g["rank_total"] != last_rank else "—"
-              rank_b = str(g["rank_balance"]) if g["rank_balance"] != last_rank else "—"
+              sigma_str = f"{g['sigma']:.2f}" if g["sigma"] is not None else "—"
+              chi2_str  = f"{g['chi2']:.2f}"  if g["chi2"]  is not None else "—"
+              rank_t  = str(g["rank_total"]) if g["rank_total"] != last_rank else "—"
+              rank_s  = str(g["rank_sigma"]) if g["rank_sigma"] != last_rank else "—"
+              rank_c  = str(g["rank_chi2"])  if g["rank_chi2"]  != last_rank else "—"
               score_str = str(g["score"]) if g["score"] != float("inf") else "—"
               qmd_lines.append(
                   f"| {medal} | [{g['group']}]({g['repo_url']}) "
                   f"| {g['total_qmd']} "
                   f"| {rank_t} "
-                  f"| {bal_str} "
-                  f"| {rank_b} "
+                  f"| {sigma_str} "
+                  f"| {rank_s} "
+                  f"| {chi2_str} "
+                  f"| {rank_c} "
                   f"| {score_str} "
                   f"| {trophy} |"
               )
 
+          qmd_lines.append("")
+          qmd_lines.append("---")
+          qmd_lines.append("")
+          qmd_lines.append("#### 📐 Metodología de las métricas de equilibrio")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
+              "cada grupo reparte las contribuciones entre sus integrantes. "
+              "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
+              "la misma cantidad de líneas `.qmd`.")
+          qmd_lines.append("")
+          qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Convierte los conteos en porcentajes (\\%ᵢ = Oᵢ / T × 100) "
+              "y calcula la desviación estándar poblacional respecto a la media teórica "
+              "de contribución igualitaria (100 / n):")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "$$\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}\\left(\\%_i - \\frac{100}{n}\\right)^2}$$")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "σ = 0 significa contribución perfectamente igualitaria; "
+              "σ = 100 · (n−1)/n · 1/√n corresponde al caso extremo donde un solo integrante "
+              "hace todo el trabajo. **Menor σ = mejor equilibrio.**")
+          qmd_lines.append("")
+          qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Compara los conteos observados (Oᵢ) contra los esperados bajo distribución "
+              "uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "$$\\chi^2 = \\sum_{i=1}^{n}\\frac{(O_i - E)^2}{E}, \\quad E = \\frac{T}{n}, \\quad gl = n-1$$")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "χ² = 0 indica distribución perfectamente igualitaria. "
+              "A diferencia de σ, χ² **no** está normalizado por el volumen total, "
+              "por lo que grupos con más líneas en total pueden obtener χ² más alto "
+              "aunque su distribución sea más equilibrada en términos relativos. "
+              "Por eso se usa como **verificación independiente** y no como métrica principal. "
+              "**Menor χ² = mejor equilibrio** (dentro del mismo tamaño de grupo).")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "**Combinación de rangos:** El puntaje final es "
+              "`Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ, "
+              "el resultado queda verificado por ambas métricas.")
           qmd_lines.append("")
           qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
           qmd_block = "\n".join(qmd_lines)

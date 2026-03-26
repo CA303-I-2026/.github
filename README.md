@@ -78,17 +78,41 @@ Bienvenidos a la organización del curso **CA303 - Estadística Computacional I 
 
 ### 🏆 Competencia entre grupos
 
-> **Criterio de victoria**: mayor total de cambios `.qmd` **y** distribución más equilibrada entre integrantes.  
-> El puntaje combina el rango en cambios totales y el rango en equilibrio (σ de porcentajes de cada miembro — menor σ = más equilibrado).  
-> Menor puntaje = mejor posición. 🏆 indica el grupo ganador.
+> **Criterio de victoria**: mayor total de cambios `.qmd` **y** distribución más equilibrada entre sus integrantes.  
+> **Puntaje** = Rango volumen + Rango σ (menor = mejor). La columna χ² es una métrica independiente de verificación.  
+> 🏆 indica el grupo ganador.
 
-| Pos. | Grupo | Total `.qmd` | Rango cambios | Equilibrio (σ pp) | Rango equilibrio | Puntaje | |
-|:----:|-------|:------------:|:-------------:|:-----------------:|:----------------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.6 | 1 | 2 | 🏆 |
-| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.3 | 3 | 5 | |
-| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.3 | 2 | 5 | |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | |
+| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | Rango χ² | Puntaje | |
+|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:--------:|:-------:|:-:|
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2 | 2 | 🏆 |
+| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.30 | 3 | 270.00 | 3 | 5 |  |
+| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.30 | 2 | 15.00 | 1 | 5 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — |  |
+
+---
+
+#### 📐 Metodología de las métricas de equilibrio
+
+Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas `.qmd`.
+
+**1. Desviación estándar de porcentajes (σ)**
+
+Convierte los conteos en porcentajes (\%ᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
+
+$$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(\%_i - \frac{100}{n}\right)^2}$$
+
+σ = 0 significa contribución perfectamente igualitaria; σ = 100 · (n−1)/n · 1/√n corresponde al caso extremo donde un solo integrante hace todo el trabajo. **Menor σ = mejor equilibrio.**
+
+**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**
+
+Compara los conteos observados (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):
+
+$$\chi^2 = \sum_{i=1}^{n}\frac{(O_i - E)^2}{E}, \quad E = \frac{T}{n}, \quad gl = n-1$$
+
+χ² = 0 indica distribución perfectamente igualitaria. A diferencia de σ, χ² **no** está normalizado por el volumen total, por lo que grupos con más líneas en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. Por eso se usa como **verificación independiente** y no como métrica principal. **Menor χ² = mejor equilibrio** (dentro del mismo tamaño de grupo).
+
+**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ, el resultado queda verificado por ambas métricas.
 
 <!-- REPOSENSE-QMD-END -->
