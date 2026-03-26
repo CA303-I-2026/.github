@@ -457,14 +457,39 @@ jobs:
           with open(readme_path, "w", encoding="utf-8") as f:
               f.write(content)
 
-          print("README.md updated successfully.")
+          # ── Write full ranking block to profile/README.md ─────────────────────
+          import os
+          os.makedirs("profile", exist_ok=True)
+
+          # Reuse the full qmd_block, replacing its markers with the profile markers
+          # so that the complete ranking, column guide and methodology appear on the
+          # organisation profile page.
+          profile_block = (
+              qmd_block
+              .replace("<!-- REPOSENSE-QMD-START -->", "<!-- REPOSENSE-PROFILE-START -->", 1)
+              .replace("<!-- REPOSENSE-QMD-END -->",   "<!-- REPOSENSE-PROFILE-END -->",   1)
+          )
+
+          profile_path = "profile/README.md"
+          with open(profile_path, "r", encoding="utf-8") as f:
+              profile_content = f.read()
+          profile_content = replace_or_append(
+              profile_content,
+              "<!-- REPOSENSE-PROFILE-START -->",
+              "<!-- REPOSENSE-PROFILE-END -->",
+              profile_block,
+          )
+          with open(profile_path, "w", encoding="utf-8") as f:
+              f.write(profile_content)
+
+          print("README.md and profile/README.md updated successfully.")
           EOF
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md profile/README.md
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
