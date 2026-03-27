@@ -1,6 +1,6 @@
 # CA303-I-2026
 
-Bienvenidos a la organización del curso **CA303 - Estadística Computacional I (2026)**. Aquí encontrará los repositorios de cada grupo de trabajo.
+Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (2026)**. Aquí encontrará los repositorios de cada grupo de trabajo.
 
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
