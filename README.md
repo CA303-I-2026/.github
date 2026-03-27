@@ -10,11 +10,11 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | AndreyGonzalez10<br>Anthonny<br>Randal Picado Bermudez<br>leouniversidad967 | 2 | 489 |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | emilysanchezm<br>Debbie Con Ortega<br>Ashly Garro<br>Alessandro111105 | 6 | 250 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Estefania Mora<br>Alegobe23<br>Daniela Prado<br>JoseMiguel11 | 3 | 11 |
+| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | AndreyGonzalez10<br>Anthonny<br>Randal Picado Bermudez<br>leouniversidad967 | 0 | 489 |
+| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | emilysanchezm<br>Debbie Con Ortega<br>Ashly Garro<br>Alessandro111105 | 7 | 250 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Estefania Mora<br>Alegobe23<br>Daniela Prado<br>JoseMiguel11 | 1 | 11 |
 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | sebas-miranda<br>Gabo0122<br>KevinCalderon<br>Benjamin Padua | 1 | 90 |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabr64<br>OMECXD<br>Andrés Montero<br>César Salazar | 11 | 249 |
+| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabr64<br>OMECXD<br>Andrés Montero<br>César Salazar | 12 | 249 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | JavaLuisdi<br>Jeremy Garcia<br>KatiaMorenoUAB | 0 | 0 |
 <!-- REPOSENSE-PROGRESS-END -->
 
