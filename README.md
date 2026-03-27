@@ -5,7 +5,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 12:13:03 UTC**
+> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 13:27:59 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
@@ -21,7 +21,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Cambios en archivos `.qmd` por integrante
 
-> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 12:13:03 UTC**
+> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 13:27:59 UTC**
 
 ### Grupo-1-Los-bigotes-de-FM
 
