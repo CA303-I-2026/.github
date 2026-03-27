@@ -23,16 +23,25 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Cambios en archivos `.qmd` por integrante
 
-> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 01:29:03 UTC**
+> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 12:13:03 UTC**
 
 ### Grupo-1-Los-bigotes-de-FM
 
 | Integrante | Cambios (líneas `.qmd`) | Cambios % |
 |------------|:-----------------------:|:---------:|
-| AndreyGonzalez10 | 0 | — |
-| Anthonny | 0 | — |
-| Randal Picado Bermudez | 0 | — |
-| leouniversidad967 | 0 | — |
+| AndreyGonzalez10 | 0 | 0.0% |
+| Anthonny | 161 | 100.0% |
+| Randal Picado Bermudez | 0 | 0.0% |
+| leouniversidad967 | 0 | 0.0% |
+
+### Grupo-2
+
+| Integrante | Cambios (líneas `.qmd`) | Cambios % |
+|------------|:-----------------------:|:---------:|
+| emilysanchezm | 0 | — |
+| Debbie Con Ortega | 0 | — |
+| Ashly Garro | 0 | — |
+| Alessandro111105 | 0 | — |
 
 ### Grupo-3-p-0.05
 
@@ -78,10 +87,11 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 | Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2.26e-54 | 2 | 2 | 🏆 |
-| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.30 | 3 | 270.00 | 3.09e-58 | 3 | 5 |  |
-| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.30 | 2 | 15.00 | 0.002 | 1 | 5 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — | — |  |
-| 5 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
+| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 161 | 2 | 43.30 | 2 | 483.00 | 2.31e-104 | 4 | 4 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 3 | 43.30 | 4 | 270.00 | 3.09e-58 | 3 | 7 |  |
+| 4 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 4 | 43.30 | 3 | 15.00 | 0.002 | 1 | 7 |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
 
