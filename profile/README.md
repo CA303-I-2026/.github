@@ -1,6 +1,6 @@
 # 🎓 CA303 — Estadística Actuarial I (2026)
 
-> **Universidad de Costa Rica** · Escuela de Estadística  
+> **Universidad de Costa Rica** · Escuela de Matemática  
 > Curso CA303 — primer semestre 2026
 
 Bienvenidos a la organización del curso. Aquí se alojan los repositorios de cada grupo de trabajo, los reportes de actividad y el seguimiento automático de contribuciones.
