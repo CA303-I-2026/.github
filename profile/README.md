@@ -1,4 +1,4 @@
-# 🎓 CA303 — Estadística Computacional I (2026)
+# 🎓 CA303 — Estadística Actuarial I (2026)
 
 > **Universidad de Costa Rica** · Escuela de Estadística  
 > Curso CA303 — primer semestre 2026
