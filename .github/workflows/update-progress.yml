@@ -22,29 +22,67 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fetch RepoSense data and update README
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 - <<'EOF'
           import json
+          import os
           import urllib.request
+          import urllib.parse
           import sys
 
           BASE_URL = "https://raw.githubusercontent.com/CA303-I-2026/publish-RepoSense/gh-pages"
           REPOSENSE_SITE = "https://ca303-i-2026.github.io/publish-RepoSense"
+          GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-          def fetch_json(url):
+          def fetch_json(url, headers=None):
               try:
-                  with urllib.request.urlopen(url, timeout=30) as r:
+                  req = urllib.request.Request(url, headers=headers or {})
+                  with urllib.request.urlopen(req, timeout=30) as r:
                       return json.loads(r.read().decode())
               except Exception as e:
                   print(f"Warning: could not fetch {url}: {e}", file=sys.stderr)
                   return None
 
-          def count_commits(author_daily_map):
+          def gh_api_headers():
+              h = {"Accept": "application/vnd.github.v3+json", "User-Agent": "CA303-progress-tracker"}
+              if GITHUB_TOKEN:
+                  h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+              return h
+
+          def count_commits_via_api(org, repo_name, usernames, since_date, until_date):
+              """Count commits by the given GitHub usernames via the GitHub API.
+
+              Uses the /repos/{org}/{repo}/commits endpoint filtered by author and
+              date range so that every commit – including those that only touch
+              binary or LFS-tracked files that RepoSense ignores – is counted.
+              """
+              headers = gh_api_headers()
               total = 0
-              for daily_list in author_daily_map.values():
-                  for day in daily_list:
-                      if isinstance(day, dict):
-                          total += len(day.get("commitResults", []))
+              for username in usernames:
+                  page = 1
+                  while True:
+                      params = {
+                          "author": username,
+                          "since": since_date + "T00:00:00Z",
+                          "until": until_date + "T23:59:59Z",
+                          "per_page": 100,
+                          "page": page,
+                      }
+                      url = (
+                          f"https://api.github.com/repos/{org}/{repo_name}/commits?"
+                          + urllib.parse.urlencode(params)
+                      )
+                      commits = fetch_json(url, headers=headers)
+                      if not isinstance(commits, list):
+                          if commits is not None:
+                              print(f"Warning: unexpected API response for {username} in {repo_name}: {commits}", file=sys.stderr)
+                          break
+                      total += len(commits)
+                      if len(commits) < 100:
+                          break
+                      page += 1
               return total
 
           def count_insertions(author_daily_map):
@@ -80,7 +118,9 @@ jobs:
                   daily_map = commits_data.get("authorDailyContributionsMap", {})
                   ft_map = commits_data.get("authorFileTypeContributionMap", {})
                   members = list(author_map.values())
-                  num_commits = count_commits(daily_map)
+                  # Count commits via GitHub API so that commits touching only
+                  # binary/LFS files (which RepoSense omits) are included.
+                  num_commits = count_commits_via_api(org, group_name, list(author_map.keys()), since, until)
                   num_insertions = count_insertions(daily_map)
                   # QMD lines per author: authorFileTypeContributionMap[username]["qmd"]
                   qmd_per_author = {
