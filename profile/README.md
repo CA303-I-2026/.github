@@ -21,14 +21,15 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 ---
 
 <!-- REPOSENSE-PROFILE-START -->
-## 📝 Cambios en archivos `.qmd` por integrante
+## 📝 Cambios en archivos de proyecto por integrante
 
 > Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 13:27:59 UTC**
+> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`
 
 ### Grupo-1-Los-bigotes-de-FM
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
 | AndreyGonzalez10 | 0 | 0.0% |
 | Anthonny | 161 | 100.0% |
 | Randal Picado Bermudez | 0 | 0.0% |
@@ -36,17 +37,17 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 ### Grupo-2
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
-| emilysanchezm | 0 | — |
-| Debbie Con Ortega | 0 | — |
-| Ashly Garro | 0 | — |
-| Alessandro111105 | 0 | — |
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
+| emilysanchezm | 0 | 0.0% |
+| Debbie Con Ortega | 87 | 95.6% |
+| Ashly Garro | 4 | 4.4% |
+| Alessandro111105 | 0 | 0.0% |
 
 ### Grupo-3-p-0.05
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
 | Estefania Mora | 0 | 0.0% |
 | Alegobe23 | 0 | 0.0% |
 | Daniela Prado | 0 | 0.0% |
@@ -54,8 +55,8 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 ### Grupo-4-Martingalianos
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
 | sebas-miranda | 0 | 0.0% |
 | Gabo0122 | 0 | 0.0% |
 | KevinCalderon | 0 | 0.0% |
@@ -63,8 +64,8 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 ### Grupo-5-Alpha-Epsilon
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
 | Gabr64 | 0 | 0.0% |
 | OMECXD | 0 | 0.0% |
 | Andrés Montero | 140 | 62.8% |
@@ -72,25 +73,25 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 ### Grupo-6
 
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
+| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+|------------|:-----------------------------------------:|:---------:|
 | JavaLuisdi | 0 | — |
 | Jeremy Garcia | 0 | — |
 | KatiaMorenoUAB | 0 | — |
 
 ### 🏆 Competencia entre grupos
 
-> **Criterio de victoria**: mayor total de cambios `.qmd` **y** distribución más equilibrada entre sus integrantes.  
+> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R` y `.py` **y** distribución más equilibrada entre sus integrantes.  
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
-| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
+| Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2.26e-54 | 2 | 2 | 🏆 |
-| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 161 | 2 | 43.30 | 2 | 483.00 | 2.31e-104 | 4 | 4 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 3 | 43.30 | 4 | 270.00 | 3.09e-58 | 3 | 7 |  |
-| 4 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 4 | 43.30 | 3 | 15.00 | 0.002 | 1 | 7 |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — |  |
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2.26e-54 | 3 | 2 | 🏆 |
+| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 161 | 2 | 43.30 | 3 | 483.00 | 2.31e-104 | 5 | 5 |  |
+| 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 91 | 3 | 40.80 | 2 | 242.41 | 2.87e-52 | 2 | 5 |  |
+| 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 4 | 43.30 | 5 | 270.00 | 3.09e-58 | 4 | 9 |  |
+| 5 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 5 | 43.30 | 4 | 15.00 | 0.002 | 1 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
@@ -101,29 +102,29 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 
 | Columna | Qué mide | Cómo leerla | Mejor valor |
 |---------|----------|-------------|-------------|
-| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas `.qmd` | 🥇 (posición 1) |
+| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas rastreadas | 🥇 (posición 1) |
 | **Grupo** | Nombre del grupo con enlace al repositorio | Click para ver el repo directamente | — |
-| **Total `.qmd`** | Suma de todas las líneas `.qmd` añadidas por el grupo en el período | Más líneas = mayor volumen de trabajo en archivos Quarto | Mayor |
-| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total `.qmd` | 1 = grupo con más líneas; — = grupo sin actividad | 1 |
+| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R` y `.py` por el grupo en el período | Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |
+| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total líneas | 1 = grupo con más líneas; — = grupo sin actividad | 1 |
 | **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | 0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |
 | **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
 | **χ² bondad** | Estadístico chi-cuadrado de bondad de ajuste (H₀: distribución uniforme) | 0 = aporte perfectamente igualitario; valores altos indican desequilibrio. **Ojo:** no es comparable entre grupos de diferente volumen total | 0 |
 | **p-valor** | Probabilidad de observar un χ² tan extremo o mayor si el reparto fuera uniforme | p > 0.05 → no se rechaza H₀ (equilibrado); p ≤ 0.05 → evidencia de desequilibrio; p ≤ 0.01 → evidencia fuerte; p ≤ 0.001 → evidencia muy fuerte | > 0.05 |
 | **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango σ | 1 |
 | **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
-| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total `.qmd`) | 🏆 |
+| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total líneas) | 🏆 |
 
-> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos `.qmd` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
+> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos `.qmd`, `.tex`, `.R` ni `.py` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
 
 ---
 
 #### 📐 Metodología de las métricas de equilibrio
 
-Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas `.qmd`.
+Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`).
 
 **1. Desviación estándar de porcentajes (σ)**
 
-Convierte los conteos en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
+Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`) en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
 
 $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
@@ -131,7 +132,7 @@ $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
 **2. Prueba chi-cuadrado de bondad de ajuste (χ²)**
 
-Compara los conteos observados (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):
+Compara los conteos observados de líneas rastreadas (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):
 
 $$\chi^2 = \sum_{i=1}^{n}\frac{(O_i - E)^2}{E}, \quad E = \frac{T}{n}, \quad gl = n-1$$
 
