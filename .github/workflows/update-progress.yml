@@ -122,16 +122,19 @@ jobs:
                   # binary/LFS files (which RepoSense omits) are included.
                   num_commits = count_commits_via_api(org, group_name, list(author_map.keys()), since, until)
                   num_insertions = count_insertions(daily_map)
-                  # QMD lines per author: authorFileTypeContributionMap[username]["qmd"]
-                  qmd_per_author = {
-                      author_map[u]: ft_map.get(u, {}).get("qmd", 0)
+                  # Tracked lines per author: sum of qmd, tex, R and py contributions
+                  TRACKED_TYPES = {"qmd", "tex", "R", "py"}
+                  tracked_per_author = {
+                      author_map[u]: sum(
+                          ft_map.get(u, {}).get(t, 0) for t in TRACKED_TYPES
+                      )
                       for u in author_map
                   }
               else:
                   members = []
                   num_commits = 0
                   num_insertions = 0
-                  qmd_per_author = {}
+                  tracked_per_author = {}
 
               rows.append({
                   "group": group_name,
@@ -139,7 +142,7 @@ jobs:
                   "members": members,
                   "commits": num_commits,
                   "insertions": num_insertions,
-                  "qmd_per_author": qmd_per_author,
+                  "tracked_per_author": tracked_per_author,
               })
 
           # ── Section 1: overall progress table ──────────────────────────────────
@@ -170,27 +173,27 @@ jobs:
           # ── Section 2: per-group QMD tables + competition ranking ────────────
           import math
 
-          def balance_stddev(qmd_map):
+          def balance_stddev(tracked_map):
               """Population std-dev of member percentage shares (σ).
-              Returns None when group has no .qmd activity."""
-              total = sum(qmd_map.values())
-              if total == 0 or len(qmd_map) == 0:
+              Returns None when group has no tracked activity."""
+              total = sum(tracked_map.values())
+              if total == 0 or len(tracked_map) == 0:
                   return None
-              n = len(qmd_map)
+              n = len(tracked_map)
               mean_pct = 100.0 / n          # expected percentage per member under equal distribution
-              pcts = [v / total * 100 for v in qmd_map.values()]
+              pcts = [v / total * 100 for v in tracked_map.values()]
               return math.sqrt(sum((p - mean_pct) ** 2 for p in pcts) / n)
 
-          def chi_square_balance(qmd_map):
+          def chi_square_balance(tracked_map):
               """Chi-squared goodness-of-fit statistic for equal contribution (H0).
               χ² = Σ (Oᵢ − E)² / E  where E = total / n.
               Returns (stat, df) or (None, None) when no activity / fewer than 2 members."""
-              total = sum(qmd_map.values())
-              n = len(qmd_map)
+              total = sum(tracked_map.values())
+              n = len(tracked_map)
               if total == 0 or n < 2:
                   return None, None
               expected = total / n
-              stat = sum((obs - expected) ** 2 / expected for obs in qmd_map.values())
+              stat = sum((obs - expected) ** 2 / expected for obs in tracked_map.values())
               return stat, n - 1
 
           def _gammainc_lower_series(a, x, max_iter=300, tol=1e-12):
@@ -241,22 +244,23 @@ jobs:
 
           qmd_lines = [
               "<!-- REPOSENSE-QMD-START -->",
-              "## 📝 Cambios en archivos `.qmd` por integrante",
+              "## 📝 Cambios en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`",
               "",
           ]
 
           for row in rows:
-              qmd_map = row["qmd_per_author"]
-              group_total = sum(qmd_map.values())
+              tracked_map = row["tracked_per_author"]
+              group_total = sum(tracked_map.values())
 
               qmd_lines.append(f"### {row['group']}")
               qmd_lines.append("")
-              qmd_lines.append("| Integrante | Cambios (líneas `.qmd`) | Cambios % |")
-              qmd_lines.append("|------------|:-----------------------:|:---------:|")
+              qmd_lines.append("| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |")
+              qmd_lines.append("|------------|:-----------------------------------------:|:---------:|")
 
-              for name, count in qmd_map.items():
+              for name, count in tracked_map.items():
                   pct_str = f"{count/group_total*100:.1f}%" if group_total > 0 else "—"
                   qmd_lines.append(f"| {name} | {count} | {pct_str} |")
 
@@ -266,15 +270,15 @@ jobs:
           # Compute per-group stats
           group_stats = []
           for row in rows:
-              qmd_map = row["qmd_per_author"]
-              total_qmd = sum(qmd_map.values())
-              chi2_stat, chi2_df = chi_square_balance(qmd_map)
+              tracked_map = row["tracked_per_author"]
+              total_tracked = sum(tracked_map.values())
+              chi2_stat, chi2_df = chi_square_balance(tracked_map)
               pvalue = chi2_pvalue(chi2_stat, chi2_df)
               group_stats.append({
                   "group": row["group"],
                   "repo_url": row["repo_url"],
-                  "total_qmd": total_qmd,
-                  "sigma": balance_stddev(qmd_map),
+                  "total_tracked": total_tracked,
+                  "sigma": balance_stddev(tracked_map),
                   "chi2": chi2_stat,
                   "chi2_df": chi2_df,
                   "pvalue": pvalue,
@@ -284,12 +288,12 @@ jobs:
                   "score": None,
               })
 
-          active = [g for g in group_stats if g["total_qmd"] > 0]
-          inactive = [g for g in group_stats if g["total_qmd"] == 0]
+          active = [g for g in group_stats if g["total_tracked"] > 0]
+          inactive = [g for g in group_stats if g["total_tracked"] == 0]
           n_active = len(active)
           last_rank = n_active + 1
 
-          for rank, g in enumerate(sorted(active, key=lambda x: -x["total_qmd"]), 1):
+          for rank, g in enumerate(sorted(active, key=lambda x: -x["total_tracked"]), 1):
               g["rank_total"] = rank
           for rank, g in enumerate(sorted(active, key=lambda x: x["sigma"]), 1):
               g["rank_sigma"] = rank
@@ -302,15 +306,15 @@ jobs:
           for g in group_stats:
               # Primary score: volume rank + σ-balance rank (lower = better).
               # χ² rank is shown as an independent cross-check.
-              g["score"] = (g["rank_total"] + g["rank_sigma"]) if g["total_qmd"] > 0 else float("inf")
+              g["score"] = (g["rank_total"] + g["rank_sigma"]) if g["total_tracked"] > 0 else float("inf")
 
-          ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_qmd"]))
-          winner_score = ranked[0]["score"] if ranked and ranked[0]["total_qmd"] > 0 else None
+          ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_tracked"]))
+          winner_score = ranked[0]["score"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
           qmd_lines.append("### 🏆 Competencia entre grupos")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Criterio de victoria**: mayor total de cambios `.qmd` "
+              "> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R` y `.py` "
               "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
@@ -318,7 +322,7 @@ jobs:
           qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
           qmd_lines.append(
-              "| Pos. | Grupo | Total `.qmd` | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
+              "| Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
           )
           qmd_lines.append(
               "|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
@@ -327,7 +331,7 @@ jobs:
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
           for pos, g in enumerate(ranked, 1):
               medal = medals.get(pos, str(pos))
-              is_winner = winner_score is not None and g["score"] == winner_score and g["total_qmd"] > 0
+              is_winner = winner_score is not None and g["score"] == winner_score and g["total_tracked"] > 0
               trophy = "🏆" if is_winner else ""
               sigma_str = f"{g['sigma']:.2f}" if g["sigma"] is not None else "—"
               chi2_str  = f"{g['chi2']:.2f}"  if g["chi2"]  is not None else "—"
@@ -344,7 +348,7 @@ jobs:
               score_str = str(g["score"]) if g["score"] != float("inf") else "—"
               qmd_lines.append(
                   f"| {medal} | [{g['group']}]({g['repo_url']}) "
-                  f"| {g['total_qmd']} "
+                  f"| {g['total_tracked']} "
                   f"| {rank_t} "
                   f"| {sigma_str} "
                   f"| {rank_s} "
@@ -368,16 +372,16 @@ jobs:
           qmd_lines.append("|---------|----------|-------------|-------------|")
           qmd_lines.append(
               "| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | "
-              "Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas `.qmd` | "
+              "Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas rastreadas | "
               "🥇 (posición 1) |")
           qmd_lines.append(
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
               "Click para ver el repo directamente | — |")
           qmd_lines.append(
-              "| **Total `.qmd`** | Suma de todas las líneas `.qmd` añadidas por el grupo en el período | "
-              "Más líneas = mayor volumen de trabajo en archivos Quarto | Mayor |")
+              "| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R` y `.py` por el grupo en el período | "
+              "Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |")
           qmd_lines.append(
-              "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total `.qmd` | "
+              "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total líneas | "
               "1 = grupo con más líneas; — = grupo sin actividad | 1 |")
           qmd_lines.append(
               "| **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | "
@@ -403,11 +407,11 @@ jobs:
               "Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |")
           qmd_lines.append(
               "| **🏆** | Grupo ganador | "
-              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total `.qmd`) | 🏆 |")
+              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total líneas) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
               "> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos "
-              "`.qmd` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
+              "`.qmd`, `.tex`, `.R` ni `.py` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
           qmd_lines.append("")
           qmd_lines.append("---")
           qmd_lines.append("")
@@ -417,12 +421,13 @@ jobs:
               "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
               "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
-              "la misma cantidad de líneas `.qmd`.")
+              "la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`).")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos en porcentajes (pᵢ = Oᵢ / T × 100) "
+              "Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`) en porcentajes "
+              "(pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
           qmd_lines.append("")
@@ -437,7 +442,7 @@ jobs:
           qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Compara los conteos observados (Oᵢ) contra los esperados bajo distribución "
+              "Compara los conteos observados de líneas rastreadas (Oᵢ) contra los esperados bajo distribución "
               "uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):")
           qmd_lines.append("")
           qmd_lines.append(
