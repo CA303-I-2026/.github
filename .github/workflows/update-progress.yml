@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
   schedule:
     # Runs daily at 02:00 UTC, after publish-RepoSense (00:00 UTC)
     - cron: '0 2 * * *'
