@@ -123,9 +123,9 @@ Se utilizan **dos métricas independientes** para medir cuán equitativamente ca
 
 **1. Desviación estándar de porcentajes (σ)**
 
-Convierte los conteos en porcentajes (\%ᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
+Convierte los conteos en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
 
-$$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(\%_i - \frac{100}{n}\right)^2}$$
+$$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
 σ = 0 significa contribución perfectamente igualitaria; σ = 100 · (n−1)/n · 1/√n corresponde al caso extremo donde un solo integrante hace todo el trabajo. **Menor σ = mejor equilibrio.**
 
