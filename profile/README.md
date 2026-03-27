@@ -23,7 +23,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Cambios en archivos `.qmd` por integrante
 
-> Período: **2026-03-01** → **2026-03-26** · Reporte generado: **Thu, 26 Mar 2026 01:28:44 UTC**
+> Período: **2026-03-01** → **2026-03-27** · Reporte generado: **Fri, 27 Mar 2026 01:29:03 UTC**
 
 ### Grupo-1-Los-bigotes-de-FM
 
@@ -33,15 +33,6 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 | Anthonny | 0 | — |
 | Randal Picado Bermudez | 0 | — |
 | leouniversidad967 | 0 | — |
-
-### Grupo-2
-
-| Integrante | Cambios (líneas `.qmd`) | Cambios % |
-|------------|:-----------------------:|:---------:|
-| emilysanchezm | 0 | — |
-| Debbie Con Ortega | 0 | — |
-| Ashly Garro | 0 | — |
-| Alessandro111105 | 0 | — |
 
 ### Grupo-3-p-0.05
 
@@ -90,8 +81,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 | 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 2 | 43.30 | 3 | 270.00 | 3.09e-58 | 3 | 5 |  |
 | 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 3 | 43.30 | 2 | 15.00 | 0.002 | 1 | 5 |  |
 | 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — | — |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
+| 5 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
 
