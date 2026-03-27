@@ -382,12 +382,12 @@ jobs:
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos en porcentajes (\\%ᵢ = Oᵢ / T × 100) "
+              "Convierte los conteos en porcentajes (pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
           qmd_lines.append("")
           qmd_lines.append(
-              "$$\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}\\left(\\%_i - \\frac{100}{n}\\right)^2}$$")
+              "$$\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}\\left(p_i - \\frac{100}{n}\\right)^2}$$")
           qmd_lines.append("")
           qmd_lines.append(
               "σ = 0 significa contribución perfectamente igualitaria; "
