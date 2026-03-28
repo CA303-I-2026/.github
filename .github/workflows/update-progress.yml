@@ -123,7 +123,7 @@ jobs:
                   num_commits = count_commits_via_api(org, group_name, list(author_map.keys()), since, until)
                   num_insertions = count_insertions(daily_map)
                   # Tracked lines per author: sum of qmd, tex, R and py contributions
-                  TRACKED_TYPES = {"qmd", "tex", "R", "py"}
+                  TRACKED_TYPES = {"qmd", "tex", "R", "py", "cpp"}
                   tracked_per_author = {
                       author_map[u]: sum(
                           ft_map.get(u, {}).get(t, 0) for t in TRACKED_TYPES
@@ -247,7 +247,7 @@ jobs:
               "## 📝 Cambios en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
-              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp`",
               "",
           ]
 
@@ -257,7 +257,7 @@ jobs:
 
               qmd_lines.append(f"### {row['group']}")
               qmd_lines.append("")
-              qmd_lines.append("| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |")
+              qmd_lines.append("| Integrante | Cambios | Cambios % |")
               qmd_lines.append("|------------|:-----------------------------------------:|:---------:|")
 
               for name, count in tracked_map.items():
@@ -314,7 +314,7 @@ jobs:
           qmd_lines.append("### 🏆 Competencia entre grupos")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R` y `.py` "
+              "> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
               "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
@@ -378,7 +378,7 @@ jobs:
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
               "Click para ver el repo directamente | — |")
           qmd_lines.append(
-              "| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R` y `.py` por el grupo en el período | "
+              "| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` por el grupo en el período | "
               "Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |")
           qmd_lines.append(
               "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total líneas | "
@@ -411,7 +411,7 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos "
-              "`.qmd`, `.tex`, `.R` ni `.py` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
+              "`.qmd`, `.tex`, `.R`, `.py` o `cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
           qmd_lines.append("")
           qmd_lines.append("---")
           qmd_lines.append("")
@@ -421,12 +421,12 @@ jobs:
               "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
               "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
-              "la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`).")
+              "la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`).")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`) en porcentajes "
+              "Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
               "(pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
