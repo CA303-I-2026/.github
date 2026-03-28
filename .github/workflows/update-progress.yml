@@ -322,7 +322,7 @@ jobs:
           qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
           qmd_lines.append("**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy díficil que gane ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.")
-          qmd_lines("**El truco para ganar es mantenerse en los primeros lugares durante todo el semestre**.")
+          qmd_lines.append("**El truco para ganar es mantenerse en los primeros lugares durante todo el semestre**.")
           qmd_lines.append("")
           qmd_lines.append(
               "| Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
