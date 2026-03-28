@@ -314,14 +314,14 @@ jobs:
           qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Criterio de victoria**: El equipo que tenga al final del semestre la mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
+              "> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
               "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
               "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
           qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
-          qmd_lines.append("**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy díficil que gane ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.")
+          qmd_lines.append("**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy difícil que gane ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.")
           qmd_lines.append("**El truco para ganar es mantenerse en los primeros lugares durante todo el semestre**.")
           qmd_lines.append("")
           qmd_lines.append(
@@ -379,7 +379,7 @@ jobs:
               "🥇 (posición 1) |")
           qmd_lines.append(
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
-              "Click para ver el repo directamente | — |")
+              "Clic para ver el repo directamente | — |")
           qmd_lines.append(
               "| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` por el grupo en el período | "
               "Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |")
