@@ -77,11 +77,13 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Jeremy Garcia | 0 | — |
 | KatiaMorenoUAB | 0 | — |
 
-### 🏆 Equipo ganador de puntos extra (5 puntos para integrante)
+### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)
 
-> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` **y** distribución más equilibrada entre sus integrantes.  
+> **Criterio de victoria**: El equipo que tenga al final del semestre la mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` **y** distribución más equilibrada entre sus integrantes.  
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
+
+**IMPORTANTE:** El truco para ganar esto es la constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, el resto del equipo muy díficilmente va a poder recuperar la cantidad de líneas en el último mes. **El truco es que todo el equipo se mantenga en los primeros lugares durante todo el semestre**. 
 
 | Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
