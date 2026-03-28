@@ -85,8 +85,11 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
-**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy difícil que gane ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.
+**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy difícil que gane, ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.
+
+
 **El truco para ganar es mantenerse en los primeros lugares durante todo el semestre**.
+
 
 | Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
