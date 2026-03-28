@@ -77,7 +77,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Jeremy Garcia | 0 | — |
 | KatiaMorenoUAB | 0 | — |
 
-### 🏆 Competencia entre grupos
+### 🏆 Equipo ganador de puntos extra (5 puntos para integrante)
 
 > **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` **y** distribución más equilibrada entre sus integrantes.  
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
