@@ -311,7 +311,7 @@ jobs:
           ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_tracked"]))
           winner_score = ranked[0]["score"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
-          qmd_lines.append("### 🏆 Competencia entre grupos")
+          qmd_lines.append("### 🏆 Equipo ganador de puntos extra (5 puntos para integrante)")
           qmd_lines.append("")
           qmd_lines.append(
               "> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
