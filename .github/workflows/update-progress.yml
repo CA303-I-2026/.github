@@ -311,15 +311,17 @@ jobs:
           ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_tracked"]))
           winner_score = ranked[0]["score"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
-          qmd_lines.append("### 🏆 Equipo ganador de puntos extra (5 puntos para integrante)")
+          qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
+              "> **Criterio de victoria**: El equipo que tenga al final del semestre la mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
               "**y** distribución más equilibrada entre sus integrantes.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
               "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
           qmd_lines.append("> 🏆 indica el grupo ganador.")
+          qmd_lines.append("")
+          qmd_lines.append("**IMPORTANTE:** El truco para ganar esto es la constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, el resto del equipo muy díficilmente va a poder recuperar la cantidad de líneas en el último mes. **El truco es que todo el equipo se mantenga en los primeros lugares durante todo el semestre**. ")
           qmd_lines.append("")
           qmd_lines.append(
               "| Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
