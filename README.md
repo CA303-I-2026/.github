@@ -22,20 +22,20 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 ## 📝 Cambios en archivos de proyecto por integrante
 
 > Período: **2026-03-01** → **2026-03-28** · Reporte generado: **Sat, 28 Mar 2026 01:22:35 UTC**
-> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`
+> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp`
 
 ### Grupo-1-Los-bigotes-de-FM
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | AndreyGonzalez10 | 0 | 0.0% |
-| Anthonny | 209 | 100.0% |
+| Anthonny | 378 | 100.0% |
 | Randal Picado Bermudez | 0 | 0.0% |
 | leouniversidad967 | 0 | 0.0% |
 
 ### Grupo-2
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | emilysanchezm | 0 | 0.0% |
 | Debbie Con Ortega | 70 | 94.6% |
@@ -44,7 +44,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 ### Grupo-3-p-0.05
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | Estefania Mora | 0 | 0.0% |
 | Alegobe23 | 0 | 0.0% |
@@ -53,7 +53,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 ### Grupo-4-Martingalianos
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | sebas-miranda | 0 | 0.0% |
 | Gabo0122 | 0 | 0.0% |
@@ -62,7 +62,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 ### Grupo-5-Alpha-Epsilon
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | Gabr64 | 0 | 0.0% |
 | OMECXD | 0 | 0.0% |
@@ -71,7 +71,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 ### Grupo-6
 
-| Integrante | Cambios (líneas `.qmd`+`.tex`+`.R`+`.py`) | Cambios % |
+| Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | JavaLuisdi | 0 | — |
 | Jeremy Garcia | 0 | — |
@@ -79,14 +79,14 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 ### 🏆 Competencia entre grupos
 
-> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R` y `.py` **y** distribución más equilibrada entre sus integrantes.  
+> **Criterio de victoria**: mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` **y** distribución más equilibrada entre sus integrantes.  
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
 | Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 1 | 26.58 | 1 | 252.14 | 2.26e-54 | 3 | 2 | 🏆 |
-| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 209 | 2 | 43.30 | 3 | 627.00 | 1.41e-135 | 5 | 5 |  |
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 2 | 26.58 | 1 | 252.14 | 2.26e-54 | 3 | 3 | 🏆 |
+| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 378 | 1 | 43.30 | 3 | 1134.00 | 1.53e-245 | 5 | 4 |  |
 | 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 74 | 4 | 40.24 | 2 | 191.73 | 2.58e-41 | 2 | 6 |  |
 | 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 3 | 43.30 | 5 | 270.00 | 3.09e-58 | 4 | 8 |  |
 | 5 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 5 | 43.30 | 4 | 15.00 | 0.002 | 1 | 9 |  |
@@ -102,7 +102,7 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 |---------|----------|-------------|-------------|
 | **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas rastreadas | 🥇 (posición 1) |
 | **Grupo** | Nombre del grupo con enlace al repositorio | Click para ver el repo directamente | — |
-| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R` y `.py` por el grupo en el período | Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |
+| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` por el grupo en el período | Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |
 | **Rango vol.** | Posición del grupo ordenado de mayor a menor Total líneas | 1 = grupo con más líneas; — = grupo sin actividad | 1 |
 | **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | 0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |
 | **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
@@ -112,17 +112,17 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 | **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
 | **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total líneas) | 🏆 |
 
-> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos `.qmd`, `.tex`, `.R` ni `.py` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
+> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos `.qmd`, `.tex`, `.R`, `.py` o `cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
 
 ---
 
 #### 📐 Metodología de las métricas de equilibrio
 
-Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`).
+Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`).
 
 **1. Desviación estándar de porcentajes (σ)**
 
-Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py`) en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
+Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
 
 $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
