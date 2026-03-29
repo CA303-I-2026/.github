@@ -5,15 +5,15 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-03-28** · Reporte generado: **Sat, 28 Mar 2026 01:22:35 UTC**
+> Período: **2026-03-01** → **2026-03-29** · Reporte generado: **Sun, 29 Mar 2026 01:45:06 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | AndreyGonzalez10<br>Anthonny<br>Randal Picado Bermudez<br>leouniversidad967 | 0 | 827 |
+| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | AndreyGonzalez10<br>Anthonny<br>Randal Picado Bermudez<br>leouniversidad967 | 0 | 1014 |
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | emilysanchezm<br>Debbie Con Ortega<br>Ashly Garro<br>Alessandro111105 | 8 | 250 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Estefania Mora<br>Alegobe23<br>Daniela Prado<br>JoseMiguel11 | 2 | 11 |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | sebas-miranda<br>Gabo0122<br>KevinCalderon<br>Benjamin Padua | 1 | 90 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Estefania Mora<br>Alegobe23<br>Daniela Prado<br>JoseMiguel11 | 5 | 194 |
+| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | sebas-miranda<br>Gabo0122<br>KevinCalderon<br>Benjamin Padua | 2 | 96 |
 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabr64<br>OMECXD<br>Andrés Montero<br>César Salazar | 14 | 249 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | JavaLuisdi<br>Jeremy Garcia<br>KatiaMorenoUAB | 0 | 0 |
 <!-- REPOSENSE-PROGRESS-END -->
@@ -21,7 +21,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Cambios en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-03-28** · Reporte generado: **Sat, 28 Mar 2026 01:22:35 UTC**
+> Período: **2026-03-01** → **2026-03-29** · Reporte generado: **Sun, 29 Mar 2026 01:45:06 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp`
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -29,7 +29,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Integrante | Cambios | Cambios % |
 |------------|:-----------------------------------------:|:---------:|
 | AndreyGonzalez10 | 0 | 0.0% |
-| Anthonny | 378 | 100.0% |
+| Anthonny | 495 | 100.0% |
 | Randal Picado Bermudez | 0 | 0.0% |
 | leouniversidad967 | 0 | 0.0% |
 
@@ -49,7 +49,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Estefania Mora | 0 | 0.0% |
 | Alegobe23 | 0 | 0.0% |
 | Daniela Prado | 0 | 0.0% |
-| JoseMiguel11 | 5 | 100.0% |
+| JoseMiguel11 | 125 | 100.0% |
 
 ### Grupo-4-Martingalianos
 
@@ -91,11 +91,11 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 | Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 2 | 26.58 | 1 | 252.14 | 2.26e-54 | 3 | 3 | 🏆 |
-| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 378 | 1 | 43.30 | 3 | 1134.00 | 1.53e-245 | 5 | 4 |  |
-| 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 74 | 4 | 40.24 | 2 | 191.73 | 2.58e-41 | 2 | 6 |  |
-| 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 3 | 43.30 | 5 | 270.00 | 3.09e-58 | 4 | 8 |  |
-| 5 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 5 | 5 | 43.30 | 4 | 15.00 | 0.002 | 1 | 9 |  |
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 2 | 26.58 | 1 | 252.14 | 2.26e-54 | 2 | 3 | 🏆 |
+| 🥈 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 495 | 1 | 43.30 | 3 | 1485.00 | 1.06e-321 | 5 | 4 |  |
+| 🥉 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 125 | 3 | 43.30 | 4 | 375.00 | 5.75e-81 | 4 | 7 |  |
+| 4 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 74 | 5 | 40.24 | 2 | 191.73 | 2.58e-41 | 1 | 7 |  |
+| 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 90 | 4 | 43.30 | 5 | 270.00 | 3.09e-58 | 3 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
