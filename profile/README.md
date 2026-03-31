@@ -23,7 +23,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Cambios en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-03-31** · Reporte generado: **Tue, 31 Mar 2026 01:44:13 UTC**
+> Período: **2026-03-01** → **2026-03-31** · Reporte generado: **Tue, 31 Mar 2026 07:03:11 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp`
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -68,8 +68,8 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 |------------|:-----------------------------------------:|:---------:|
 | Gabr64 | 0 | 0.0% |
 | OMECXD | 0 | 0.0% |
-| Andrés Montero | 140 | 62.8% |
-| César Salazar | 83 | 37.2% |
+| Andrés Montero | 140 | 63.1% |
+| César Salazar | 82 | 36.9% |
 
 ### Grupo-6
 
@@ -93,7 +93,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 | Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 223 | 2 | 26.58 | 2 | 252.14 | 2.26e-54 | 3 | 4 | 🏆 |
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 222 | 2 | 26.65 | 2 | 252.31 | 2.07e-54 | 3 | 4 | 🏆 |
 | 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 213 | 3 | 23.36 | 1 | 185.97 | 4.54e-40 | 1 | 4 | 🏆 |
 | 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 863 | 1 | 43.30 | 4 | 2589.00 | 0.00e+00 | 5 | 5 |  |
 | 4 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 74 | 5 | 40.24 | 3 | 191.73 | 2.58e-41 | 2 | 8 |  |
