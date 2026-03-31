@@ -52,11 +52,17 @@ jobs:
                   h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
               return h
 
-          def count_tracked_chars_via_api(org, repo_name, author_map, since_date, until_date):
+          def count_tracked_chars_via_api(org, repo_name, author_map, daily_map):
               """Count visible (non-whitespace) character changes in tracked files.
 
-              For each commit authored by users in *author_map* within the date range,
-              fetches the diff patch with ?w=1 (whitespace-blind) and applies
+              Uses commit SHAs from RepoSense's authorDailyContributionsMap so that
+              author attribution relies on RepoSense's git-name/email matching rather
+              than the GitHub API author filter (which requires the commit email to be
+              linked to a GitHub account and therefore silently returns 0 for users
+              whose local git email differs from their GitHub-registered email).
+
+              For each commit SHA attributed to a user in *author_map*, fetches the
+              diff patch with ?w=1 (whitespace-blind) and applies
               difflib.SequenceMatcher at the character level to each change block.
 
               Counting rules:
@@ -67,6 +73,7 @@ jobs:
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
               - The ?w=1 flag further excludes any commit hunk that only differs in
                 whitespace, so pure-formatting commits contribute 0.
+              - Merge commits are skipped to avoid double-counting.
 
               Note: the GitHub API truncates patches for files with > ~300 changed
               lines; very large single-commit changes may be slightly under-counted.
@@ -116,27 +123,15 @@ jobs:
               char_counts = {u: 0 for u in author_map}
               total_commits = 0
               for username in author_map:
-                  page = 1
-                  while True:
-                      params = {
-                          "author": username,
-                          "since": since_date + "T00:00:00Z",
-                          "until": until_date + "T23:59:59Z",
-                          "per_page": 100,
-                          "page": page,
-                      }
-                      url = (
-                          f"https://api.github.com/repos/{org}/{repo_name}/commits?"
-                          + urllib.parse.urlencode(params)
-                      )
-                      commits = fetch_json(url, headers=headers)
-                      if not isinstance(commits, list):
-                          if commits is not None:
-                              print(f"Warning: unexpected response for {username} in {repo_name}: {commits}", file=sys.stderr)
-                          break
-                      total_commits += len(commits)
-                      for commit in commits:
-                          sha = commit["sha"]
+                  author_days = daily_map.get(username, [])
+                  for day in author_days:
+                      for cr in day.get("commitResults", []):
+                          sha = cr.get("hash")
+                          if not sha:
+                              continue
+                          if cr.get("isMergeCommit", False):
+                              continue
+                          total_commits += 1
                           # ?w=1 → whitespace-blind diff: pure-formatting commits get empty patch
                           detail = fetch_json(
                               f"https://api.github.com/repos/{org}/{repo_name}/commits/{sha}?w=1",
@@ -155,9 +150,6 @@ jobs:
                               if not patch:
                                   continue
                               char_counts[username] += _patch_chars(patch)
-                      if len(commits) < 100:
-                          break
-                      page += 1
               tracked_per_author = {author_map[u]: char_counts[u] for u in author_map}
               return tracked_per_author, total_commits
 
@@ -196,7 +188,7 @@ jobs:
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
                   tracked_per_author, num_commits = count_tracked_chars_via_api(
-                      org, group_name, author_map, since, until
+                      org, group_name, author_map, daily_map
                   )
               else:
                   members = []
