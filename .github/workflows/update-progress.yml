@@ -52,16 +52,70 @@ jobs:
                   h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
               return h
 
-          def count_commits_via_api(org, repo_name, usernames, since_date, until_date):
-              """Count commits by the given GitHub usernames via the GitHub API.
+          def count_tracked_chars_via_api(org, repo_name, author_map, since_date, until_date):
+              """Count visible (non-whitespace) character changes in tracked files.
 
-              Uses the /repos/{org}/{repo}/commits endpoint filtered by author and
-              date range so that every commit – including those that only touch
-              binary or LFS-tracked files that RepoSense ignores – is counted.
+              For each commit authored by users in *author_map* within the date range,
+              fetches the diff patch with ?w=1 (whitespace-blind) and applies
+              difflib.SequenceMatcher at the character level to each change block.
+
+              Counting rules:
+              - Substitution (replace): max(visible_deleted, visible_inserted) per block.
+              - Pure insertion:  visible chars in new text.
+              - Pure deletion:   visible chars in old text.
+              - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
+              - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
+              - The ?w=1 flag further excludes any commit hunk that only differs in
+                whitespace, so pure-formatting commits contribute 0.
+
+              Note: the GitHub API truncates patches for files with > ~300 changed
+              lines; very large single-commit changes may be slightly under-counted.
+
+              Returns: (tracked_per_author: {display_name: int}, total_commits: int)
               """
+              import difflib
+              TRACKED_EXTENSIONS = {"qmd", "tex", "R", "py", "cpp"}
+              IGNORED_PREFIXES = ("datos/",)
+
+              def _hunk_chars(removed_content, added_content):
+                  """Visible char changes between a block of removed and added lines."""
+                  old = "".join(removed_content)
+                  new = "".join(added_content)
+                  total = 0
+                  for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, old, new).get_opcodes():
+                      if tag == "equal":
+                          continue
+                      old_vis = sum(1 for c in old[i1:i2] if not c.isspace())
+                      new_vis = sum(1 for c in new[j1:j2] if not c.isspace())
+                      if tag == "replace":
+                          total += max(old_vis, new_vis)  # cost = larger of old/new visible chars per block
+                      elif tag == "delete":
+                          total += old_vis
+                      else:  # insert
+                          total += new_vis
+                  return total
+
+              def _patch_chars(patch):
+                  """Count visible char changes across all hunks of a unified diff patch."""
+                  total = 0
+                  removed, added = [], []
+                  for line in patch.splitlines():
+                      if line.startswith("-") and not line.startswith("---"):
+                          removed.append(line[1:] + "\n")
+                      elif line.startswith("+") and not line.startswith("+++"):
+                          added.append(line[1:] + "\n")
+                      else:
+                          if removed or added:
+                              total += _hunk_chars(removed, added)
+                              removed, added = [], []
+                  if removed or added:
+                      total += _hunk_chars(removed, added)
+                  return total
+
               headers = gh_api_headers()
-              total = 0
-              for username in usernames:
+              char_counts = {u: 0 for u in author_map}
+              total_commits = 0
+              for username in author_map:
                   page = 1
                   while True:
                       params = {
@@ -78,13 +132,34 @@ jobs:
                       commits = fetch_json(url, headers=headers)
                       if not isinstance(commits, list):
                           if commits is not None:
-                              print(f"Warning: unexpected API response for {username} in {repo_name}: {commits}", file=sys.stderr)
+                              print(f"Warning: unexpected response for {username} in {repo_name}: {commits}", file=sys.stderr)
                           break
-                      total += len(commits)
+                      total_commits += len(commits)
+                      for commit in commits:
+                          sha = commit["sha"]
+                          # ?w=1 → whitespace-blind diff: pure-formatting commits get empty patch
+                          detail = fetch_json(
+                              f"https://api.github.com/repos/{org}/{repo_name}/commits/{sha}?w=1",
+                              headers=headers,
+                          )
+                          if not isinstance(detail, dict):
+                              continue
+                          for file_info in detail.get("files", []):
+                              filename = file_info.get("filename", "")
+                              if any(filename.startswith(p) for p in IGNORED_PREFIXES):
+                                  continue
+                              ext = os.path.splitext(filename)[1].lstrip(".")
+                              if ext not in TRACKED_EXTENSIONS:
+                                  continue
+                              patch = file_info.get("patch", "")
+                              if not patch:
+                                  continue
+                              char_counts[username] += _patch_chars(patch)
                       if len(commits) < 100:
                           break
                       page += 1
-              return total
+              tracked_per_author = {author_map[u]: char_counts[u] for u in author_map}
+              return tracked_per_author, total_commits
 
           def count_insertions(author_daily_map):
               total = 0
@@ -117,20 +192,12 @@ jobs:
               if commits_data:
                   author_map = commits_data.get("authorDisplayNameMap", {})
                   daily_map = commits_data.get("authorDailyContributionsMap", {})
-                  ft_map = commits_data.get("authorFileTypeContributionMap", {})
                   members = list(author_map.values())
-                  # Count commits via GitHub API so that commits touching only
-                  # binary/LFS files (which RepoSense omits) are included.
-                  num_commits = count_commits_via_api(org, group_name, list(author_map.keys()), since, until)
                   num_insertions = count_insertions(daily_map)
-                  # Tracked lines per author: sum of qmd, tex, R and py contributions
-                  TRACKED_TYPES = {"qmd", "tex", "R", "py", "cpp"}
-                  tracked_per_author = {
-                      author_map[u]: sum(
-                          ft_map.get(u, {}).get(t, 0) for t in TRACKED_TYPES
-                      )
-                      for u in author_map
-                  }
+                  # Character-level changes in tracked files (visible chars only, whitespace excluded)
+                  tracked_per_author, num_commits = count_tracked_chars_via_api(
+                      org, group_name, author_map, since, until
+                  )
               else:
                   members = []
                   num_commits = 0
@@ -245,10 +312,10 @@ jobs:
 
           qmd_lines = [
               "<!-- REPOSENSE-QMD-START -->",
-              "## 📝 Cambios en archivos de proyecto por integrante",
+              "## 📝 Caracteres modificados en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
-              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp`",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles modificados (espacios en blanco excluidos)",
               "",
           ]
 
@@ -258,8 +325,8 @@ jobs:
 
               qmd_lines.append(f"### {row['group']}")
               qmd_lines.append("")
-              qmd_lines.append("| Integrante | Cambios | Cambios % |")
-              qmd_lines.append("|------------|:-----------------------------------------:|:---------:|")
+              qmd_lines.append("| Integrante | Caracteres | Caracteres % |")
+              qmd_lines.append("|------------|:----------:|:------------:|")
 
               for name, count in tracked_map.items():
                   pct_str = f"{count/group_total*100:.1f}%" if group_total > 0 else "—"
@@ -315,8 +382,11 @@ jobs:
           qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de cambios en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` "
-              "**y** distribución más equilibrada entre sus integrantes.  ")
+              "> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de "
+              "**caracteres visibles modificados** (suma de caracteres no-espacios en líneas añadidas y eliminadas) "
+              "en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
+              "**y** distribución más equilibrada entre sus integrantes. "
+              "Los espacios en blanco, cambios de línea y ajustes de formato **no** se contabilizan.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
               "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
@@ -329,10 +399,10 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append("")
           qmd_lines.append(
-              "| Pos. | Grupo | Total líneas | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
+              "| Pos. | Grupo | Total caracteres | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
           )
           qmd_lines.append(
-              "|:----:|-------|:------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
+              "|:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
           )
 
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
@@ -385,11 +455,10 @@ jobs:
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
               "Clic para ver el repo directamente | — |")
           qmd_lines.append(
-              "| **Total líneas** | Suma de todas las líneas añadidas en archivos `.qmd`, `.tex`, `.R`, `.py` y `cpp` por el grupo en el período | "
-              "Más líneas = mayor volumen de trabajo en archivos de proyecto | Mayor |")
+              "| **Total caracteres** | Suma de caracteres visibles (no-espacios) en líneas añadidas **y** eliminadas en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período. Los cambios de solo espaciado y formato no se cuentan. | Más caracteres = mayor volumen de trabajo visible | Mayor |")
           qmd_lines.append(
-              "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total líneas | "
-              "1 = grupo con más líneas; — = grupo sin actividad | 1 |")
+              "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | "
+              "1 = grupo con más caracteres visibles modificados; — = grupo sin actividad | 1 |")
           qmd_lines.append(
               "| **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | "
               "0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |")
@@ -414,11 +483,11 @@ jobs:
               "Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |")
           qmd_lines.append(
               "| **🏆** | Grupo ganador | "
-              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total líneas) | 🏆 |")
+              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total caracteres) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Nota sobre `—`:** el guion indica que el grupo no registró cambios en archivos "
-              "`.qmd`, `.tex`, `.R`, `.py` o `cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
+              "> **Nota sobre `—`:** el guion indica que el grupo no registró caracteres visibles modificados en archivos "
+              "`.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
           qmd_lines.append("")
           qmd_lines.append("---")
           qmd_lines.append("")
@@ -428,12 +497,33 @@ jobs:
               "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
               "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
-              "la misma cantidad de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`).")
+              "la misma cantidad de **caracteres visibles modificados** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
+              "(espacios en blanco y cambios de formato excluidos).")
+          qmd_lines.append("")
+          qmd_lines.append("**0. Definición de Oᵢ — conteo de caracteres visibles modificados**")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Para cada commit del período, se descarga el diff del archivo con extensión rastreada "
+              "usando la API de GitHub con `?w=1` (diff insensible a espacios en blanco). "
+              "Dentro de cada bloque de cambio del diff se aplica `difflib.SequenceMatcher` entre "
+              "el texto eliminado y el añadido para hallar las sub-secuencias realmente distintas. "
+              "Se cuentan los caracteres **no-espacios** según:")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "- **Sustitución** (bloque replace): `max(chars_eliminados, chars_insertados)` "
+              "— coste igual al mayor de los dos grupos de caracteres visibles del bloque.  \n"
+              "- **Inserción pura**: número de chars no-espacios añadidos.  \n"
+              "- **Eliminación pura**: número de chars no-espacios quitados.")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Oᵢ es la suma de cambios de caracteres visibles de todos los commits del integrante "
+              "en el período. Los commits que solo modifican espaciado o indentación producen patch "
+              "vacío gracias al flag `?w=1` y contribuyen 0.")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos de líneas rastreadas (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
+              "Convierte los conteos de caracteres visibles modificados (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
               "(pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
@@ -449,8 +539,8 @@ jobs:
           qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Compara los conteos observados de líneas rastreadas (Oᵢ) contra los esperados bajo distribución "
-              "uniforme (E = T / n, donde T = total de líneas del grupo y n = número de integrantes):")
+              "Compara los conteos observados de caracteres visibles (Oᵢ) contra los esperados bajo distribución "
+              "uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):")
           qmd_lines.append("")
           qmd_lines.append(
               "$$\\chi^2 = \\sum_{i=1}^{n}\\frac{(O_i - E)^2}{E}, \\quad E = \\frac{T}{n}, \\quad gl = n-1$$")
@@ -470,7 +560,7 @@ jobs:
               "p ≤ 0.05 indica evidencia de desequilibrio. "
               "χ² = 0 indica distribución perfectamente igualitaria. "
               "A diferencia de σ, χ² **no** está normalizado por el volumen total, "
-              "por lo que grupos con más líneas en total pueden obtener χ² más alto "
+              "por lo que grupos con más caracteres en total pueden obtener χ² más alto "
               "aunque su distribución sea más equilibrada en términos relativos. "
               "El p-valor corrige parcialmente este sesgo al escalar internamente por E. "
               "Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. "
