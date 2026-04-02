@@ -95,8 +95,8 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 |:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 78302 | 1 | 19.89 | 2 | 49550.87 | 0.00e+00 | 4 | 3 | 🏆 |
 | 🥈 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 46434 | 3 | 10.58 | 1 | 8322.47 | 0.00e+00 | 3 | 4 |  |
-| 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 46773 | 2 | 43.30 | 5 | 140319.00 | 0.00e+00 | 5 | 7 |  |
-| 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 25.00 | 3 | 2790.09 | 0.00e+00 | 2 | 7 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 25.00 | 3 | 2790.09 | 0.00e+00 | 2 | 7 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 46773 | 2 | 43.30 | 5 | 140319.00 | 0.00e+00 | 5 | 7 |  |
 | 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 2410 | 5 | 26.81 | 4 | 2771.49 | 0.00e+00 | 1 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
