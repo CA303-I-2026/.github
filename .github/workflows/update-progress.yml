@@ -372,7 +372,7 @@ jobs:
           # Tie-breaker: at equal score, the group with lower σ (more balanced
           # contributions) wins, favouring teams whose members work more evenly.
           ranked = sorted(group_stats, key=lambda x: (x["score"], x["sigma"] if x["sigma"] is not None else float("inf")))
-          winner_score = ranked[0]["score"] if ranked and ranked[0]["total_tracked"] > 0 else None
+          winner_id = ranked[0]["group"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
           qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
           qmd_lines.append("")
@@ -403,7 +403,7 @@ jobs:
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
           for pos, g in enumerate(ranked, 1):
               medal = medals.get(pos, str(pos))
-              is_winner = winner_score is not None and g["score"] == winner_score and g["total_tracked"] > 0
+              is_winner = winner_id is not None and g["group"] == winner_id
               trophy = "🏆" if is_winner else ""
               sigma_str = f"{g['sigma']:.2f}" if g["sigma"] is not None else "—"
               chi2_str  = f"{g['chi2']:.2f}"  if g["chi2"]  is not None else "—"
