@@ -91,7 +91,9 @@ jobs:
               - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
 
-              Returns: (tracked_per_author: {display_name: int}, total_commits: int)
+              Returns: (tracked_per_author: {display_name: int},
+                        total_commits: int,
+                        commits_per_author: {display_name: int})
               """
               import subprocess
               import tempfile
@@ -99,7 +101,7 @@ jobs:
 
               effective_author_map = build_effective_author_map(author_map, daily_map)
 
-              # Collect commit SHAs with first-seen author attribution
+              # Collect commit SHAs with first-seen author attribution (for blame lookup)
               sha_author = {}
               for username in effective_author_map:
                   for day in daily_map.get(username, []):
@@ -110,11 +112,27 @@ jobs:
                           if sha and sha not in sha_author:
                               sha_author[sha] = username
 
+              # Count unique commits per author directly from daily_map (independent of
+              # SHA first-claim attribution used for blame, so every commit the student
+              # made is counted even if its lines were later overwritten by a teammate).
+              raw_commit_counts = {}
+              for username in effective_author_map:
+                  seen = set()
+                  for day in daily_map.get(username, []):
+                      if not isinstance(day, dict):
+                          continue
+                      for cr in day.get("commitResults", []):
+                          sha = cr.get("hash", "")
+                          if sha:
+                              seen.add(sha)
+                  raw_commit_counts[username] = len(seen)
+
               char_counts = {u: 0 for u in effective_author_map}
               total_commits = len(sha_author)
 
               if not sha_author:
-                  return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, 0
+                  commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+                  return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, 0, commits_per_author
 
               clone_url = f"https://github.com/{org}/{repo_name}.git"
               # Inject credentials via git config environment variables so the token
@@ -139,17 +157,20 @@ jobs:
                       )
                   except subprocess.TimeoutExpired:
                       print(f"Warning: clone of {org}/{repo_name} timed out", file=sys.stderr)
-                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
+                      commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
                   except Exception as e:
                       print(f"Warning: clone of {org}/{repo_name} failed: {e}", file=sys.stderr)
-                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
+                      commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
                   if clone_result.returncode != 0:
                       print(
                           f"Warning: could not clone {org}/{repo_name}: "
                           f"{clone_result.stderr.decode(errors='replace').strip()}",
                           file=sys.stderr,
                       )
-                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
+                      commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
 
                   # List all tracked files present at HEAD
                   ls_result = subprocess.run(
@@ -158,7 +179,8 @@ jobs:
                       capture_output=True, encoding="utf-8", errors="replace", timeout=30,
                   )
                   if ls_result.returncode != 0 or not ls_result.stdout.strip():
-                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
+                      commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
 
                   files = [
                       f for f in ls_result.stdout.splitlines()
@@ -212,7 +234,8 @@ jobs:
                           print(f"Warning: git blame {filepath} error: {e}", file=sys.stderr)
 
               tracked_per_author = {effective_author_map[u]: char_counts[u] for u in effective_author_map}
-              return tracked_per_author, total_commits
+              commits_per_author = {effective_author_map[u]: raw_commit_counts[u] for u in effective_author_map}
+              return tracked_per_author, total_commits, commits_per_author
 
           def count_insertions(author_daily_map):
               total = 0
@@ -248,7 +271,7 @@ jobs:
                   members = list(build_effective_author_map(author_map, daily_map).values())
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
-                  tracked_per_author, num_commits = count_tracked_chars_via_blame(
+                  tracked_per_author, num_commits, commits_per_author = count_tracked_chars_via_blame(
                       org, group_name, author_map, daily_map
                   )
               else:
@@ -256,6 +279,7 @@ jobs:
                   num_commits = 0
                   num_insertions = 0
                   tracked_per_author = {}
+                  commits_per_author = {}
 
               rows.append({
                   "group": group_name,
@@ -264,6 +288,7 @@ jobs:
                   "commits": num_commits,
                   "insertions": num_insertions,
                   "tracked_per_author": tracked_per_author,
+                  "commits_per_author": commits_per_author,
               })
 
           # ── Section 1: overall progress table ──────────────────────────────────
@@ -374,16 +399,18 @@ jobs:
 
           for row in rows:
               tracked_map = row["tracked_per_author"]
+              commits_map = row.get("commits_per_author", {})
               group_total = sum(tracked_map.values())
 
               qmd_lines.append(f"### {row['group']}")
               qmd_lines.append("")
-              qmd_lines.append("| Integrante | Caracteres | Caracteres % |")
-              qmd_lines.append("|------------|:----------:|:------------:|")
+              qmd_lines.append("| Integrante | Commits | Caracteres | Caracteres % |")
+              qmd_lines.append("|------------|:-------:|:----------:|:------------:|")
 
               for name, count in tracked_map.items():
                   pct_str = f"{count/group_total*100:.1f}%" if group_total > 0 else "—"
-                  qmd_lines.append(f"| {name} | {count} | {pct_str} |")
+                  n_commits = commits_map.get(name, 0)
+                  qmd_lines.append(f"| {name} | {n_commits} | {count} | {pct_str} |")
 
               qmd_lines.append("")
 
