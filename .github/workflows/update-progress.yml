@@ -83,9 +83,20 @@ jobs:
               import tempfile
               IGNORED_PREFIXES = ("datos/",)
 
+              # Build a unified author map: authorDisplayNameMap may be missing
+              # some keys that appear in authorDailyContributionsMap (e.g. when
+              # RepoSense records commits under a git-email alias that was not
+              # listed as the primary identifier).  Any such extra key is added
+              # to the map using the key itself as the display name so that no
+              # student's work is silently dropped.
+              effective_author_map = dict(author_map)
+              for k in daily_map:
+                  if k not in effective_author_map:
+                      effective_author_map[k] = k
+
               # Collect commit SHAs with first-seen author attribution
               sha_author = {}
-              for username in author_map:
+              for username in effective_author_map:
                   for day in daily_map.get(username, []):
                       if not isinstance(day, dict):
                           continue
@@ -94,11 +105,11 @@ jobs:
                           if sha and sha not in sha_author:
                               sha_author[sha] = username
 
-              char_counts = {u: 0 for u in author_map}
+              char_counts = {u: 0 for u in effective_author_map}
               total_commits = len(sha_author)
 
               if not sha_author:
-                  return {author_map[u]: char_counts[u] for u in author_map}, 0
+                  return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, 0
 
               clone_url = f"https://github.com/{org}/{repo_name}.git"
               # Inject credentials via git config environment variables so the token
@@ -123,17 +134,17 @@ jobs:
                       )
                   except subprocess.TimeoutExpired:
                       print(f"Warning: clone of {org}/{repo_name} timed out", file=sys.stderr)
-                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
                   except Exception as e:
                       print(f"Warning: clone of {org}/{repo_name} failed: {e}", file=sys.stderr)
-                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
                   if clone_result.returncode != 0:
                       print(
                           f"Warning: could not clone {org}/{repo_name}: "
                           f"{clone_result.stderr.decode(errors='replace').strip()}",
                           file=sys.stderr,
                       )
-                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
 
                   # List all tracked files present at HEAD
                   ls_result = subprocess.run(
@@ -142,7 +153,7 @@ jobs:
                       capture_output=True, encoding="utf-8", errors="replace", timeout=30,
                   )
                   if ls_result.returncode != 0 or not ls_result.stdout.strip():
-                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits
 
                   files = [
                       f for f in ls_result.stdout.splitlines()
@@ -195,7 +206,7 @@ jobs:
                       except Exception as e:
                           print(f"Warning: git blame {filepath} error: {e}", file=sys.stderr)
 
-              tracked_per_author = {author_map[u]: char_counts[u] for u in author_map}
+              tracked_per_author = {effective_author_map[u]: char_counts[u] for u in effective_author_map}
               return tracked_per_author, total_commits
 
           def count_insertions(author_daily_map):
@@ -229,7 +240,12 @@ jobs:
               if commits_data:
                   author_map = commits_data.get("authorDisplayNameMap", {})
                   daily_map = commits_data.get("authorDailyContributionsMap", {})
-                  members = list(author_map.values())
+                  # Include authors present only in daily_map (not in authorDisplayNameMap)
+                  combined_author_map = dict(author_map)
+                  for k in daily_map:
+                      if k not in combined_author_map:
+                          combined_author_map[k] = k
+                  members = list(combined_author_map.values())
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
                   tracked_per_author, num_commits = count_tracked_chars_via_blame(
