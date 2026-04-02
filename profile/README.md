@@ -24,64 +24,64 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
 > Período: **2026-03-01** → **2026-04-02** · Reporte generado: **Thu, 2 Apr 2026 07:02:29 UTC**
-> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles en líneas supervivientes atribuidas al integrante (git blame)
+> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Andrey Fabricio Gonzalez Bastos | 0 | 0.0% |
-| Anthonny William Flores Rojas | 15787 | 100.0% |
-| Randal Gabriel Picado Bermudez | 0 | 0.0% |
-| Leonardo Martin Vega Aragon | 0 | 0.0% |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Andrey Fabricio Gonzalez Bastos | 0 | 0 | 0.0% |
+| Anthonny William Flores Rojas | 50 | 25494 | 100.0% |
+| Randal Gabriel Picado Bermudez | 0 | 0 | 0.0% |
+| Leonardo Martin Vega Aragon | 0 | 0 | 0.0% |
 
 ### Grupo-2
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Emily Alejandra Sanchez Mancia | 0 | 0.0% |
-| Debbie Con Ortega | 1055 | 88.1% |
-| Ashly Mariela Garro Villanueva | 142 | 11.9% |
-| Alessandro Umana Vega | 0 | 0.0% |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Emily Alejandra Sanchez Mancia | 0 | 0 | 0.0% |
+| Debbie Con Ortega | 3 | 1535 | 86.1% |
+| Ashly Mariela Garro Villanueva | 4 | 247 | 13.9% |
+| Alessandro Umana Vega | 0 | 0 | 0.0% |
 
 ### Grupo-3-p-0.05
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 2004 | 7.4% |
-| Alexandra Maria Gonzalez Bermudez | 11084 | 40.7% |
-| Daniela Patricia Prado Vargas | 0 | 0.0% |
-| Jose Miguel Rodriguez Gomez | 14156 | 52.0% |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Emily Estefania Mora Contreras | 16 | 4608 | 16.6% |
+| Alexandra Maria Gonzalez Bermudez | 12 | 6642 | 23.9% |
+| Daniela Patricia Prado Vargas | 6 | 6958 | 25.1% |
+| Jose Miguel Rodriguez Gomez | 9 | 9555 | 34.4% |
 
 ### Grupo-4-Martingalianos
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Sebastian Josue Miranda Ramirez | 0 | 0.0% |
-| Gabriel de Jesus Chaves Esquivel | 0 | 0.0% |
-| Kevin David Calderon Martinez | 1389 | 49.6% |
-| Benjamin Gutierrez Padua | 1414 | 50.4% |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Sebastian Josue Miranda Ramirez | 0 | 0 | 0.0% |
+| Gabriel de Jesus Chaves Esquivel | 1 | 0 | 0.0% |
+| Kevin David Calderon Martinez | 4 | 1375 | 49.3% |
+| Benjamin Gutierrez Padua | 2 | 1414 | 50.7% |
 
 ### Grupo-5-Alpha-Epsilon
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Gabriel Robles Arias | 12256 | 39.3% |
-| Oscar Mario Espinoza Camacho | 7775 | 25.0% |
-| Gerardo Andres Montero Fuentes | 6975 | 22.4% |
-| Cesar Ulises Salazar Amaya | 4150 | 13.3% |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Gabriel Robles Arias | 10 | 12245 | 39.0% |
+| Oscar Mario Espinoza Camacho | 9 | 7744 | 24.6% |
+| Gerardo Andres Montero Fuentes | 4 | 6955 | 22.1% |
+| Cesar Ulises Salazar Amaya | 8 | 4486 | 14.3% |
 
 ### Grupo-6
 
-| Integrante | Caracteres | Caracteres % |
-|------------|:----------:|:------------:|
-| Luis Diego Elizondo Fennell | 0 | — |
-| Jeremy Josue Garcia Solano | 0 | — |
-| Katia Moreno | 0 | — |
+| Integrante | Commits | Caracteres | Caracteres % |
+|------------|:-------:|:----------:|:------------:|
+| Luis Diego Elizondo Fennell | 0 | 0 | — |
+| Jeremy Josue Garcia Solano | 0 | 0 | — |
+| Katia Moreno | 0 | 0 | — |
 
 ### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)
 
-> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de **caracteres visibles en líneas supervivientes** (git blame sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` al HEAD, contando solo líneas cuyo último commit fue realizado durante el período) **y** distribución más equilibrada entre sus integrantes. Solo se mide lo que permanece en el repositorio; borrar y reinsertar código no infla el conteo.  
+> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de **contribución neta de caracteres** (suma de (líneas `+`) − (líneas `−`) por integrante en sus propios commits sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0 por integrante) **y** distribución más equilibrada entre sus integrantes. Cada integrante recibe crédito por todo el texto que escribió; borrar y reinsertar el mismo contenido no infla el conteo porque las eliminaciones propias se descuentan.  
 > **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
@@ -93,11 +93,11 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 | Pos. | Grupo | Total caracteres | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 31156 | 1 | 9.34 | 1 | 4347.05 | 0.00e+00 | 3 | 2 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 27244 | 2 | 21.85 | 2 | 20805.25 | 0.00e+00 | 4 | 4 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2803 | 4 | 25.00 | 3 | 2803.45 | 0.00e+00 | 2 | 7 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 15787 | 3 | 43.30 | 5 | 47361.00 | 0.00e+00 | 5 | 8 |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1197 | 5 | 36.77 | 4 | 2589.76 | 0.00e+00 | 1 | 9 |  |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 27763 | 2 | 6.33 | 1 | 1781.59 | 0.00e+00 | 1 | 3 | 🏆 |
+| 🥈 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 31430 | 1 | 8.92 | 2 | 4001.85 | 0.00e+00 | 4 | 3 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 25.00 | 3 | 2790.09 | 0.00e+00 | 2 | 7 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 25494 | 3 | 43.30 | 5 | 76482.00 | 0.00e+00 | 5 | 8 |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1782 | 5 | 35.75 | 4 | 3643.89 | 0.00e+00 | 3 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
@@ -110,8 +110,8 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 |---------|----------|-------------|-------------|
 | **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con menor σ balance (distribución más equilibrada entre sus integrantes) | 🥇 (posición 1) |
 | **Grupo** | Nombre del grupo con enlace al repositorio | Clic para ver el repo directamente | — |
-| **Total caracteres** | Suma de caracteres visibles (no-espacios) en las líneas supervivientes al HEAD de los archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp`, cuyo último commit fue realizado durante el período (git blame). Solo cuenta lo que permanece en el repo. | Más caracteres = mayor volumen de trabajo visible | Mayor |
-| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | 1 = grupo con más caracteres visibles supervivientes; — = grupo sin actividad | 1 |
+| **Total caracteres** | Contribución neta de caracteres visibles (no-espacios): suma de (líneas `+`) − (líneas `−`) en los commits propios del integrante sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0. Borrar y reinsertar el mismo contenido no infla el conteo: las eliminaciones propias se descuentan. | Más caracteres = mayor contribución neta | Mayor |
+| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | 1 = grupo con más caracteres escritos; — = grupo sin actividad | 1 |
 | **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | 0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |
 | **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
 | **χ² bondad** | Estadístico chi-cuadrado de bondad de ajuste (H₀: distribución uniforme) | 0 = aporte perfectamente igualitario; valores altos indican desequilibrio. **Ojo:** no es comparable entre grupos de diferente volumen total | 0 |
@@ -120,25 +120,29 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 | **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
 | **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |
 
-> **Nota sobre `—`:** el guion indica que el grupo no tiene líneas supervivientes atribuidas en archivos `.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
+> **Nota sobre `—`:** el guion indica que el grupo no tiene contribución neta de caracteres en archivos `.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
 
 ---
 
 #### 📐 Metodología de las métricas de equilibrio
 
-Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma cantidad de **caracteres visibles en líneas supervivientes** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` (espacios en blanco excluidos).
+Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma **contribución neta de caracteres visibles** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` (espacios en blanco excluidos).
 
-**0. Definición de Oᵢ — conteo de caracteres visibles supervivientes (git blame)**
+**0. Definición de Oᵢ — contribución neta de caracteres visibles (git show)**
 
-El repositorio se clona localmente con filtro blobless y se ejecuta `git blame --line-porcelain HEAD` sobre cada archivo rastreado. Por cada línea del estado final del archivo (HEAD), git blame reporta el SHA del último commit que modificó esa línea. Si ese SHA aparece en los datos de RepoSense del período, los caracteres visibles (no-espacios) de esa línea se acreditan al integrante correspondiente. Las líneas cuyo último commit es anterior al período no se cuentan. Caracteres contabilizados:
+El repositorio se clona localmente con filtro blobless y se ejecuta `git show --format=tformat: -U0 <sha>` sobre cada commit del período en archivos rastreados. La opción `-U0` elimina las líneas de contexto del diff (0 líneas de contexto), de modo que solo se cuentan las líneas realmente modificadas. Por cada commit de un integrante, se suman los caracteres visibles (no-espacios) de las líneas insertadas (`+`) y se restan los de las líneas eliminadas (`-`). La suma acumulada por integrante se ajusta a cero si resultara negativa. Caracteres contabilizados:
 
-- **Por línea superviviente**: número de chars no-espacios (no space, no tab, no newline) en el contenido de la línea tal como existe en HEAD.
+- **Líneas insertadas `+`**: se suman los chars no-espacios de esa línea.
+- **Líneas eliminadas `−`**: se restan los chars no-espacios de esa línea.
 
-Oᵢ es la suma de caracteres visibles de todas las líneas supervivientes atribuidas al integrante en los archivos rastreados. Un ciclo de borrar-y-reinsertar el mismo texto produce exactamente la misma Oᵢ que no haberlo tocado, eliminando el incentivo de inflar el conteo artificialmente.
+Oᵢ = max(0, Σ chars_insertados − Σ chars_eliminados) sobre todos los commits del integrante en el período. Esta fórmula satisface dos propiedades clave:
+
+- **Sin arbitraje por borrar-y-reinsertar**: si un integrante añade 100 chars, los borra y los vuelve a añadir, el neto sigue siendo 100, no 200.
+- **Crédito por borradores originales**: cuando un compañero reescribe el texto de otro, las eliminaciones aparecen en el commit del compañero (no del autor original). El autor original conserva el crédito por lo que escribió.
 
 **1. Desviación estándar de porcentajes (σ)**
 
-Convierte los conteos de caracteres visibles supervivientes (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
+Convierte las contribuciones netas de caracteres visibles (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes (pᵢ = Oᵢ / T × 100) y calcula la desviación estándar poblacional respecto a la media teórica de contribución igualitaria (100 / n):
 
 $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
@@ -146,7 +150,7 @@ $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
 **2. Prueba chi-cuadrado de bondad de ajuste (χ²)**
 
-Compara los conteos observados de caracteres visibles (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):
+Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):
 
 $$\chi^2 = \sum_{i=1}^{n}\frac{(O_i - E)^2}{E}, \quad E = \frac{T}{n}, \quad gl = n-1$$
 
