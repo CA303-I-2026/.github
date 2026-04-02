@@ -67,21 +67,30 @@ jobs:
               return effective
 
           def count_tracked_chars_via_diffs(org, repo_name, author_map, daily_map):
-              """Count non-whitespace chars added by each author in their commits to tracked files.
+              """Count net non-whitespace chars contributed by each author in tracked files.
 
               Clones the repository with a blobless filter and runs:
 
                   git show --no-color --format=tformat: -U0 <sha>
 
               for every commit in RepoSense's authorDailyContributionsMap.  For each
-              inserted line (lines starting with '+', excluding '+++' diff headers) in
-              a tracked file (.qmd, .tex, .R, .py, .cpp), the non-whitespace
-              characters of that line are attributed to the commit's author.
+              commit, inserted lines ('+') are counted positively and deleted lines
+              ('-') are counted negatively, giving a **net** contribution per author.
+              The final per-author total is floored at zero.
 
-              Unlike a git-blame approach, this gives credit for ALL text written
-              during the period even if those lines were later edited by a teammate.
-              This is important for collaborative writing workflows where one student
-              drafts a section and others refine it.
+              This metric satisfies two key constraints:
+
+              1. **No gaming via delete-then-readd**: if an author adds 100 chars,
+                 deletes them, and re-adds them, the net is still 100 (not 200),
+                 because their own deletions subtract from their own insertions.
+
+              2. **Fair credit for original drafts**: when a teammate later rewrites
+                 an author's section, those deletions appear in the *teammate's*
+                 commit — not the original author's.  The original author keeps
+                 full credit for what they wrote.
+
+              The -U0 flag eliminates context lines from the diff so that only
+              genuinely changed lines are counted.
 
               - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
@@ -199,12 +208,18 @@ jobs:
                                   char_counts[username] += sum(
                                       1 for c in content if not c.isspace()
                                   )
+                              elif (line.startswith("-") and not line.startswith("---")
+                                      and current_file_tracked):
+                                  content = line[1:]
+                                  char_counts[username] -= sum(
+                                      1 for c in content if not c.isspace()
+                                  )
                       except subprocess.TimeoutExpired:
                           print(f"Warning: git show {sha} timed out", file=sys.stderr)
                       except Exception as e:
                           print(f"Warning: git show {sha} error: {e}", file=sys.stderr)
 
-              tracked_per_author = {effective_author_map[u]: char_counts[u] for u in effective_author_map}
+              tracked_per_author = {effective_author_map[u]: max(0, char_counts[u]) for u in effective_author_map}
               return tracked_per_author, total_commits, commits_per_author
 
           def count_insertions(author_daily_map):
@@ -363,7 +378,7 @@ jobs:
               "## 📝 Caracteres modificados en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
-              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles añadidos por el integrante en sus commits del período (líneas `+` del diff, sin espacios)",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0",
               "",
           ]
 
@@ -435,10 +450,10 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de "
-              "**caracteres visibles añadidos** (suma de caracteres no-espacios en las líneas `+` de los diffs de cada commit "
-              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período) "
+              "**contribución neta de caracteres** (suma de (líneas `+`) − (líneas `−`) por integrante en sus propios commits "
+              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0 por integrante) "
               "**y** distribución más equilibrada entre sus integrantes. "
-              "Cada integrante recibe crédito por todo el texto que escribió, incluso si luego fue editado por un compañero.  ")
+              "Cada integrante recibe crédito por todo el texto que escribió; borrar y reinsertar el mismo contenido no infla el conteo porque las eliminaciones propias se descuentan.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
               "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
@@ -507,10 +522,10 @@ jobs:
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
               "Clic para ver el repo directamente | — |")
           qmd_lines.append(
-              "| **Total caracteres** | Suma de caracteres visibles (no-espacios) añadidos en las líneas `+` de los commits de cada integrante "
-              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período. "
-              "Cada integrante recibe crédito por todo el texto que escribió, aunque luego sea editado por un compañero. | "
-              "Más caracteres = mayor volumen de trabajo escrito | Mayor |")
+              "| **Total caracteres** | Contribución neta de caracteres visibles (no-espacios): suma de (líneas `+`) − (líneas `−`) en los commits propios del integrante "
+              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0. "
+              "Borrar y reinsertar el mismo contenido no infla el conteo: las eliminaciones propias se descuentan. | "
+              "Más caracteres = mayor contribución neta | Mayor |")
           qmd_lines.append(
               "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | "
               "1 = grupo con más caracteres escritos; — = grupo sin actividad | 1 |")
@@ -541,7 +556,7 @@ jobs:
               "Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Nota sobre `—`:** el guion indica que el grupo no tiene caracteres añadidos en archivos "
+              "> **Nota sobre `—`:** el guion indica que el grupo no tiene contribución neta de caracteres en archivos "
               "`.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
           qmd_lines.append("")
           qmd_lines.append("---")
@@ -552,36 +567,42 @@ jobs:
               "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
               "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
-              "la misma cantidad de **caracteres visibles añadidos** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
+              "la misma **contribución neta de caracteres visibles** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
               "(espacios en blanco excluidos).")
           qmd_lines.append("")
-          qmd_lines.append("**0. Definición de Oᵢ — conteo de caracteres visibles añadidos (git show)**")
+          qmd_lines.append("**0. Definición de Oᵢ — contribución neta de caracteres visibles (git show)**")
           qmd_lines.append("")
           qmd_lines.append(
               "El repositorio se clona localmente con filtro blobless y se ejecuta "
               "`git show --format=tformat: -U0 <sha>` sobre cada commit del período en archivos rastreados. "
               "La opción `-U0` elimina las líneas de contexto del diff (0 líneas de contexto), "
-              "de modo que solo se cuentan las líneas realmente añadidas (`+`) y no las líneas vecinas sin cambios. "
-              "Por cada línea insertada (`+`) en un archivo rastreado, los caracteres visibles (no-espacios) "
-              "de esa línea se acreditan al autor del commit. "
-              "Esto da crédito por todo el texto escrito durante el período, "
-              "aunque esas líneas sean posteriormente editadas por un compañero. "
+              "de modo que solo se cuentan las líneas realmente modificadas. "
+              "Por cada commit de un integrante, se suman los caracteres visibles (no-espacios) "
+              "de las líneas insertadas (`+`) y se restan los de las líneas eliminadas (`-`). "
+              "La suma acumulada por integrante se pisa en cero si resultara negativa. "
               "Caracteres contabilizados:")
           qmd_lines.append("")
           qmd_lines.append(
-              "- **Por línea insertada**: número de chars no-espacios (no space, no tab, no newline) "
-              "en el contenido de la línea añadida en ese commit.")
+              "- **Líneas insertadas `+`**: se suman los chars no-espacios de esa línea.")
+          qmd_lines.append(
+              "- **Líneas eliminadas `−`**: se restan los chars no-espacios de esa línea.")
           qmd_lines.append("")
           qmd_lines.append(
-              "Oᵢ es la suma de caracteres visibles de todas las líneas añadidas por el "
-              "integrante en los archivos rastreados durante el período. "
-              "Si un compañero edita el texto escrito por otro, ambos reciben crédito: "
-              "el autor original por lo que escribió, y el editor por lo que modificó.")
+              "Oᵢ = max(0, Σ chars_insertados − Σ chars_eliminados) sobre todos los commits del integrante "
+              "en el período. Esta fórmula satisface dos propiedades clave:")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "- **Sin arbitraje por borrar-y-reinsertar**: si un integrante añade 100 chars, los borra "
+              "y los vuelve a añadir, el neto sigue siendo 100, no 200.")
+          qmd_lines.append(
+              "- **Crédito por borradores originales**: cuando un compañero reescribe el texto de otro, "
+              "las eliminaciones aparecen en el commit del compañero (no del autor original). "
+              "El autor original conserva el crédito por lo que escribió.")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos de caracteres visibles añadidos (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
+              "Convierte las contribuciones netas de caracteres visibles (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
               "(pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
@@ -597,7 +618,7 @@ jobs:
           qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Compara los conteos observados de caracteres visibles añadidos (Oᵢ) contra los esperados bajo distribución "
+              "Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución "
               "uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):")
           qmd_lines.append("")
           qmd_lines.append(
