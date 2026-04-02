@@ -52,34 +52,37 @@ jobs:
                   h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
               return h
 
-          def count_tracked_chars_via_api(org, repo_name, author_map, daily_map):
+          def count_tracked_chars_via_git(org, repo_name, author_map, daily_map):
               """Count visible (non-whitespace) character changes in tracked files.
 
               Uses the commit SHAs already attributed to each author by RepoSense
-              (from authorDailyContributionsMap) instead of querying GitHub by author
-              login. This is necessary because git author emails may not be linked to
-              the contributor's GitHub account, which would cause the ?author= filter
-              to return 0 results even when commits exist.
+              (from authorDailyContributionsMap). For each unique commit SHA, the
+              repository is cloned locally with a blobless filter and the diff is
+              computed with:
 
-              For each commit SHA, fetches the diff patch with ?w=1 (whitespace-blind)
-              and applies difflib.SequenceMatcher at the character level to each change
-              block.
+                  git show --diff-algorithm=histogram -w -U0
 
-              Counting rules:
-              - Substitution (replace): max(visible_deleted, visible_inserted) per block.
+              The histogram algorithm anchors hunks on unique lines, producing more
+              natural diffs and reducing spurious replace blocks that could inflate
+              character counts.  The -w flag ignores all whitespace changes, so
+              pure-formatting commits contribute 0 — equivalent to the ?w=1 GitHub
+              API parameter.
+
+              Unlike the GitHub API, git show has no per-file line truncation, so
+              large single-commit changes are counted in full.
+
+              Counting rules per diff hunk (after SequenceMatcher at char level):
+              - Substitution (replace): max(visible_deleted, visible_inserted).
               - Pure insertion:  visible chars in new text.
               - Pure deletion:   visible chars in old text.
               - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
-              - The ?w=1 flag further excludes any commit hunk that only differs in
-                whitespace, so pure-formatting commits contribute 0.
-
-              Note: the GitHub API truncates patches for files with > ~300 changed
-              lines; very large single-commit changes may be slightly under-counted.
 
               Returns: (tracked_per_author: {display_name: int}, total_commits: int)
               """
               import difflib
+              import subprocess
+              import tempfile
               TRACKED_EXTENSIONS = {"qmd", "tex", "R", "py", "cpp"}
               IGNORED_PREFIXES = ("datos/",)
 
@@ -101,56 +104,106 @@ jobs:
                           total += new_vis
                   return total
 
-              def _patch_chars(patch):
-                  """Count visible char changes across all hunks of a unified diff patch."""
+              def _diff_chars(diff_output):
+                  """Count visible char changes in tracked files from git show output."""
                   total = 0
+                  in_diff = False
+                  skip_file = True
                   removed, added = [], []
-                  for line in patch.splitlines():
-                      if line.startswith("-") and not line.startswith("---"):
-                          removed.append(line[1:] + "\n")
-                      elif line.startswith("+") and not line.startswith("+++"):
-                          added.append(line[1:] + "\n")
-                      else:
-                          if removed or added:
-                              total += _hunk_chars(removed, added)
-                              removed, added = [], []
-                  if removed or added:
-                      total += _hunk_chars(removed, added)
+
+                  def flush():
+                      nonlocal total, removed, added
+                      if removed or added:
+                          total += _hunk_chars(removed, added)
+                          removed, added = [], []
+
+                  for line in diff_output.splitlines():
+                      if line.startswith("diff --git "):
+                          flush()
+                          in_diff = True
+                          # Extract target filename from "diff --git a/path b/path".
+                          # Use rfind to handle the rare case of " b/" in the path itself.
+                          idx = line.rfind(" b/")
+                          if idx != -1:
+                              filename = line[idx + 3:]
+                              ext = os.path.splitext(filename)[1].lstrip(".")
+                              skip_file = (
+                                  any(filename.startswith(p) for p in IGNORED_PREFIXES)
+                                  or ext not in TRACKED_EXTENSIONS
+                              )
+                          else:
+                              skip_file = True
+                      elif in_diff and line.startswith("@@"):
+                          flush()
+                      elif in_diff and not skip_file:
+                          if line.startswith("-") and not line.startswith("---"):
+                              removed.append(line[1:] + "\n")
+                          elif line.startswith("+") and not line.startswith("+++"):
+                              added.append(line[1:] + "\n")
+                          else:
+                              flush()
+                  flush()
                   return total
 
-              headers = gh_api_headers()
-              char_counts = {u: 0 for u in author_map}
-              total_commits = 0
-              seen_shas = set()
+              # Collect commit SHAs with first-seen author attribution
+              sha_author = {}
               for username in author_map:
-                  daily_list = daily_map.get(username, [])
-                  for day in daily_list:
+                  for day in daily_map.get(username, []):
                       if not isinstance(day, dict):
                           continue
                       for cr in day.get("commitResults", []):
                           sha = cr.get("hash", "")
-                          if not sha or sha in seen_shas:
-                              continue
-                          seen_shas.add(sha)
-                          total_commits += 1
-                          # ?w=1 → whitespace-blind diff: pure-formatting commits get empty patch
-                          detail = fetch_json(
-                              f"https://api.github.com/repos/{org}/{repo_name}/commits/{sha}?w=1",
-                              headers=headers,
+                          if sha and sha not in sha_author:
+                              sha_author[sha] = username
+
+              char_counts = {u: 0 for u in author_map}
+              total_commits = len(sha_author)
+
+              if not sha_author:
+                  return {author_map[u]: char_counts[u] for u in author_map}, 0
+
+              # Build authenticated clone URL
+              if GITHUB_TOKEN:
+                  clone_url = f"https://x-access-token:{GITHUB_TOKEN}@github.com/{org}/{repo_name}.git"
+              else:
+                  clone_url = f"https://github.com/{org}/{repo_name}.git"
+
+              with tempfile.TemporaryDirectory() as tmpdir:
+                  clone_result = subprocess.run(
+                      ["git", "clone", "--filter=blob:none", "--no-checkout", clone_url, tmpdir],
+                      capture_output=True, timeout=120,
+                  )
+                  if clone_result.returncode != 0:
+                      print(
+                          f"Warning: could not clone {org}/{repo_name}: "
+                          f"{clone_result.stderr.decode(errors='replace').strip()}",
+                          file=sys.stderr,
+                      )
+                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+
+                  for sha, username in sha_author.items():
+                      try:
+                          result = subprocess.run(
+                              [
+                                  "git", "-C", tmpdir, "show",
+                                  "--diff-algorithm=histogram", "-w", "-U0", "--no-color",
+                                  sha,
+                              ],
+                              capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=60,
                           )
-                          if not isinstance(detail, dict):
-                              continue
-                          for file_info in detail.get("files", []):
-                              filename = file_info.get("filename", "")
-                              if any(filename.startswith(p) for p in IGNORED_PREFIXES):
-                                  continue
-                              ext = os.path.splitext(filename)[1].lstrip(".")
-                              if ext not in TRACKED_EXTENSIONS:
-                                  continue
-                              patch = file_info.get("patch", "")
-                              if not patch:
-                                  continue
-                              char_counts[username] += _patch_chars(patch)
+                          if result.returncode == 0:
+                              char_counts[username] += _diff_chars(result.stdout)
+                          else:
+                              print(
+                                  f"Warning: git show {sha} failed: {result.stderr.strip()}",
+                                  file=sys.stderr,
+                              )
+                      except subprocess.TimeoutExpired:
+                          print(f"Warning: git show {sha} timed out", file=sys.stderr)
+                      except Exception as e:
+                          print(f"Warning: git show {sha} error: {e}", file=sys.stderr)
+
               tracked_per_author = {author_map[u]: char_counts[u] for u in author_map}
               return tracked_per_author, total_commits
 
@@ -188,7 +241,7 @@ jobs:
                   members = list(author_map.values())
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
-                  tracked_per_author, num_commits = count_tracked_chars_via_api(
+                  tracked_per_author, num_commits = count_tracked_chars_via_git(
                       org, group_name, author_map, daily_map
                   )
               else:
@@ -498,9 +551,13 @@ jobs:
           qmd_lines.append("**0. Definición de Oᵢ — conteo de caracteres visibles modificados**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Para cada commit del período, se descarga el diff del archivo con extensión rastreada "
-              "usando la API de GitHub con `?w=1` (diff insensible a espacios en blanco). "
-              "Dentro de cada bloque de cambio del diff se aplica `difflib.SequenceMatcher` entre "
+              "Para cada commit del período, el repositorio se clona localmente con filtro blobless "
+              "y el diff se obtiene con `git show --diff-algorithm=histogram -w -U0`. "
+              "El algoritmo **histogram** ancla los bloques de cambio en líneas únicas, produciendo "
+              "diffs más naturales y reduciendo reemplazos espurios que podrían inflar el conteo. "
+              "El flag `-w` excluye cualquier hunk que solo difiera en espacios en blanco, de modo que "
+              "commits de puro formateo contribuyen 0. "
+              "Dentro de cada bloque de cambio se aplica `difflib.SequenceMatcher` entre "
               "el texto eliminado y el añadido para hallar las sub-secuencias realmente distintas. "
               "Se cuentan los caracteres **no-espacios** según:")
           qmd_lines.append("")
@@ -512,8 +569,8 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "Oᵢ es la suma de cambios de caracteres visibles de todos los commits del integrante "
-              "en el período. Los commits que solo modifican espaciado o indentación producen patch "
-              "vacío gracias al flag `?w=1` y contribuyen 0.")
+              "en el período. Los commits que solo modifican espaciado o indentación producen diff "
+              "vacío gracias al flag `-w` y contribuyen 0.")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
