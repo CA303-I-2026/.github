@@ -369,7 +369,9 @@ jobs:
               # χ² rank is shown as an independent cross-check.
               g["score"] = (g["rank_total"] + g["rank_sigma"]) if g["total_tracked"] > 0 else float("inf")
 
-          ranked = sorted(group_stats, key=lambda x: (x["score"], -x["total_tracked"]))
+          # Tie-breaker: at equal score, the group with lower σ (more balanced
+          # contributions) wins, favouring teams whose members work more evenly.
+          ranked = sorted(group_stats, key=lambda x: (x["score"], x["sigma"] if x["sigma"] is not None else float("inf")))
           winner_score = ranked[0]["score"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
           qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
@@ -442,7 +444,7 @@ jobs:
           qmd_lines.append("|---------|----------|-------------|-------------|")
           qmd_lines.append(
               "| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | "
-              "Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas rastreadas | "
+              "Determinada por el Puntaje; a igual Puntaje gana el grupo con menor σ balance (distribución más equilibrada entre sus integrantes) | "
               "🥇 (posición 1) |")
           qmd_lines.append(
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
@@ -476,7 +478,7 @@ jobs:
               "Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |")
           qmd_lines.append(
               "| **🏆** | Grupo ganador | "
-              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total caracteres) | 🏆 |")
+              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
               "> **Nota sobre `—`:** el guion indica que el grupo no registró caracteres visibles modificados en archivos "
@@ -563,7 +565,9 @@ jobs:
               "**Combinación de rangos:** El puntaje final es "
               "`Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ "
               "y el p-valor confirma rechazo/aceptación de H₀, "
-              "el resultado queda verificado por ambas métricas.")
+              "el resultado queda verificado por ambas métricas. "
+              "**Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor σ (menor dispersión de contribuciones), "
+              "favoreciendo así a los equipos cuyos integrantes trabajan de forma más equilibrada.")
           qmd_lines.append("")
           qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
           qmd_block = "\n".join(qmd_lines)
