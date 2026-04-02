@@ -67,26 +67,21 @@ jobs:
               return effective
 
           def count_tracked_chars_via_blame(org, repo_name, author_map, daily_map):
-              """Count visible (non-whitespace) chars in surviving lines via git blame.
+              """Count non-whitespace chars added by each author in their commits to tracked files.
 
               Clones the repository with a blobless filter and runs:
 
-                  git blame -w --line-porcelain HEAD -- <file>
+                  git show --no-color --format=tformat: -U0 <sha>
 
-              for every tracked file at HEAD.  For each surviving line whose commit
-              SHA appears in RepoSense's authorDailyContributionsMap (i.e. the commit
-              was made during the tracked period), the visible characters of that line
-              are attributed to the corresponding author.
+              for every commit in RepoSense's authorDailyContributionsMap.  For each
+              inserted line (lines starting with '+', excluding '+++' diff headers) in
+              a tracked file (.qmd, .tex, .R, .py, .cpp), the non-whitespace
+              characters of that line are attributed to the commit's author.
 
-              This approach is immune to delete-then-readd inflation: a line is
-              counted exactly once regardless of how many times it was removed and
-              re-inserted during the period, because only its final surviving state at
-              HEAD is measured.  Lines authored outside the tracked period (SHAs not
-              in RepoSense data) are silently ignored.
-
-              The -w flag keeps attribution stable across whitespace-only commits
-              (indentation, formatting) so that pure-formatting commits cannot be
-              used to claim credit.
+              Unlike a git-blame approach, this gives credit for ALL text written
+              during the period even if those lines were later edited by a teammate.
+              This is important for collaborative writing workflows where one student
+              drafts a section and others refine it.
 
               - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
@@ -98,6 +93,7 @@ jobs:
               import subprocess
               import tempfile
               IGNORED_PREFIXES = ("datos/",)
+              TRACKED_EXTS = (".qmd", ".tex", ".R", ".py", ".cpp")
 
               effective_author_map = build_effective_author_map(author_map, daily_map)
 
@@ -113,11 +109,10 @@ jobs:
                               result.add(sha)
                   return result
 
-              # Collect commit SHAs with first-seen author attribution (for blame lookup)
+              # Collect commit SHAs with first-seen author attribution.
+              # Also count unique commits per author directly from daily_map so every
+              # commit is credited even if its lines were later overwritten by a teammate.
               sha_author = {}
-              # Count unique commits per author directly from daily_map (independent of
-              # SHA first-claim attribution used for blame, so every commit the student
-              # made is counted even if its lines were later overwritten by a teammate).
               raw_commit_counts = {}
               for username in effective_author_map:
                   user_shas = _shas_for_user(username)
@@ -169,65 +164,45 @@ jobs:
                       )
                       return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
 
-                  # List all tracked files present at HEAD
-                  ls_result = subprocess.run(
-                      ["git", "-C", tmpdir, "ls-files", "--",
-                       "*.qmd", "*.tex", "*.R", "*.py", "*.cpp"],
-                      capture_output=True, encoding="utf-8", errors="replace", timeout=30,
-                  )
-                  if ls_result.returncode != 0 or not ls_result.stdout.strip():
-                      return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
-
-                  files = [
-                      f for f in ls_result.stdout.splitlines()
-                      if f and not any(f.startswith(p) for p in IGNORED_PREFIXES)
-                  ]
-
-                  for filepath in files:
+                  for sha, username in sha_author.items():
                       try:
-                          blame_result = subprocess.run(
-                              ["git", "-C", tmpdir, "blame", "-w",
-                               "--line-porcelain", "HEAD", "--", filepath],
+                          diff_result = subprocess.run(
+                              ["git", "-C", tmpdir, "show",
+                               "--no-color", "--format=tformat:", "-U0", sha],
                               capture_output=True,
                               encoding="utf-8", errors="replace", timeout=60,
                               env=clone_env,
                           )
-                          if blame_result.returncode != 0:
+                          if diff_result.returncode != 0:
                               print(
-                                  f"Warning: git blame {filepath} failed: "
-                                  f"{blame_result.stderr.strip()}",
+                                  f"Warning: git show {sha} failed: "
+                                  f"{diff_result.stderr.strip()}",
                                   file=sys.stderr,
                               )
                               continue
-                          current_sha = None
-                          for line in blame_result.stdout.splitlines():
-                              # Blame porcelain: commit header line is
-                              # "<40-hex-sha> <orig> <final> [<count>]"; boundary
-                              # commits may be prefixed with "^", and uncommitted
-                              # content may use the all-zero SHA.
-                              header = line
-                              if header.startswith("^"):
-                                  header = header[1:]
-                              if (len(header) >= 40
-                                      and all(c in "0123456789abcdef" for c in header[:40])
-                                      and (len(header) == 40 or header[40] == " ")):
-                                  candidate_sha = header[:40]
-                                  # Ignore the special all-zero SHA used for
-                                  # uncommitted content.
-                                  if candidate_sha != "0" * 40:
-                                      current_sha = candidate_sha
-                                  else:
-                                      current_sha = None
-                              elif line.startswith("\t"):
-                                  if current_sha and current_sha in sha_author:
-                                      content = line[1:]
-                                      char_counts[sha_author[current_sha]] += sum(
-                                          1 for c in content if not c.isspace()
-                                      )
+                          current_file_tracked = False
+                          for line in diff_result.stdout.splitlines():
+                              if line.startswith("diff --git "):
+                                  current_file_tracked = False
+                              elif line.startswith("+++ "):
+                                  # "+++ b/path/to/file.qmd" or "+++ /dev/null"
+                                  filepath = line[4:]
+                                  if filepath.startswith("b/"):
+                                      filepath = filepath[2:]
+                                  current_file_tracked = (
+                                      any(filepath.endswith(ext) for ext in TRACKED_EXTS)
+                                      and not any(filepath.startswith(p) for p in IGNORED_PREFIXES)
+                                  )
+                              elif (line.startswith("+") and not line.startswith("+++")
+                                      and current_file_tracked):
+                                  content = line[1:]
+                                  char_counts[username] += sum(
+                                      1 for c in content if not c.isspace()
+                                  )
                       except subprocess.TimeoutExpired:
-                          print(f"Warning: git blame {filepath} timed out", file=sys.stderr)
+                          print(f"Warning: git show {sha} timed out", file=sys.stderr)
                       except Exception as e:
-                          print(f"Warning: git blame {filepath} error: {e}", file=sys.stderr)
+                          print(f"Warning: git show {sha} error: {e}", file=sys.stderr)
 
               tracked_per_author = {effective_author_map[u]: char_counts[u] for u in effective_author_map}
               return tracked_per_author, total_commits, commits_per_author
@@ -388,7 +363,7 @@ jobs:
               "## 📝 Caracteres modificados en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
-              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles en líneas supervivientes atribuidas al integrante (git blame)",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles añadidos por el integrante en sus commits al período (líneas `+` del diff, sin espacios)",
               "",
           ]
 
@@ -460,10 +435,10 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "> **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de "
-              "**caracteres visibles en líneas supervivientes** (git blame sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` al HEAD, "
-              "contando solo líneas cuyo último commit fue realizado durante el período) "
+              "**caracteres visibles añadidos** (suma de caracteres no-espacios en las líneas `+` de los diffs de cada commit "
+              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período) "
               "**y** distribución más equilibrada entre sus integrantes. "
-              "Solo se mide lo que permanece en el repositorio; borrar y reinsertar código no infla el conteo.  ")
+              "Cada integrante recibe crédito por todo el texto que escribió, incluso si luego fue editado por un compañero.  ")
           qmd_lines.append(
               "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
               "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
@@ -532,10 +507,13 @@ jobs:
               "| **Grupo** | Nombre del grupo con enlace al repositorio | "
               "Clic para ver el repo directamente | — |")
           qmd_lines.append(
-              "| **Total caracteres** | Suma de caracteres visibles (no-espacios) en las líneas supervivientes al HEAD de los archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp`, cuyo último commit fue realizado durante el período (git blame). Solo cuenta lo que permanece en el repo. | Más caracteres = mayor volumen de trabajo visible | Mayor |")
+              "| **Total caracteres** | Suma de caracteres visibles (no-espacios) añadidos en las líneas `+` de los commits de cada integrante "
+              "sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período. "
+              "Cada integrante recibe crédito por todo el texto que escribió, aunque luego sea editado por un compañero. | "
+              "Más caracteres = mayor volumen de trabajo escrito | Mayor |")
           qmd_lines.append(
               "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | "
-              "1 = grupo con más caracteres visibles supervivientes; — = grupo sin actividad | 1 |")
+              "1 = grupo con más caracteres escritos; — = grupo sin actividad | 1 |")
           qmd_lines.append(
               "| **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | "
               "0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |")
@@ -563,7 +541,7 @@ jobs:
               "Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
-              "> **Nota sobre `—`:** el guion indica que el grupo no tiene líneas supervivientes atribuidas en archivos "
+              "> **Nota sobre `—`:** el guion indica que el grupo no tiene caracteres añadidos en archivos "
               "`.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.")
           qmd_lines.append("")
           qmd_lines.append("---")
@@ -574,34 +552,34 @@ jobs:
               "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
               "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
-              "la misma cantidad de **caracteres visibles en líneas supervivientes** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
+              "la misma cantidad de **caracteres visibles añadidos** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
               "(espacios en blanco excluidos).")
           qmd_lines.append("")
-          qmd_lines.append("**0. Definición de Oᵢ — conteo de caracteres visibles supervivientes (git blame)**")
+          qmd_lines.append("**0. Definición de Oᵢ — conteo de caracteres visibles añadidos (git show)**")
           qmd_lines.append("")
           qmd_lines.append(
               "El repositorio se clona localmente con filtro blobless y se ejecuta "
-              "`git blame --line-porcelain HEAD` sobre cada archivo rastreado. "
-              "Por cada línea del estado final del archivo (HEAD), git blame reporta el SHA del último commit "
-              "que modificó esa línea. Si ese SHA aparece en los datos de RepoSense del período, "
-              "los caracteres visibles (no-espacios) de esa línea se acreditan al integrante correspondiente. "
-              "Las líneas cuyo último commit es anterior al período no se cuentan. "
+              "`git show --format=tformat: -U0 <sha>` sobre cada commit del período en archivos rastreados. "
+              "Por cada línea insertada (`+`) en un archivo rastreado, los caracteres visibles (no-espacios) "
+              "de esa línea se acreditan al autor del commit. "
+              "Esto da crédito por todo el texto escrito durante el período, "
+              "aunque esas líneas sean posteriormente editadas por un compañero. "
               "Caracteres contabilizados:")
           qmd_lines.append("")
           qmd_lines.append(
-              "- **Por línea superviviente**: número de chars no-espacios (no space, no tab, no newline) "
-              "en el contenido de la línea tal como existe en HEAD.")
+              "- **Por línea insertada**: número de chars no-espacios (no space, no tab, no newline) "
+              "en el contenido de la línea añadida en ese commit.")
           qmd_lines.append("")
           qmd_lines.append(
-              "Oᵢ es la suma de caracteres visibles de todas las líneas supervivientes atribuidas al "
-              "integrante en los archivos rastreados. Un ciclo de borrar-y-reinsertar el mismo texto "
-              "produce exactamente la misma Oᵢ que no haberlo tocado, eliminando el incentivo de "
-              "inflar el conteo artificialmente.")
+              "Oᵢ es la suma de caracteres visibles de todas las líneas añadidas por el "
+              "integrante en los archivos rastreados durante el período. "
+              "Si un compañero edita el texto escrito por otro, ambos reciben crédito: "
+              "el autor original por lo que escribió, y el editor por lo que modificó.")
           qmd_lines.append("")
           qmd_lines.append("**1. Desviación estándar de porcentajes (σ)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Convierte los conteos de caracteres visibles supervivientes (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
+              "Convierte los conteos de caracteres visibles añadidos (`.qmd` + `.tex` + `.R` + `.py` + `.cpp`) en porcentajes "
               "(pᵢ = Oᵢ / T × 100) "
               "y calcula la desviación estándar poblacional respecto a la media teórica "
               "de contribución igualitaria (100 / n):")
@@ -617,7 +595,7 @@ jobs:
           qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Compara los conteos observados de caracteres visibles (Oᵢ) contra los esperados bajo distribución "
+              "Compara los conteos observados de caracteres visibles añadidos (Oᵢ) contra los esperados bajo distribución "
               "uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):")
           qmd_lines.append("")
           qmd_lines.append(
