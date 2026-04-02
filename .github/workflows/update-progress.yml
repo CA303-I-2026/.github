@@ -579,7 +579,7 @@ jobs:
               "de modo que solo se cuentan las líneas realmente modificadas. "
               "Por cada commit de un integrante, se suman los caracteres visibles (no-espacios) "
               "de las líneas insertadas (`+`) y se restan los de las líneas eliminadas (`-`). "
-              "La suma acumulada por integrante se pisa en cero si resultara negativa. "
+              "La suma acumulada por integrante se ajusta a cero si resultara negativa. "
               "Caracteres contabilizados:")
           qmd_lines.append("")
           qmd_lines.append(
