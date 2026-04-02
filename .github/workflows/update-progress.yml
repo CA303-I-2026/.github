@@ -66,7 +66,7 @@ jobs:
                       effective[k] = k
               return effective
 
-          def count_tracked_chars_via_blame(org, repo_name, author_map, daily_map):
+          def count_tracked_chars_via_diffs(org, repo_name, author_map, daily_map):
               """Count non-whitespace chars added by each author in their commits to tracked files.
 
               Clones the repository with a blobless filter and runs:
@@ -241,7 +241,7 @@ jobs:
                   members = list(build_effective_author_map(author_map, daily_map).values())
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
-                  tracked_per_author, num_commits, commits_per_author = count_tracked_chars_via_blame(
+                  tracked_per_author, num_commits, commits_per_author = count_tracked_chars_via_diffs(
                       org, group_name, author_map, daily_map
                   )
               else:
@@ -363,7 +363,7 @@ jobs:
               "## 📝 Caracteres modificados en archivos de proyecto por integrante",
               "",
               f"> Período: **{since}** → **{until}** · Reporte generado: **{generated_time}**",
-              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles añadidos por el integrante en sus commits al período (líneas `+` del diff, sin espacios)",
+              f"> Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles añadidos por el integrante en sus commits del período (líneas `+` del diff, sin espacios)",
               "",
           ]
 
@@ -560,6 +560,8 @@ jobs:
           qmd_lines.append(
               "El repositorio se clona localmente con filtro blobless y se ejecuta "
               "`git show --format=tformat: -U0 <sha>` sobre cada commit del período en archivos rastreados. "
+              "La opción `-U0` elimina las líneas de contexto del diff (0 líneas de contexto), "
+              "de modo que solo se cuentan las líneas realmente añadidas (`+`) y no las líneas vecinas sin cambios. "
               "Por cada línea insertada (`+`) en un archivo rastreado, los caracteres visibles (no-espacios) "
               "de esa línea se acreditan al autor del commit. "
               "Esto da crédito por todo el texto escrito durante el período, "
