@@ -23,7 +23,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-01** · Reporte generado: **Wed, 1 Apr 2026 07:09:57 UTC**
+> Período: **2026-03-01** → **2026-04-02** · Reporte generado: **Thu, 2 Apr 2026 07:02:29 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: caracteres visibles modificados (espacios en blanco excluidos)
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -48,10 +48,10 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 | Integrante | Caracteres | Caracteres % |
 |------------|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 3928 | 15.1% |
-| Alexandra Maria Gonzalez Bermudez | 6297 | 24.2% |
-| Daniela Patricia Prado Vargas | 8240 | 31.7% |
-| Jose Miguel Rodriguez Gomez | 7562 | 29.1% |
+| Emily Estefania Mora Contreras | 8575 | 11.0% |
+| Alexandra Maria Gonzalez Bermudez | 15397 | 19.7% |
+| Daniela Patricia Prado Vargas | 8240 | 10.5% |
+| Jose Miguel Rodriguez Gomez | 46090 | 58.9% |
 
 ### Grupo-4-Martingalianos
 
@@ -59,17 +59,17 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 |------------|:----------:|:------------:|
 | Sebastian Josue Miranda Ramirez | 0 | 0.0% |
 | Gabriel de Jesus Chaves Esquivel | 0 | 0.0% |
-| Kevin David Calderon Martinez | 0 | 0.0% |
-| Benjamin Gutierrez Padua | 1414 | 100.0% |
+| Kevin David Calderon Martinez | 1375 | 49.3% |
+| Benjamin Gutierrez Padua | 1414 | 50.7% |
 
 ### Grupo-5-Alpha-Epsilon
 
 | Integrante | Caracteres | Caracteres % |
 |------------|:----------:|:------------:|
-| Gabriel Robles Arias | 6471 | 15.9% |
-| Oscar Mario Espinoza Camacho | 7762 | 19.1% |
-| Gerardo Andres Montero Fuentes | 6995 | 17.2% |
-| Cesar Ulises Salazar Amaya | 19356 | 47.7% |
+| Gabriel Robles Arias | 12321 | 26.5% |
+| Oscar Mario Espinoza Camacho | 7762 | 16.7% |
+| Gerardo Andres Montero Fuentes | 6995 | 15.1% |
+| Cesar Ulises Salazar Amaya | 19356 | 41.7% |
 
 ### Grupo-6
 
@@ -93,11 +93,11 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 | Pos. | Grupo | Total caracteres | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 40584 | 2 | 13.15 | 2 | 11230.24 | 0.00e+00 | 4 | 4 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 26027 | 3 | 6.32 | 1 | 1661.61 | 0.00e+00 | 1 | 4 | 🏆 |
-| 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 46773 | 1 | 43.30 | 4 | 140319.00 | 0.00e+00 | 5 | 5 |  |
-| 4 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 2410 | 4 | 26.81 | 3 | 2771.49 | 0.00e+00 | 2 | 7 |  |
-| 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 1414 | 5 | 43.30 | 5 | 4242.00 | 0.00e+00 | 3 | 10 |  |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 78302 | 1 | 19.89 | 2 | 49550.87 | 0.00e+00 | 4 | 3 | 🏆 |
+| 🥈 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 46434 | 3 | 10.58 | 1 | 8322.47 | 0.00e+00 | 3 | 4 |  |
+| 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 46773 | 2 | 43.30 | 5 | 140319.00 | 0.00e+00 | 5 | 7 |  |
+| 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 25.00 | 3 | 2790.09 | 0.00e+00 | 2 | 7 |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 2410 | 5 | 26.81 | 4 | 2771.49 | 0.00e+00 | 1 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
 
 ---
