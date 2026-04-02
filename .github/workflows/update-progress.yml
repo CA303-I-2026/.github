@@ -57,7 +57,7 @@ jobs:
 
               Clones the repository with a blobless filter and runs:
 
-                  git blame --line-porcelain HEAD -- <file>
+                  git blame -w --line-porcelain HEAD -- <file>
 
               for every tracked file at HEAD.  For each surviving line whose commit
               SHA appears in RepoSense's authorDailyContributionsMap (i.e. the commit
@@ -70,6 +70,10 @@ jobs:
               HEAD is measured.  Lines authored outside the tracked period (SHAs not
               in RepoSense data) are silently ignored.
 
+              The -w flag keeps attribution stable across whitespace-only commits
+              (indentation, formatting) so that pure-formatting commits cannot be
+              used to claim credit.
+
               - Whitespace characters (spaces, tabs, newlines) are NEVER counted.
               - Files under datos/ are skipped (matches repo-config.csv Ignore Glob).
 
@@ -77,7 +81,6 @@ jobs:
               """
               import subprocess
               import tempfile
-              TRACKED_EXTENSIONS = {"qmd", "tex", "R", "py", "cpp"}
               IGNORED_PREFIXES = ("datos/",)
 
               # Collect commit SHAs with first-seen author attribution
@@ -149,10 +152,11 @@ jobs:
                   for filepath in files:
                       try:
                           blame_result = subprocess.run(
-                              ["git", "-C", tmpdir, "blame",
+                              ["git", "-C", tmpdir, "blame", "-w",
                                "--line-porcelain", "HEAD", "--", filepath],
                               capture_output=True,
                               encoding="utf-8", errors="replace", timeout=60,
+                              env=clone_env,
                           )
                           if blame_result.returncode != 0:
                               print(
@@ -164,11 +168,22 @@ jobs:
                           current_sha = None
                           for line in blame_result.stdout.splitlines():
                               # Blame porcelain: commit header line is
-                              # "<40-hex-sha> <orig> <final> [<count>]"
-                              if (len(line) >= 40
-                                      and all(c in "0123456789abcdef" for c in line[:40])
-                                      and (len(line) == 40 or line[40] == " ")):
-                                  current_sha = line[:40]
+                              # "<40-hex-sha> <orig> <final> [<count>]"; boundary
+                              # commits may be prefixed with "^", and uncommitted
+                              # content may use the all-zero SHA.
+                              header = line
+                              if header.startswith("^"):
+                                  header = header[1:]
+                              if (len(header) >= 40
+                                      and all(c in "0123456789abcdef" for c in header[:40])
+                                      and (len(header) == 40 or header[40] == " ")):
+                                  candidate_sha = header[:40]
+                                  # Ignore the special all-zero SHA used for
+                                  # uncommitted content.
+                                  if candidate_sha != "0" * 40:
+                                      current_sha = candidate_sha
+                                  else:
+                                      current_sha = None
                               elif line.startswith("\t"):
                                   if current_sha and current_sha in sha_author:
                                       content = line[1:]
