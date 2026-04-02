@@ -162,17 +162,33 @@ jobs:
               if not sha_author:
                   return {author_map[u]: char_counts[u] for u in author_map}, 0
 
-              # Build authenticated clone URL
+              clone_url = f"https://github.com/{org}/{repo_name}.git"
+              # Inject credentials via git config environment variables so the token
+              # never appears in command-line arguments or captured stderr output.
+              clone_env = dict(os.environ)
               if GITHUB_TOKEN:
-                  clone_url = f"https://x-access-token:{GITHUB_TOKEN}@github.com/{org}/{repo_name}.git"
-              else:
-                  clone_url = f"https://github.com/{org}/{repo_name}.git"
+                  import base64
+                  b64 = base64.b64encode(
+                      f"x-access-token:{GITHUB_TOKEN}".encode()
+                  ).decode()
+                  clone_env.update({
+                      "GIT_CONFIG_COUNT": "1",
+                      "GIT_CONFIG_KEY_0": "http.https://github.com/.extraheader",
+                      "GIT_CONFIG_VALUE_0": f"AUTHORIZATION: basic {b64}",
+                  })
 
               with tempfile.TemporaryDirectory() as tmpdir:
-                  clone_result = subprocess.run(
-                      ["git", "clone", "--filter=blob:none", "--no-checkout", clone_url, tmpdir],
-                      capture_output=True, timeout=120,
-                  )
+                  try:
+                      clone_result = subprocess.run(
+                          ["git", "clone", "--filter=blob:none", "--no-checkout", clone_url, tmpdir],
+                          capture_output=True, timeout=120, env=clone_env,
+                      )
+                  except subprocess.TimeoutExpired:
+                      print(f"Warning: clone of {org}/{repo_name} timed out", file=sys.stderr)
+                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
+                  except Exception as e:
+                      print(f"Warning: clone of {org}/{repo_name} failed: {e}", file=sys.stderr)
+                      return {author_map[u]: char_counts[u] for u in author_map}, total_commits
                   if clone_result.returncode != 0:
                       print(
                           f"Warning: could not clone {org}/{repo_name}: "
@@ -189,7 +205,7 @@ jobs:
                                   "--diff-algorithm=histogram", "-w", "-U0", "--no-color",
                                   sha,
                               ],
-                              capture_output=True, text=True,
+                              capture_output=True,
                               encoding="utf-8", errors="replace", timeout=60,
                           )
                           if result.returncode == 0:
