@@ -52,6 +52,20 @@ jobs:
                   h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
               return h
 
+          def build_effective_author_map(author_map, daily_map):
+              """Return a copy of author_map extended with any daily_map keys absent from it.
+
+              RepoSense may record commits in authorDailyContributionsMap under a
+              git-email alias that is not listed in authorDisplayNameMap.  To avoid
+              silently dropping those contributions the missing keys are added here
+              using the key itself as the display name.
+              """
+              effective = dict(author_map)
+              for k in daily_map:
+                  if k not in effective:
+                      effective[k] = k
+              return effective
+
           def count_tracked_chars_via_blame(org, repo_name, author_map, daily_map):
               """Count visible (non-whitespace) chars in surviving lines via git blame.
 
@@ -83,16 +97,7 @@ jobs:
               import tempfile
               IGNORED_PREFIXES = ("datos/",)
 
-              # Build a unified author map: authorDisplayNameMap may be missing
-              # some keys that appear in authorDailyContributionsMap (e.g. when
-              # RepoSense records commits under a git-email alias that was not
-              # listed as the primary identifier).  Any such extra key is added
-              # to the map using the key itself as the display name so that no
-              # student's work is silently dropped.
-              effective_author_map = dict(author_map)
-              for k in daily_map:
-                  if k not in effective_author_map:
-                      effective_author_map[k] = k
+              effective_author_map = build_effective_author_map(author_map, daily_map)
 
               # Collect commit SHAs with first-seen author attribution
               sha_author = {}
@@ -240,12 +245,7 @@ jobs:
               if commits_data:
                   author_map = commits_data.get("authorDisplayNameMap", {})
                   daily_map = commits_data.get("authorDailyContributionsMap", {})
-                  # Include authors present only in daily_map (not in authorDisplayNameMap)
-                  combined_author_map = dict(author_map)
-                  for k in daily_map:
-                      if k not in combined_author_map:
-                          combined_author_map[k] = k
-                  members = list(combined_author_map.values())
+                  members = list(build_effective_author_map(author_map, daily_map).values())
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
                   tracked_per_author, num_commits = count_tracked_chars_via_blame(
