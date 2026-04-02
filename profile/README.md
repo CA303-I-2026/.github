@@ -108,7 +108,7 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 
 | Columna | Qué mide | Cómo leerla | Mejor valor |
 |---------|----------|-------------|-------------|
-| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con más líneas rastreadas | 🥇 (posición 1) |
+| **Pos.** | Posición final en el ranking (🥇🥈🥉…) | Determinada por el Puntaje; a igual Puntaje gana el grupo con menor σ balance (distribución más equilibrada entre sus integrantes) | 🥇 (posición 1) |
 | **Grupo** | Nombre del grupo con enlace al repositorio | Clic para ver el repo directamente | — |
 | **Total caracteres** | Suma de caracteres visibles (no-espacios) en líneas añadidas **y** eliminadas en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período. Los cambios de solo espaciado y formato no se cuentan. | Más caracteres = mayor volumen de trabajo visible | Mayor |
 | **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | 1 = grupo con más caracteres visibles modificados; — = grupo sin actividad | 1 |
@@ -118,7 +118,7 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 | **p-valor** | Probabilidad de observar un χ² tan extremo o mayor si el reparto fuera uniforme | p > 0.05 → no se rechaza H₀ (equilibrado); p ≤ 0.05 → evidencia de desequilibrio; p ≤ 0.01 → evidencia fuerte; p ≤ 0.001 → evidencia muy fuerte | > 0.05 |
 | **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango σ | 1 |
 | **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
-| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, mayor Total caracteres) | 🏆 |
+| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |
 
 > **Nota sobre `—`:** el guion indica que el grupo no registró caracteres visibles modificados en archivos `.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
 
@@ -158,7 +158,7 @@ $$p = Q\!\left(\frac{gl}{2},\,\frac{\chi^2}{2}\right) = \frac{\Gamma(gl/2,\;\chi
 
 **Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); p ≤ 0.05 indica evidencia de desequilibrio. χ² = 0 indica distribución perfectamente igualitaria. A diferencia de σ, χ² **no** está normalizado por el volumen total, por lo que grupos con más caracteres en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. El p-valor corrige parcialmente este sesgo al escalar internamente por E. Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. **Menor χ² (mayor p-valor) = mejor equilibrio** (dentro del mismo tamaño de grupo).
 
-**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ y el p-valor confirma rechazo/aceptación de H₀, el resultado queda verificado por ambas métricas.
+**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ y el p-valor confirma rechazo/aceptación de H₀, el resultado queda verificado por ambas métricas. **Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor σ (menor dispersión de contribuciones), favoreciendo así a los equipos cuyos integrantes trabajan de forma más equilibrada.
 
 <!-- REPOSENSE-PROFILE-END -->
 
