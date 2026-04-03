@@ -28,19 +28,19 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Andrey Fabricio Gonzalez Bastos | 0 | 0 | — |
-| Anthonny William Flores Rojas | 50 | 0 | — |
-| Randal Gabriel Picado Bermudez | 0 | 0 | — |
-| Leonardo Martin Vega Aragon | 0 | 0 | — |
+| Andrey Fabricio Gonzalez Bastos | 0 | 0 | 0.0% |
+| Anthonny William Flores Rojas | 50 | 25494 | 100.0% |
+| Randal Gabriel Picado Bermudez | 0 | 0 | 0.0% |
+| Leonardo Martin Vega Aragon | 0 | 0 | 0.0% |
 
 ### Grupo-2
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Alejandra Sanchez Mancia | 0 | 0 | — |
-| Debbie Con Ortega | 3 | 0 | — |
-| Ashly Mariela Garro Villanueva | 4 | 0 | — |
-| Alessandro Umana Vega | 0 | 0 | — |
+| Emily Alejandra Sanchez Mancia | 0 | 0 | 0.0% |
+| Debbie Con Ortega | 3 | 1535 | 86.1% |
+| Ashly Mariela Garro Villanueva | 4 | 247 | 13.9% |
+| Alessandro Umana Vega | 0 | 0 | 0.0% |
 
 ### Grupo-3-p-0.05
 
@@ -92,10 +92,10 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32381 | 2 | 0.167 | 1 | 7.93 | 1 | 3260.38 | 0.00e+00 | 2 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 63433 | 1 | 0.365 | 2 | 17.63 | 2 | 31546.36 | 0.00e+00 | 3 | 3 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 3 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 6 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — | — | — | — |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — | — | — |  |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 63433 | 1 | 0.365 | 2 | 17.63 | 2 | 31546.36 | 0.00e+00 | 4 | 3 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 7 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 25494 | 3 | 0.750 | 5 | 43.30 | 5 | 76482.00 | 0.00e+00 | 5 | 8 |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1782 | 5 | 0.681 | 4 | 35.75 | 4 | 3643.89 | 0.00e+00 | 3 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — | — | — |  |
 
 ---
