@@ -327,6 +327,20 @@ jobs:
               stat = sum((obs - expected) ** 2 / expected for obs in tracked_map.values())
               return stat, n - 1
 
+          def gini_balance(tracked_map):
+              """Gini coefficient of contributions (G ∈ [0, 1]).
+              G = 0: perfect equality; G = 1: one member does all the work.
+              Formula (sorted ascending): G = 2·Σ(i·xᵢ) / (n·T) − (n+1)/n
+              Returns None when group has no tracked activity."""
+              values = list(tracked_map.values())
+              total = sum(values)
+              n = len(values)
+              if total == 0 or n == 0:
+                  return None
+              values_sorted = sorted(values)
+              numerator = sum((i + 1) * x for i, x in enumerate(values_sorted))
+              return 2 * numerator / (n * total) - (n + 1) / n
+
           def _gammainc_lower_series(a, x, max_iter=300, tol=1e-12):
               """Lower regularized incomplete gamma P(a,x) via series expansion."""
               if abs(x) < 1e-15:
@@ -412,11 +426,13 @@ jobs:
                   "repo_url": row["repo_url"],
                   "total_tracked": total_tracked,
                   "sigma": balance_stddev(tracked_map),
+                  "gini": gini_balance(tracked_map),
                   "chi2": chi2_stat,
                   "chi2_df": chi2_df,
                   "pvalue": pvalue,
                   "rank_total": None,
                   "rank_sigma": None,
+                  "rank_gini": None,
                   "rank_chi2": None,
                   "score": None,
               })
@@ -430,20 +446,22 @@ jobs:
               g["rank_total"] = rank
           for rank, g in enumerate(sorted(active, key=lambda x: x["sigma"]), 1):
               g["rank_sigma"] = rank
+          for rank, g in enumerate(sorted(active, key=lambda x: x["gini"]), 1):
+              g["rank_gini"] = rank
           for rank, g in enumerate(sorted(active, key=lambda x: x["chi2"]), 1):
               g["rank_chi2"] = rank
           for g in inactive:
-              for key in ("rank_total", "rank_sigma", "rank_chi2"):
+              for key in ("rank_total", "rank_sigma", "rank_gini", "rank_chi2"):
                   g[key] = last_rank
 
           for g in group_stats:
-              # Primary score: volume rank + σ-balance rank (lower = better).
-              # χ² rank is shown as an independent cross-check.
-              g["score"] = (g["rank_total"] + g["rank_sigma"]) if g["total_tracked"] > 0 else float("inf")
+              # Primary score: volume rank + Gini-balance rank (lower = better).
+              # σ rank and χ² rank are shown as independent cross-checks.
+              g["score"] = (g["rank_total"] + g["rank_gini"]) if g["total_tracked"] > 0 else float("inf")
 
-          # Tie-breaker: at equal score, the group with lower σ (more balanced
+          # Tie-breaker: at equal score, the group with lower Gini (more balanced
           # contributions) wins, favouring teams whose members work more evenly.
-          ranked = sorted(group_stats, key=lambda x: (x["score"], x["sigma"] if x["sigma"] is not None else float("inf")))
+          ranked = sorted(group_stats, key=lambda x: (x["score"], x["gini"] if x["gini"] is not None else float("inf")))
           winner_id = ranked[0]["group"] if ranked and ranked[0]["total_tracked"] > 0 else None
 
           qmd_lines.append("### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)")
@@ -455,8 +473,8 @@ jobs:
               "**y** distribución más equilibrada entre sus integrantes. "
               "Cada integrante recibe crédito por todo el texto que escribió; borrar y reinsertar el mismo contenido no infla el conteo porque las eliminaciones propias se descuentan.  ")
           qmd_lines.append(
-              "> **Puntaje** = Rango volumen + Rango σ (menor = mejor). "
-              "Las columnas χ² y p-valor son métricas independientes de verificación.  ")
+              "> **Puntaje** = Rango volumen + Rango G (Gini, menor = mejor). "
+              "Las columnas σ, χ² y p-valor son métricas independientes de verificación.  ")
           qmd_lines.append("> 🏆 indica el grupo ganador.")
           qmd_lines.append("")
           qmd_lines.append("**IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy difícil que gane, ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.")
@@ -466,10 +484,10 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append("")
           qmd_lines.append(
-              "| Pos. | Grupo | Total caracteres | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
+              "| Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |"
           )
           qmd_lines.append(
-              "|:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
+              "|:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|"
           )
 
           medals = {1: "🥇", 2: "🥈", 3: "🥉"}
@@ -477,6 +495,7 @@ jobs:
               medal = medals.get(pos, str(pos))
               is_winner = winner_id is not None and g["group"] == winner_id
               trophy = "🏆" if is_winner else ""
+              gini_str  = f"{g['gini']:.3f}"  if g["gini"]  is not None else "—"
               sigma_str = f"{g['sigma']:.2f}" if g["sigma"] is not None else "—"
               chi2_str  = f"{g['chi2']:.2f}"  if g["chi2"]  is not None else "—"
               pval = g["pvalue"]
@@ -487,6 +506,7 @@ jobs:
               else:
                   pval_str = f"{pval:.3f}"
               rank_t  = str(g["rank_total"]) if g["rank_total"] != last_rank else "—"
+              rank_g  = str(g["rank_gini"])  if g["rank_gini"]  != last_rank else "—"
               rank_s  = str(g["rank_sigma"]) if g["rank_sigma"] != last_rank else "—"
               rank_c  = str(g["rank_chi2"])  if g["rank_chi2"]  != last_rank else "—"
               score_str = str(g["score"]) if g["score"] != float("inf") else "—"
@@ -494,6 +514,8 @@ jobs:
                   f"| {medal} | [{g['group']}]({g['repo_url']}) "
                   f"| {g['total_tracked']} "
                   f"| {rank_t} "
+                  f"| {gini_str} "
+                  f"| {rank_g} "
                   f"| {sigma_str} "
                   f"| {rank_s} "
                   f"| {chi2_str} "
@@ -530,11 +552,17 @@ jobs:
               "| **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | "
               "1 = grupo con más caracteres escritos; — = grupo sin actividad | 1 |")
           qmd_lines.append(
+              "| **Gini** | Coeficiente de Gini de las contribuciones de los integrantes (G ∈ [0, 1]) | "
+              "0 = todos aportaron exactamente lo mismo; 1 = un solo integrante lo hizo todo | 0 |")
+          qmd_lines.append(
+              "| **Rango G** | Posición del grupo ordenado de menor a mayor Gini (más equilibrado primero) | "
+              "1 = distribución más igualitaria; — = grupo sin actividad | 1 |")
+          qmd_lines.append(
               "| **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | "
               "0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |")
           qmd_lines.append(
               "| **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | "
-              "1 = distribución más igualitaria; — = grupo sin actividad | 1 |")
+              "Métrica de verificación independiente; idealmente coincide con Rango G | 1 |")
           qmd_lines.append(
               "| **χ² bondad** | Estadístico chi-cuadrado de bondad de ajuste (H₀: distribución uniforme) | "
               "0 = aporte perfectamente igualitario; valores altos indican desequilibrio. "
@@ -547,13 +575,13 @@ jobs:
               "p ≤ 0.001 → evidencia muy fuerte | > 0.05 |")
           qmd_lines.append(
               "| **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | "
-              "Métrica de verificación independiente; idealmente coincide con Rango σ | 1 |")
+              "Métrica de verificación independiente; idealmente coincide con Rango G | 1 |")
           qmd_lines.append(
-              "| **Puntaje** | Rango vol. + Rango σ | "
-              "Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |")
+              "| **Puntaje** | Rango vol. + Rango G | "
+              "Combina volumen y equilibrio Gini en un único número; **menor = mejor**; — = sin actividad | Menor |")
           qmd_lines.append(
               "| **🏆** | Grupo ganador | "
-              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |")
+              "Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor Gini) | 🏆 |")
           qmd_lines.append("")
           qmd_lines.append(
               "> **Nota sobre `—`:** el guion indica que el grupo no tiene contribución neta de caracteres en archivos "
@@ -564,9 +592,9 @@ jobs:
           qmd_lines.append("#### 📐 Metodología de las métricas de equilibrio")
           qmd_lines.append("")
           qmd_lines.append(
-              "Se utilizan **dos métricas independientes** para medir cuán equitativamente "
+              "Se utilizan **tres métricas independientes** para medir cuán equitativamente "
               "cada grupo reparte las contribuciones entre sus integrantes. "
-              "Ambas tienen como hipótesis nula que todos los miembros aportan exactamente "
+              "Todas tienen como hipótesis nula que todos los miembros aportan exactamente "
               "la misma **contribución neta de caracteres visibles** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` "
               "(espacios en blanco excluidos).")
           qmd_lines.append("")
@@ -615,7 +643,21 @@ jobs:
               "σ = 100 · (n−1)/n · 1/√n corresponde al caso extremo donde un solo integrante "
               "hace todo el trabajo. **Menor σ = mejor equilibrio.**")
           qmd_lines.append("")
-          qmd_lines.append("**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
+          qmd_lines.append("**2. Coeficiente de Gini (G)**")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "Ordena las contribuciones netas de menor a mayor (x₍₁₎ ≤ x₍₂₎ ≤ … ≤ x₍ₙ₎) y aplica la fórmula:")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "$$G = \\frac{2\\sum_{i=1}^{n} i\\, x_{(i)}}{n \\sum_{i=1}^{n} x_{(i)}} - \\frac{n+1}{n}$$")
+          qmd_lines.append("")
+          qmd_lines.append(
+              "G ∈ [0, 1]: G = 0 indica contribución perfectamente igualitaria; G = 1 indica que un único integrante concentra toda la producción. "
+              "A diferencia de σ, el coeficiente de Gini es **invariante a escala** (no depende del volumen total ni del número de integrantes), "
+              "lo que lo hace directamente comparable entre grupos de distinto tamaño. "
+              "**Es la métrica principal del puntaje final. Menor G = mejor equilibrio.**")
+          qmd_lines.append("")
+          qmd_lines.append("**3. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
               "Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución "
@@ -638,7 +680,7 @@ jobs:
               "**Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); "
               "p ≤ 0.05 indica evidencia de desequilibrio. "
               "χ² = 0 indica distribución perfectamente igualitaria. "
-              "A diferencia de σ, χ² **no** está normalizado por el volumen total, "
+              "A diferencia de G (Gini), χ² **no** está normalizado por el volumen total, "
               "por lo que grupos con más caracteres en total pueden obtener χ² más alto "
               "aunque su distribución sea más equilibrada en términos relativos. "
               "El p-valor corrige parcialmente este sesgo al escalar internamente por E. "
@@ -647,10 +689,10 @@ jobs:
           qmd_lines.append("")
           qmd_lines.append(
               "**Combinación de rangos:** El puntaje final es "
-              "`Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ "
+              "`Rango vol. + Rango G`. Si el Rango σ y el Rango χ² coinciden con el Rango G "
               "y el p-valor confirma rechazo/aceptación de H₀, "
-              "el resultado queda verificado por ambas métricas. "
-              "**Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor σ (menor dispersión de contribuciones), "
+              "el resultado queda verificado por las tres métricas. "
+              "**Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor Gini (menor concentración de contribuciones), "
               "favoreciendo así a los equipos cuyos integrantes trabajan de forma más equilibrada.")
           qmd_lines.append("")
           qmd_lines.append("<!-- REPOSENSE-QMD-END -->")
