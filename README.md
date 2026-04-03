@@ -28,19 +28,19 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Andrey Fabricio Gonzalez Bastos | 0 | 0 | 0.0% |
-| Anthonny William Flores Rojas | 50 | 25494 | 100.0% |
-| Randal Gabriel Picado Bermudez | 0 | 0 | 0.0% |
-| Leonardo Martin Vega Aragon | 0 | 0 | 0.0% |
+| Andrey Fabricio Gonzalez Bastos | 0 | 0 | — |
+| Anthonny William Flores Rojas | 50 | 0 | — |
+| Randal Gabriel Picado Bermudez | 0 | 0 | — |
+| Leonardo Martin Vega Aragon | 0 | 0 | — |
 
 ### Grupo-2
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Alejandra Sanchez Mancia | 0 | 0 | 0.0% |
-| Debbie Con Ortega | 3 | 1535 | 86.1% |
-| Ashly Mariela Garro Villanueva | 4 | 247 | 13.9% |
-| Alessandro Umana Vega | 0 | 0 | 0.0% |
+| Emily Alejandra Sanchez Mancia | 0 | 0 | — |
+| Debbie Con Ortega | 3 | 0 | — |
+| Ashly Mariela Garro Villanueva | 4 | 0 | — |
+| Alessandro Umana Vega | 0 | 0 | — |
 
 ### Grupo-3-p-0.05
 
@@ -80,7 +80,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 ### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)
 
 > **Criterio de victoria**: El equipo que tenga al final del semestre el mayor total de **contribución neta de caracteres** (suma de (líneas `+`) − (líneas `−`) por integrante en sus propios commits sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0 por integrante) **y** distribución más equilibrada entre sus integrantes. Cada integrante recibe crédito por todo el texto que escribió; borrar y reinsertar el mismo contenido no infla el conteo porque las eliminaciones propias se descuentan.  
-> **Puntaje** = Rango volumen + Rango σ (menor = mejor). Las columnas χ² y p-valor son métricas independientes de verificación.  
+> **Puntaje** = Rango volumen + Rango G (Gini, menor = mejor). Las columnas σ, χ² y p-valor son métricas independientes de verificación.  
 > 🏆 indica el grupo ganador.
 
 **IMPORTANTE:** Para ganar esto hay que tener constancia. Un grupo en el cual un solo integrante tiene 100% durante 3 meses, será muy difícil que gane, ya que el resto del equipo tendrá que recuperar la cantidad de líneas en el último mes.
@@ -89,14 +89,14 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 **El truco para ganar es mantenerse en los primeros lugares durante todo el semestre**.
 
 
-| Pos. | Grupo | Total caracteres | Rango vol. | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
-|:----:|-------|:----------------:|:----------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32381 | 2 | 7.93 | 1 | 3260.38 | 0.00e+00 | 2 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 63433 | 1 | 17.63 | 2 | 31546.36 | 0.00e+00 | 4 | 3 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 7 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 25494 | 3 | 43.30 | 5 | 76482.00 | 0.00e+00 | 5 | 8 |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1782 | 5 | 35.75 | 4 | 3643.89 | 0.00e+00 | 3 | 9 |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — |  |
+| Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
+|:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
+| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32381 | 2 | 0.167 | 1 | 7.93 | 1 | 3260.38 | 0.00e+00 | 2 | 3 | 🏆 |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 63433 | 1 | 0.365 | 2 | 17.63 | 2 | 31546.36 | 0.00e+00 | 3 | 3 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 3 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 6 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 0 | — | — | — | — | — | — | — | — | — |  |
+| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 0 | — | — | — | — | — | — | — | — | — |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — | — | — |  |
 
 ---
 
@@ -110,13 +110,15 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 | **Grupo** | Nombre del grupo con enlace al repositorio | Clic para ver el repo directamente | — |
 | **Total caracteres** | Contribución neta de caracteres visibles (no-espacios): suma de (líneas `+`) − (líneas `−`) en los commits propios del integrante sobre archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` durante el período, mínimo 0. Borrar y reinsertar el mismo contenido no infla el conteo: las eliminaciones propias se descuentan. | Más caracteres = mayor contribución neta | Mayor |
 | **Rango vol.** | Posición del grupo ordenado de mayor a menor Total caracteres | 1 = grupo con más caracteres escritos; — = grupo sin actividad | 1 |
+| **Gini** | Coeficiente de Gini de las contribuciones de los integrantes (G ∈ [0, 1]) | 0 = todos aportaron exactamente lo mismo; 1 = un solo integrante lo hizo todo | 0 |
+| **Rango G** | Posición del grupo ordenado de menor a mayor Gini (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
 | **σ balance** | Desviación estándar de los porcentajes de contribución de cada integrante | 0 = todos aportaron exactamente lo mismo; valores mayores indican mayor desequilibrio | 0 |
-| **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | 1 = distribución más igualitaria; — = grupo sin actividad | 1 |
+| **Rango σ** | Posición del grupo ordenado de menor a mayor σ (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango G | 1 |
 | **χ² bondad** | Estadístico chi-cuadrado de bondad de ajuste (H₀: distribución uniforme) | 0 = aporte perfectamente igualitario; valores altos indican desequilibrio. **Ojo:** no es comparable entre grupos de diferente volumen total | 0 |
 | **p-valor** | Probabilidad de observar un χ² tan extremo o mayor si el reparto fuera uniforme | p > 0.05 → no se rechaza H₀ (equilibrado); p ≤ 0.05 → evidencia de desequilibrio; p ≤ 0.01 → evidencia fuerte; p ≤ 0.001 → evidencia muy fuerte | > 0.05 |
-| **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango σ | 1 |
-| **Puntaje** | Rango vol. + Rango σ | Combina volumen y equilibrio en un único número; **menor = mejor**; — = sin actividad | Menor |
-| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor σ balance) | 🏆 |
+| **Rango χ²** | Posición del grupo ordenado de menor a mayor χ² (más equilibrado primero) | Métrica de verificación independiente; idealmente coincide con Rango G | 1 |
+| **Puntaje** | Rango vol. + Rango G | Combina volumen y equilibrio Gini en un único número; **menor = mejor**; — = sin actividad | Menor |
+| **🏆** | Grupo ganador | Se otorga al grupo con el menor Puntaje (y, en caso de empate, menor Gini) | 🏆 |
 
 > **Nota sobre `—`:** el guion indica que el grupo no tiene contribución neta de caracteres en archivos `.qmd`, `.tex`, `.R`, `.py` o `.cpp` durante el período analizado y por tanto no participa en el ranking de volumen ni balance.
 
@@ -124,7 +126,7 @@ La siguiente tabla explica cada columna del ranking para que puedas interpretar 
 
 #### 📐 Metodología de las métricas de equilibrio
 
-Se utilizan **dos métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Ambas tienen como hipótesis nula que todos los miembros aportan exactamente la misma **contribución neta de caracteres visibles** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` (espacios en blanco excluidos).
+Se utilizan **tres métricas independientes** para medir cuán equitativamente cada grupo reparte las contribuciones entre sus integrantes. Todas tienen como hipótesis nula que todos los miembros aportan exactamente la misma **contribución neta de caracteres visibles** en archivos `.qmd`, `.tex`, `.R`, `.py` y `.cpp` (espacios en blanco excluidos).
 
 **0. Definición de Oᵢ — contribución neta de caracteres visibles (git show)**
 
@@ -146,7 +148,15 @@ $$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(p_i - \frac{100}{n}\right)^2}$$
 
 σ = 0 significa contribución perfectamente igualitaria; σ = 100 · (n−1)/n · 1/√n corresponde al caso extremo donde un solo integrante hace todo el trabajo. **Menor σ = mejor equilibrio.**
 
-**2. Prueba chi-cuadrado de bondad de ajuste (χ²)**
+**2. Coeficiente de Gini (G)**
+
+Ordena las contribuciones netas de menor a mayor (x₍₁₎ ≤ x₍₂₎ ≤ … ≤ x₍ₙ₎) y aplica la fórmula:
+
+$$G = \frac{2\sum_{i=1}^{n} i\, x_{(i)}}{n \sum_{i=1}^{n} x_{(i)}} - \frac{n+1}{n}$$
+
+G ∈ [0, 1]: G = 0 indica contribución perfectamente igualitaria; G = 1 indica que un único integrante concentra toda la producción. A diferencia de σ, el coeficiente de Gini es **invariante a escala** (no depende del volumen total ni del número de integrantes), lo que lo hace directamente comparable entre grupos de distinto tamaño. **Es la métrica principal del puntaje final. Menor G = mejor equilibrio.**
+
+**3. Prueba chi-cuadrado de bondad de ajuste (χ²)**
 
 Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):
 
@@ -156,8 +166,8 @@ El **p-valor** es la probabilidad de observar un estadístico tan extremo o más
 
 $$p = Q\!\left(\frac{gl}{2},\,\frac{\chi^2}{2}\right) = \frac{\Gamma(gl/2,\;\chi^2/2)}{\Gamma(gl/2)}$$
 
-**Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); p ≤ 0.05 indica evidencia de desequilibrio. χ² = 0 indica distribución perfectamente igualitaria. A diferencia de σ, χ² **no** está normalizado por el volumen total, por lo que grupos con más caracteres en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. El p-valor corrige parcialmente este sesgo al escalar internamente por E. Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. **Menor χ² (mayor p-valor) = mejor equilibrio** (dentro del mismo tamaño de grupo).
+**Interpretación del p-valor:** p > 0.05 no rechaza H₀ (distribución equilibrada); p ≤ 0.05 indica evidencia de desequilibrio. χ² = 0 indica distribución perfectamente igualitaria. A diferencia de G (Gini), χ² **no** está normalizado por el volumen total, por lo que grupos con más caracteres en total pueden obtener χ² más alto aunque su distribución sea más equilibrada en términos relativos. El p-valor corrige parcialmente este sesgo al escalar internamente por E. Por eso ambas (χ², p-valor) se usan como **verificación independiente** y no como métrica principal. **Menor χ² (mayor p-valor) = mejor equilibrio** (dentro del mismo tamaño de grupo).
 
-**Combinación de rangos:** El puntaje final es `Rango vol. + Rango σ`. Si el Rango χ² coincide con el Rango σ y el p-valor confirma rechazo/aceptación de H₀, el resultado queda verificado por ambas métricas. **Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor σ (menor dispersión de contribuciones), favoreciendo así a los equipos cuyos integrantes trabajan de forma más equilibrada.
+**Combinación de rangos:** El puntaje final es `Rango vol. + Rango G`. Si el Rango σ y el Rango χ² coinciden con el Rango G y el p-valor confirma rechazo/aceptación de H₀, el resultado queda verificado por las tres métricas. **Desempate:** si dos grupos tienen el mismo Puntaje, gana el que tenga menor Gini (menor concentración de contribuciones), favoreciendo así a los equipos cuyos integrantes trabajan de forma más equilibrada.
 
 <!-- REPOSENSE-QMD-END -->
