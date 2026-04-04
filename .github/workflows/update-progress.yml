@@ -135,8 +135,8 @@ jobs:
               # alias in RepoSense.  The GitHub API returns author.login (the GitHub
               # username) for every commit regardless of the git email used.
               if since_iso or until_iso:
-                  since_param = since_iso if since_iso.endswith("Z") else since_iso + "Z"
-                  until_param = until_iso if until_iso.endswith("Z") else until_iso + "Z"
+                  since_param = (since_iso + "Z") if since_iso and not since_iso.endswith("Z") else since_iso
+                  until_param = (until_iso + "Z") if until_iso and not until_iso.endswith("Z") else until_iso
                   api_page = 1
                   while True:
                       api_url = (
