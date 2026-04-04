@@ -5,14 +5,14 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-04-04** · Reporte generado: **Sat, 4 Apr 2026 00:37:40 UTC**
+> Período: **2026-03-01** → **2026-04-04** · Reporte generado: **Sat, 4 Apr 2026 06:49:53 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 55 | 1708 |
-| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 8 | 250 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 61 | 1767 |
+| [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 10 | 385 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 67 | 1878 |
 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 14 | 375 |
 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 34 | 3288 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Katia Moreno | 0 | 0 |
@@ -21,7 +21,7 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-04** · Reporte generado: **Sat, 4 Apr 2026 00:37:40 UTC**
+> Período: **2026-03-01** → **2026-04-04** · Reporte generado: **Sat, 4 Apr 2026 06:49:53 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -38,18 +38,18 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
 | Emily Alejandra Sanchez Mancia | 0 | 0 | 0.0% |
-| Debbie Con Ortega | 3 | 1535 | 86.1% |
-| Ashly Mariela Garro Villanueva | 5 | 247 | 13.9% |
+| Debbie Con Ortega | 3 | 1535 | 10.9% |
+| Ashly Mariela Garro Villanueva | 7 | 12578 | 89.1% |
 | Alessandro Umana Vega | 0 | 0 | 0.0% |
 
 ### Grupo-3-p-0.05
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 21 | 5108 | 7.9% |
-| Alexandra Maria Gonzalez Bermudez | 18 | 14410 | 22.3% |
-| Daniela Patricia Prado Vargas | 9 | 34578 | 53.6% |
-| Jose Miguel Rodriguez Gomez | 13 | 10429 | 16.2% |
+| Emily Estefania Mora Contreras | 26 | 8221 | 12.0% |
+| Alexandra Maria Gonzalez Bermudez | 18 | 14410 | 21.1% |
+| Daniela Patricia Prado Vargas | 10 | 35219 | 51.6% |
+| Jose Miguel Rodriguez Gomez | 13 | 10429 | 15.3% |
 
 ### Grupo-4-Martingalianos
 
@@ -92,10 +92,10 @@ Bienvenidos a la organización del curso **CA303 - Estadística Actuarial I (202
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32381 | 2 | 0.167 | 1 | 7.93 | 1 | 3260.38 | 0.00e+00 | 2 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 64525 | 1 | 0.358 | 2 | 17.28 | 2 | 30826.69 | 0.00e+00 | 4 | 3 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 7 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 26554 | 3 | 0.750 | 5 | 43.30 | 5 | 79662.00 | 0.00e+00 | 5 | 8 |  |
-| 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1782 | 5 | 0.681 | 4 | 35.75 | 4 | 3643.89 | 0.00e+00 | 3 | 9 |  |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 68279 | 1 | 0.311 | 2 | 15.69 | 2 | 26882.03 | 0.00e+00 | 3 | 3 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 5 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 8 |  |
+| 4 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 14113 | 4 | 0.696 | 4 | 37.29 | 4 | 31394.63 | 0.00e+00 | 4 | 8 |  |
+| 5 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 26554 | 3 | 0.750 | 5 | 43.30 | 5 | 79662.00 | 0.00e+00 | 5 | 8 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — | — | — |  |
 
 ---
