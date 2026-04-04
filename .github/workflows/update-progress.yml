@@ -66,7 +66,7 @@ jobs:
                       effective[k] = k
               return effective
 
-          def count_tracked_chars_via_diffs(org, repo_name, author_map, daily_map):
+          def count_tracked_chars_via_diffs(org, repo_name, author_map, daily_map, since_iso="", until_iso=""):
               """Count net non-whitespace chars contributed by each author in tracked files.
 
               Clones the repository with a blobless filter and runs:
@@ -129,6 +129,34 @@ jobs:
                   for sha in user_shas:
                       if sha not in sha_author:
                           sha_author[sha] = username
+
+              # Supplement with GitHub API commits to capture any commits that RepoSense
+              # missed because the committer's git email is not configured as an author
+              # alias in RepoSense.  The GitHub API returns author.login (the GitHub
+              # username) for every commit regardless of the git email used.
+              if since_iso or until_iso:
+                  since_param = since_iso if since_iso.endswith("Z") else since_iso + "Z"
+                  until_param = until_iso if until_iso.endswith("Z") else until_iso + "Z"
+                  api_page = 1
+                  while True:
+                      api_url = (
+                          f"https://api.github.com/repos/{org}/{repo_name}/commits"
+                          f"?per_page=100&page={api_page}"
+                          + (f"&since={since_param}" if since_param else "")
+                          + (f"&until={until_param}" if until_param else "")
+                      )
+                      api_data = fetch_json(api_url, headers=gh_api_headers())
+                      if not api_data or not isinstance(api_data, list):
+                          break
+                      for commit in api_data:
+                          sha = commit.get("sha", "")
+                          login = (commit.get("author") or {}).get("login", "")
+                          if sha and login and login in effective_author_map and sha not in sha_author:
+                              sha_author[sha] = login
+                              raw_commit_counts[login] = raw_commit_counts.get(login, 0) + 1
+                      if len(api_data) < 100:
+                          break
+                      api_page += 1
 
               char_counts = {u: 0 for u in effective_author_map}
               total_commits = len(sha_author)
@@ -261,7 +289,9 @@ jobs:
                   num_insertions = count_insertions(daily_map)
                   # Character-level changes in tracked files (visible chars only, whitespace excluded)
                   tracked_per_author, num_commits, commits_per_author = count_tracked_chars_via_diffs(
-                      org, group_name, author_map, daily_map
+                      org, group_name, author_map, daily_map,
+                      since_iso=summary.get("sinceDate", ""),
+                      until_iso=summary.get("untilDate", ""),
                   )
               else:
                   members = []
