@@ -7,6 +7,39 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 ---
 
+## ⚠️ Configuración obligatoria de correo institucional
+
+Para que sus commits sean rastreados correctamente y aparezcan en el ranking, **cada integrante debe configurar su correo institucional** (`nombre.apellido@ucr.ac.cr`) tanto en su máquina local como en GitHub. Sin esta configuración, sus cambios **no serán visibles** y se perderán para efectos del ranking.
+
+### 1. Configuración en su máquina local (Git)
+
+Ejecute los siguientes comandos en su terminal, reemplazando los valores con su nombre e institución:
+
+```bash
+git config --global user.email "nombre.apellido@ucr.ac.cr"
+git config --global user.name "Nombre Apellido"
+```
+
+> Si desea aplicar la configuración solo al repositorio del curso (en lugar de globalmente), omita `--global` y ejecute el comando dentro del directorio del repositorio.
+
+Para verificar que quedó bien configurado:
+
+```bash
+git config --global user.email
+```
+
+### 2. Configuración en GitHub
+
+1. Inicie sesión en [github.com](https://github.com).
+2. Vaya a **Settings** → **Emails** ([enlace directo](https://github.com/settings/emails)).
+3. En la sección **Add email address**, ingrese `nombre.apellido@ucr.ac.cr` y haga clic en **Add**.
+4. Verifique el correo desde su cuenta UCR.
+5. *(Opcional pero recomendado)* Establézcalo como correo primario o asegúrese de que esté marcado como verificado.
+
+> **Importante:** el correo del commit (configurado en Git) debe coincidir con uno de los correos verificados en su cuenta de GitHub para que las contribuciones queden asociadas correctamente a su perfil.
+
+---
+
 ## 👥 Grupos de trabajo
 
 | Grupo | Repositorio |
