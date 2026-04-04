@@ -23,7 +23,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-03** · Reporte generado: **Fri, 3 Apr 2026 06:59:22 UTC**
+> Período: **2026-03-01** → **2026-04-04** · Reporte generado: **Sat, 4 Apr 2026 00:37:40 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -31,7 +31,7 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
 | Andrey Fabricio Gonzalez Bastos | 3 | 0 | 0.0% |
-| Anthonny William Flores Rojas | 50 | 25494 | 100.0% |
+| Anthonny William Flores Rojas | 52 | 26554 | 100.0% |
 | Randal Gabriel Picado Bermudez | 0 | 0 | 0.0% |
 | Leonardo Martin Vega Aragon | 0 | 0 | 0.0% |
 
@@ -48,10 +48,10 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 21 | 5108 | 8.0% |
-| Alexandra Maria Gonzalez Bermudez | 18 | 14410 | 22.6% |
-| Daniela Patricia Prado Vargas | 9 | 34578 | 54.3% |
-| Jose Miguel Rodriguez Gomez | 9 | 9555 | 15.0% |
+| Emily Estefania Mora Contreras | 21 | 5108 | 7.9% |
+| Alexandra Maria Gonzalez Bermudez | 18 | 14410 | 22.3% |
+| Daniela Patricia Prado Vargas | 9 | 34578 | 53.6% |
+| Jose Miguel Rodriguez Gomez | 13 | 10429 | 16.2% |
 
 ### Grupo-4-Martingalianos
 
@@ -94,9 +94,9 @@ Bienvenidos a la organización del curso. Aquí se alojan los repositorios de ca
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32381 | 2 | 0.167 | 1 | 7.93 | 1 | 3260.38 | 0.00e+00 | 2 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 63651 | 1 | 0.366 | 2 | 17.70 | 2 | 31912.36 | 0.00e+00 | 4 | 3 |  |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 64525 | 1 | 0.358 | 2 | 17.28 | 2 | 30826.69 | 0.00e+00 | 4 | 3 |  |
 | 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 4 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 7 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 25494 | 3 | 0.750 | 5 | 43.30 | 5 | 76482.00 | 0.00e+00 | 5 | 8 |  |
+| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 26554 | 3 | 0.750 | 5 | 43.30 | 5 | 79662.00 | 0.00e+00 | 5 | 8 |  |
 | 5 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 1782 | 5 | 0.681 | 4 | 35.75 | 4 | 3643.89 | 0.00e+00 | 3 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — | — | — |  |
 
