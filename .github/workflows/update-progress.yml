@@ -205,6 +205,99 @@ jobs:
                       )
                       return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
 
+                  # Scan git log to find commits whose author email/name was not
+                  # captured by RepoSense or the GitHub API supplement above.
+                  # Strategy:
+                  #   1. Direct email-key match: if the commit email equals a key in
+                  #      effective_author_map, attribute it to that author.
+                  #   2. Name-token fallback: normalise the git author name and every
+                  #      display name (strip accents, lowercase, split into tokens)
+                  #      and attribute the commit to the author whose display name
+                  #      shares the most tokens (≥ 2 matches, ≥ 40 % overlap).
+                  _gl_cmd = [
+                      "git", "-C", tmpdir, "log",
+                      "--format=%H|%ae|%an", "--no-merges",
+                  ]
+                  if since_iso:
+                      _gl_cmd.append(f"--after={since_iso[:10]}")
+                  if until_iso:
+                      _gl_cmd.append(f"--before={until_iso[:10]}")
+                  try:
+                      _gl_res = subprocess.run(
+                          _gl_cmd, capture_output=True,
+                          encoding="utf-8", errors="replace",
+                          timeout=120, env=clone_env,
+                      )
+                      if _gl_res.returncode == 0 and _gl_res.stdout.strip():
+                          import unicodedata as _ud
+
+                          def _nrm(s):
+                              n = _ud.normalize("NFD", s.lower())
+                              return set(
+                                  "".join(
+                                      c for c in n if _ud.category(c) != "Mn"
+                                  ).split()
+                              )
+
+                          _email_map = {
+                              k.lower(): k
+                              for k in effective_author_map
+                              if "@" in k
+                          }
+                          _disp_toks = {
+                              u: _nrm(dn)
+                              for u, dn in effective_author_map.items()
+                          }
+                          for _raw in _gl_res.stdout.splitlines():
+                              _parts = _raw.strip().split("|", 2)
+                              if len(_parts) < 3:
+                                  continue
+                              _lsha, _lemail, _lname = (
+                                  _parts[0], _parts[1].lower(), _parts[2]
+                              )
+                              if _lsha in sha_author:
+                                  continue
+                              # 1. direct email-key lookup
+                              _matched = _email_map.get(_lemail)
+                              # 2. name-token fallback
+                              if not _matched:
+                                  _gt = _nrm(_lname)
+                                  _best_u, _best_sc = None, 0
+                                  for _u, _dt in _disp_toks.items():
+                                      if not _dt or not _gt:
+                                          continue
+                                      _ov = len(_gt & _dt)
+                                      if (
+                                          _ov >= 2
+                                          and _ov / max(len(_gt), len(_dt)) >= 0.4
+                                          and _ov > _best_sc
+                                      ):
+                                          _best_sc, _best_u = _ov, _u
+                                  _matched = _best_u
+                              if _matched:
+                                  sha_author[_lsha] = _matched
+                                  raw_commit_counts[_matched] = (
+                                      raw_commit_counts.get(_matched, 0) + 1
+                                  )
+                                  print(
+                                      f"Info: attributed {_lsha[:8]} "
+                                      f"({_lemail!r} / {_lname!r}) "
+                                      f"→ {effective_author_map[_matched]!r}",
+                                      file=sys.stderr,
+                                  )
+                          # Refresh totals after git-log scan
+                          total_commits = len(sha_author)
+                          commits_per_author = {
+                              effective_author_map[u]: raw_commit_counts.get(u, 0)
+                              for u in effective_author_map
+                          }
+                  except Exception as _gl_e:
+                      print(
+                          f"Warning: git log scan for {org}/{repo_name} "
+                          f"failed: {_gl_e}",
+                          file=sys.stderr,
+                      )
+
                   for sha, username in sha_author.items():
                       try:
                           diff_result = subprocess.run(
