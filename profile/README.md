@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-05** · Reporte generado: **Sun, 5 Apr 2026 06:56:14 UTC**
+> Período: **2026-03-01** → **2026-04-06** · Reporte generado: **Mon, 6 Apr 2026 07:18:46 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -73,8 +73,8 @@ git config --global user.email
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
 | Emily Alejandra Sanchez Mancia | 0 | 0 | 0.0% |
-| Debbie Con Ortega | 3 | 1535 | 10.3% |
-| Ashly Mariela Garro Villanueva | 9 | 13296 | 89.7% |
+| Debbie Con Ortega | 12 | 20543 | 60.4% |
+| Ashly Mariela Garro Villanueva | 12 | 13465 | 39.6% |
 | Alessandro Umana Vega | 0 | 0 | 0.0% |
 
 ### Grupo-3-p-0.05
@@ -91,18 +91,18 @@ git config --global user.email
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
 | Sebastian Josue Miranda Ramirez | 0 | 0 | 0.0% |
-| Gabriel de Jesus Chaves Esquivel | 1 | 0 | 0.0% |
-| Kevin David Calderon Martinez | 11 | 1375 | 49.3% |
-| Benjamin Gutierrez Padua | 2 | 1414 | 50.7% |
+| Gabriel de Jesus Chaves Esquivel | 2 | 1232 | 9.7% |
+| Kevin David Calderon Martinez | 11 | 1375 | 10.9% |
+| Benjamin Gutierrez Padua | 5 | 10048 | 79.4% |
 
 ### Grupo-5-Alpha-Epsilon
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 10 | 12245 | 37.6% |
-| Oscar Mario Espinoza Camacho | 9 | 7744 | 23.8% |
-| Gerardo Andres Montero Fuentes | 5 | 7154 | 22.0% |
-| Cesar Ulises Salazar Amaya | 12 | 5439 | 16.7% |
+| Gabriel Robles Arias | 11 | 40877 | 55.2% |
+| Oscar Mario Espinoza Camacho | 10 | 11806 | 15.9% |
+| Gerardo Andres Montero Fuentes | 6 | 8433 | 11.4% |
+| Cesar Ulises Salazar Amaya | 17 | 12996 | 17.5% |
 
 ### Grupo-6
 
@@ -126,11 +126,11 @@ git config --global user.email
 
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 32582 | 2 | 0.161 | 1 | 7.72 | 1 | 3102.98 | 0.00e+00 | 2 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 68612 | 1 | 0.313 | 2 | 15.82 | 2 | 27461.09 | 0.00e+00 | 3 | 3 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 2789 | 5 | 0.503 | 3 | 25.00 | 3 | 2790.09 | 0.00e+00 | 1 | 8 |  |
-| 4 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 14831 | 4 | 0.698 | 4 | 37.56 | 4 | 33483.97 | 0.00e+00 | 4 | 8 |  |
-| 5 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 27843 | 3 | 0.727 | 5 | 40.67 | 5 | 73694.40 | 0.00e+00 | 5 | 8 |  |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 68612 | 2 | 0.313 | 1 | 15.82 | 1 | 27461.09 | 0.00e+00 | 2 | 3 | 🏆 |
+| 🥈 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 74112 | 1 | 0.332 | 2 | 17.56 | 2 | 36548.74 | 0.00e+00 | 3 | 3 |  |
+| 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 34008 | 3 | 0.552 | 3 | 26.06 | 3 | 36954.25 | 0.00e+00 | 4 | 6 |  |
+| 4 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 12655 | 5 | 0.598 | 4 | 31.69 | 4 | 20334.57 | 0.00e+00 | 1 | 9 |  |
+| 5 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 27843 | 4 | 0.727 | 5 | 40.67 | 5 | 73694.40 | 0.00e+00 | 5 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 0 | — | — | — | — | — | — | — | — | — |  |
 
 ---
