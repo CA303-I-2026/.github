@@ -223,6 +223,8 @@ jobs:
                   if until_iso:
                       _gl_cmd.append(f"--before={until_iso[:10]}")
                   try:
+                      # 120 s matches the clone timeout; git log is faster but large
+                      # repos can have many commits so we give it the same headroom.
                       _gl_res = subprocess.run(
                           _gl_cmd, capture_output=True,
                           encoding="utf-8", errors="replace",
@@ -232,11 +234,15 @@ jobs:
                           import unicodedata as _ud
 
                           def _nrm(s):
+                              # Strip accents, lowercase, split on whitespace.
+                              # str.split() without args never returns empty strings.
                               n = _ud.normalize("NFD", s.lower())
                               return set(
+                                  t for t in
                                   "".join(
                                       c for c in n if _ud.category(c) != "Mn"
                                   ).split()
+                                  if t
                               )
 
                           _email_map = {
@@ -264,9 +270,14 @@ jobs:
                                   _gt = _nrm(_lname)
                                   _best_u, _best_sc = None, 0
                                   for _u, _dt in _disp_toks.items():
-                                      if not _dt or not _gt:
+                                      # Skip if either token set is empty (avoids
+                                      # zero-division and meaningless matches).
+                                      if len(_dt) == 0 or len(_gt) == 0:
                                           continue
                                       _ov = len(_gt & _dt)
+                                      # Require ≥ 2 matching tokens AND Jaccard ≥ 0.4
+                                      # to reduce false positives while still catching
+                                      # students who omit middle names or use nicknames.
                                       if (
                                           _ov >= 2
                                           and _ov / max(len(_gt), len(_dt)) >= 0.4
