@@ -221,7 +221,7 @@ jobs:
                           _all_files = set(_ls_res.stdout.splitlines())
                           for _f in _all_files:
                               if _f.endswith(".tex"):
-                                  if (_f[:-4] + ".qmd") in _all_files:
+                                  if (os.path.splitext(_f)[0] + ".qmd") in _all_files:
                                       shadowed_tex.add(_f)
                           if shadowed_tex:
                               print(
