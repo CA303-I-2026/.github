@@ -205,6 +205,36 @@ jobs:
                       )
                       return {effective_author_map[u]: char_counts[u] for u in effective_author_map}, total_commits, commits_per_author
 
+                  # Build the set of .tex files shadowed by a same-stem .qmd in the
+                  # final tree.  If both bitacora_1.tex and bitacora_1.qmd exist in
+                  # the repo, ALL diffs for the .tex file are ignored in every commit,
+                  # regardless of commit order.  This prevents students from gaming the
+                  # character count by committing the .tex first and the .qmd later.
+                  shadowed_tex = set()
+                  try:
+                      _ls_res = subprocess.run(
+                          ["git", "-C", tmpdir, "ls-files"],
+                          capture_output=True, encoding="utf-8", errors="replace",
+                          timeout=30, env=clone_env,
+                      )
+                      if _ls_res.returncode == 0:
+                          _all_files = set(_ls_res.stdout.splitlines())
+                          for _f in _all_files:
+                              if _f.endswith(".tex"):
+                                  if (_f[:-4] + ".qmd") in _all_files:
+                                      shadowed_tex.add(_f)
+                          if shadowed_tex:
+                              print(
+                                  f"Info: {len(shadowed_tex)} .tex file(s) shadowed by "
+                                  f".qmd in {org}/{repo_name}: {sorted(shadowed_tex)}",
+                                  file=sys.stderr,
+                              )
+                  except Exception as _ls_e:
+                      print(
+                          f"Warning: git ls-files for {org}/{repo_name} failed: {_ls_e}",
+                          file=sys.stderr,
+                      )
+
                   # Scan git log to find commits whose author email/name was not
                   # captured by RepoSense or the GitHub API supplement above.
                   # Strategy:
@@ -337,6 +367,7 @@ jobs:
                                   current_file_tracked = (
                                       any(filepath.endswith(ext) for ext in TRACKED_EXTS)
                                       and not any(filepath.startswith(p) for p in IGNORED_PREFIXES)
+                                      and filepath not in shadowed_tex
                                   )
                               elif (line.startswith("+") and not line.startswith("+++")
                                       and current_file_tracked):
