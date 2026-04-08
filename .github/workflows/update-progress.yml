@@ -224,18 +224,9 @@ jobs:
                                   if (os.path.splitext(_f)[0] + ".qmd") in _all_files:
                                       shadowed_tex.add(_f)
                           if shadowed_tex:
-                              _shadowed_sample_limit = 10
-                              _shadowed_sorted = sorted(shadowed_tex)
-                              _shadowed_sample = _shadowed_sorted[:_shadowed_sample_limit]
-                              _shadowed_omitted = len(shadowed_tex) - len(_shadowed_sample)
-                              _shadowed_suffix = (
-                                  f" (and {_shadowed_omitted} more)"
-                                  if _shadowed_omitted > 0 else ""
-                              )
                               print(
                                   f"Info: {len(shadowed_tex)} .tex file(s) shadowed by "
-                                  f".qmd in {org}/{repo_name}. Sample: "
-                                  f"{_shadowed_sample}{_shadowed_suffix}",
+                                  f".qmd in {org}/{repo_name}: {sorted(shadowed_tex)}",
                                   file=sys.stderr,
                               )
                       else:
