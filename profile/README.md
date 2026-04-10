@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-09** · Reporte generado: **Thu, 9 Apr 2026 07:11:59 UTC**
+> Período: **2026-03-01** → **2026-04-10** · Reporte generado: **Fri, 10 Apr 2026 07:16:44 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -90,10 +90,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Sebastian Josue Miranda Ramirez | 4 | 0 | 0.0% |
-| Gabriel de Jesus Chaves Esquivel | 4 | 7112 | 8.5% |
-| Kevin David Calderon Martinez | 19 | 17059 | 20.3% |
-| Benjamin Gutierrez Padua | 7 | 59770 | 71.2% |
+| Sebastian Josue Miranda Ramirez | 11 | 1895 | 2.2% |
+| Gabriel de Jesus Chaves Esquivel | 6 | 8106 | 9.3% |
+| Kevin David Calderon Martinez | 19 | 17059 | 19.6% |
+| Benjamin Gutierrez Padua | 7 | 59770 | 68.8% |
 
 ### Grupo-5-Alpha-Epsilon
 
@@ -108,10 +108,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Luis Diego Elizondo Fennell | 10 | 5021 | 9.7% |
-| Jeremy Josue Garcia Solano | 7 | 8175 | 15.9% |
-| Sebastian Calderon Segura | 8 | 24821 | 48.2% |
-| Katia Moreno | 21 | 13510 | 26.2% |
+| Luis Diego Elizondo Fennell | 10 | 5021 | 9.6% |
+| Jeremy Josue Garcia Solano | 8 | 8939 | 17.1% |
+| Sebastian Calderon Segura | 8 | 24821 | 47.5% |
+| Katia Moreno | 21 | 13510 | 25.8% |
 
 ### 🏆 Grupo ganador de puntos extra (5 puntos para cada integrante)
 
@@ -131,8 +131,8 @@ git config --global user.email
 | 🥈 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 66964 | 5 | 0.112 | 1 | 5.33 | 1 | 3046.41 | 0.00e+00 | 1 | 6 |  |
 | 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 4 | 0.188 | 3 | 8.43 | 3 | 8314.89 | 0.00e+00 | 2 | 7 |  |
 | 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 76041 | 3 | 0.305 | 4 | 16.67 | 5 | 33793.57 | 0.00e+00 | 5 | 7 |  |
-| 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 83941 | 2 | 0.564 | 6 | 27.64 | 6 | 102573.00 | 0.00e+00 | 6 | 8 |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 51527 | 6 | 0.314 | 5 | 14.62 | 4 | 17612.92 | 0.00e+00 | 4 | 11 |  |
+| 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 2 | 0.526 | 6 | 26.06 | 6 | 94340.59 | 0.00e+00 | 6 | 8 |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 52291 | 6 | 0.306 | 5 | 14.19 | 4 | 16838.93 | 0.00e+00 | 4 | 11 |  |
 
 ---
 
