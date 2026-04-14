@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-13** · Reporte generado: **Mon, 13 Apr 2026 07:49:32 UTC**
+> Período: **2026-03-01** → **2026-04-14** · Reporte generado: **Tue, 14 Apr 2026 07:19:27 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
