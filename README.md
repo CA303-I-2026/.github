@@ -40,7 +40,7 @@ git config --global user.email
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-04-15** · Reporte generado: **Wed, 15 Apr 2026 07:20:04 UTC**
+> Período: **2026-03-01** → **2026-04-16** · Reporte generado: **Thu, 16 Apr 2026 07:20:24 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-15** · Reporte generado: **Wed, 15 Apr 2026 07:20:04 UTC**
+> Período: **2026-03-01** → **2026-04-16** · Reporte generado: **Thu, 16 Apr 2026 07:20:24 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
