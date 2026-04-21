@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-20** · Reporte generado: **Mon, 20 Apr 2026 07:52:34 UTC**
+> Período: **2026-03-01** → **2026-04-21** · Reporte generado: **Tue, 21 Apr 2026 07:23:05 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -81,7 +81,7 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 28 | 21181 | 22.4% |
+| Emily Estefania Mora Contreras | 29 | 21181 | 22.4% |
 | Alexandra Maria Gonzalez Bermudez | 31 | 18934 | 20.0% |
 | Daniela Patricia Prado Vargas | 14 | 36195 | 38.2% |
 | Jose Miguel Rodriguez Gomez | 17 | 18358 | 19.4% |
