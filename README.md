@@ -40,14 +40,14 @@ git config --global user.email
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-04-21** · Reporte generado: **Tue, 21 Apr 2026 07:23:05 UTC**
+> Período: **2026-03-01** → **2026-04-22** · Reporte generado: **Wed, 22 Apr 2026 07:21:29 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 81 | 2866 |
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 43 | 1454 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 91 | 2499 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 96 | 2778 |
 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 43 | 11068 |
 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 47 | 8164 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Sebastian Calderon Segura<br>Katia Moreno | 47 | 1249 |
@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-21** · Reporte generado: **Tue, 21 Apr 2026 07:23:05 UTC**
+> Período: **2026-03-01** → **2026-04-22** · Reporte generado: **Wed, 22 Apr 2026 07:21:29 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -82,9 +82,9 @@ git config --global user.email
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
 | Emily Estefania Mora Contreras | 29 | 21181 | 22.4% |
-| Alexandra Maria Gonzalez Bermudez | 31 | 18934 | 20.0% |
+| Alexandra Maria Gonzalez Bermudez | 33 | 18934 | 20.0% |
 | Daniela Patricia Prado Vargas | 14 | 36195 | 38.2% |
-| Jose Miguel Rodriguez Gomez | 17 | 18358 | 19.4% |
+| Jose Miguel Rodriguez Gomez | 20 | 18358 | 19.4% |
 
 ### Grupo-4-Martingalianos
 
