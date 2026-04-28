@@ -40,7 +40,7 @@ git config --global user.email
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-04-27** · Reporte generado: **Mon, 27 Apr 2026 08:06:57 UTC**
+> Período: **2026-03-01** → **2026-04-28** · Reporte generado: **Tue, 28 Apr 2026 08:08:45 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
@@ -49,14 +49,14 @@ git config --global user.email
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 83 | 3121 |
 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 101 | 2951 |
 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 43 | 11068 |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 47 | 8164 |
+| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 50 | 8241 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Sebastian Calderon Segura<br>Katia Moreno | 47 | 1249 |
 <!-- REPOSENSE-PROGRESS-END -->
 
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-27** · Reporte generado: **Mon, 27 Apr 2026 08:06:57 UTC**
+> Período: **2026-03-01** → **2026-04-28** · Reporte generado: **Tue, 28 Apr 2026 08:08:45 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -99,10 +99,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 12 | 40900 | 53.8% |
-| Oscar Mario Espinoza Camacho | 10 | 11806 | 15.5% |
-| Gerardo Andres Montero Fuentes | 8 | 10339 | 13.6% |
-| Cesar Ulises Salazar Amaya | 17 | 12996 | 17.1% |
+| Gabriel Robles Arias | 15 | 42256 | 54.6% |
+| Oscar Mario Espinoza Camacho | 10 | 11806 | 15.3% |
+| Gerardo Andres Montero Fuentes | 8 | 10339 | 13.4% |
+| Cesar Ulises Salazar Amaya | 17 | 12996 | 16.8% |
 
 ### Grupo-6
 
@@ -130,9 +130,9 @@ git config --global user.email
 | 🥇 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 1 | 0.099 | 1 | 4.49 | 1 | 4289.27 | 0.00e+00 | 1 | 2 | 🏆 |
 | 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 94668 | 2 | 0.147 | 2 | 7.72 | 2 | 9030.20 | 0.00e+00 | 3 | 4 |  |
 | 🥉 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 5 | 0.188 | 3 | 8.43 | 3 | 8314.89 | 0.00e+00 | 2 | 8 |  |
-| 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 76041 | 4 | 0.305 | 4 | 16.67 | 5 | 33793.57 | 0.00e+00 | 5 | 8 |  |
+| 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 77397 | 4 | 0.313 | 5 | 17.13 | 5 | 36340.85 | 0.00e+00 | 5 | 9 |  |
 | 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 3 | 0.526 | 6 | 26.06 | 6 | 94340.59 | 0.00e+00 | 6 | 9 |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 52291 | 6 | 0.306 | 5 | 14.19 | 4 | 16838.93 | 0.00e+00 | 4 | 11 |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 52291 | 6 | 0.306 | 4 | 14.19 | 4 | 16838.93 | 0.00e+00 | 4 | 10 |  |
 
 ---
 
