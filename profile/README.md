@@ -81,10 +81,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 33 | 34974 | 26.2% |
-| Alexandra Maria Gonzalez Bermudez | 35 | 23498 | 17.6% |
-| Daniela Patricia Prado Vargas | 17 | 37725 | 28.3% |
-| Jose Miguel Rodriguez Gomez | 24 | 37051 | 27.8% |
+| Emily Estefania Mora Contreras | 33 | 34974 | 25.1% |
+| Alexandra Maria Gonzalez Bermudez | 35 | 23498 | 16.9% |
+| Daniela Patricia Prado Vargas | 17 | 37725 | 27.1% |
+| Jose Miguel Rodriguez Gomez | 25 | 42949 | 30.9% |
 
 ### Grupo-4-Martingalianos
 
@@ -99,10 +99,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 19 | 44693 | 44.0% |
-| Oscar Mario Espinoza Camacho | 10 | 11806 | 11.6% |
-| Gerardo Andres Montero Fuentes | 29 | 30796 | 30.3% |
-| Cesar Ulises Salazar Amaya | 19 | 14262 | 14.0% |
+| Gabriel Robles Arias | 19 | 44693 | 43.5% |
+| Oscar Mario Espinoza Camacho | 10 | 11806 | 11.5% |
+| Gerardo Andres Montero Fuentes | 29 | 30796 | 30.0% |
+| Cesar Ulises Salazar Amaya | 21 | 15448 | 15.0% |
 
 ### Grupo-6
 
@@ -127,9 +127,9 @@ git config --global user.email
 
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 133248 | 1 | 0.084 | 1 | 4.32 | 1 | 3978.49 | 0.00e+00 | 1 | 2 | 🏆 |
-| 🥈 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 2 | 0.099 | 2 | 4.49 | 2 | 4289.27 | 0.00e+00 | 2 | 4 |  |
-| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 101557 | 3 | 0.284 | 4 | 13.12 | 4 | 27972.00 | 0.00e+00 | 5 | 7 |  |
+| 🥇 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 2 | 0.099 | 1 | 4.49 | 1 | 4289.27 | 0.00e+00 | 1 | 3 | 🏆 |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 139146 | 1 | 0.110 | 2 | 5.12 | 2 | 5827.74 | 0.00e+00 | 2 | 3 |  |
+| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 102743 | 3 | 0.277 | 4 | 12.74 | 4 | 26662.61 | 0.00e+00 | 5 | 7 |  |
 | 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 5 | 0.188 | 3 | 8.43 | 3 | 8314.89 | 0.00e+00 | 3 | 8 |  |
 | 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 4 | 0.526 | 6 | 26.06 | 6 | 94340.59 | 0.00e+00 | 6 | 10 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 55820 | 6 | 0.302 | 5 | 13.66 | 5 | 16664.82 | 0.00e+00 | 4 | 11 |  |
