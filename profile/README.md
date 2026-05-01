@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-04-30** · Reporte generado: **Thu, 30 Apr 2026 08:05:36 UTC**
+> Período: **2026-03-01** → **2026-05-01** · Reporte generado: **Fri, 1 May 2026 08:02:31 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -99,10 +99,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 16 | 43859 | 43.5% |
-| Oscar Mario Espinoza Camacho | 10 | 11806 | 11.7% |
-| Gerardo Andres Montero Fuentes | 29 | 30796 | 30.6% |
-| Cesar Ulises Salazar Amaya | 19 | 14262 | 14.2% |
+| Gabriel Robles Arias | 19 | 44693 | 44.0% |
+| Oscar Mario Espinoza Camacho | 10 | 11806 | 11.6% |
+| Gerardo Andres Montero Fuentes | 29 | 30796 | 30.3% |
+| Cesar Ulises Salazar Amaya | 19 | 14262 | 14.0% |
 
 ### Grupo-6
 
@@ -129,7 +129,7 @@ git config --global user.email
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 1 | 0.099 | 1 | 4.49 | 1 | 4289.27 | 0.00e+00 | 1 | 2 | 🏆 |
 | 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 94668 | 3 | 0.147 | 2 | 7.72 | 2 | 9030.20 | 0.00e+00 | 3 | 5 |  |
-| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 100723 | 2 | 0.280 | 4 | 12.93 | 4 | 26945.63 | 0.00e+00 | 5 | 6 |  |
+| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 101557 | 2 | 0.284 | 4 | 13.12 | 4 | 27972.00 | 0.00e+00 | 5 | 6 |  |
 | 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 5 | 0.188 | 3 | 8.43 | 3 | 8314.89 | 0.00e+00 | 2 | 8 |  |
 | 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 4 | 0.526 | 6 | 26.06 | 6 | 94340.59 | 0.00e+00 | 6 | 10 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 52291 | 6 | 0.306 | 5 | 14.19 | 5 | 16838.93 | 0.00e+00 | 4 | 11 |  |
