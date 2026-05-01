@@ -252,8 +252,8 @@ jobs:
                   #      and attribute the commit to the author whose display name
                   #      shares the most tokens (≥ 2 matches, ≥ 40 % overlap).
                   _gl_cmd = [
-                      "git", "-C", tmpdir, "log",
-                      "--format=%H|%ae|%an", "--no-merges",
+                      "git", "-C", tmpdir, "-c", "core.quotePath=false",
+                      "log", "--format=%H|%ae|%an", "--no-merges",
                   ]
                   if since_iso:
                       _gl_cmd.append(f"--after={since_iso[:10]}")
@@ -349,7 +349,7 @@ jobs:
                   for sha, username in sha_author.items():
                       try:
                           diff_result = subprocess.run(
-                              ["git", "-C", tmpdir, "show",
+                              ["git", "-C", tmpdir, "-c", "core.quotePath=false", "show",
                                "--no-color", "--format=tformat:", "-U0", sha],
                               capture_output=True,
                               encoding="utf-8", errors="replace", timeout=60,
