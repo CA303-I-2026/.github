@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-05-01** · Reporte generado: **Fri, 1 May 2026 08:02:31 UTC**
+> Período: **2026-03-01** → **2026-05-02** · Reporte generado: **Sat, 2 May 2026 07:20:15 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -81,10 +81,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 33 | 34974 | 25.1% |
-| Alexandra Maria Gonzalez Bermudez | 35 | 23498 | 16.9% |
-| Daniela Patricia Prado Vargas | 17 | 37725 | 27.1% |
-| Jose Miguel Rodriguez Gomez | 25 | 42949 | 30.9% |
+| Emily Estefania Mora Contreras | 33 | 34974 | 24.4% |
+| Alexandra Maria Gonzalez Bermudez | 35 | 23498 | 16.4% |
+| Daniela Patricia Prado Vargas | 19 | 42053 | 29.3% |
+| Jose Miguel Rodriguez Gomez | 25 | 42949 | 29.9% |
 
 ### Grupo-4-Martingalianos
 
@@ -128,7 +128,7 @@ git config --global user.email
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 2 | 0.099 | 1 | 4.49 | 1 | 4289.27 | 0.00e+00 | 1 | 3 | 🏆 |
-| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 139146 | 1 | 0.110 | 2 | 5.12 | 2 | 5827.74 | 0.00e+00 | 2 | 3 |  |
+| 🥈 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 143474 | 1 | 0.114 | 2 | 5.42 | 2 | 6752.75 | 0.00e+00 | 2 | 3 |  |
 | 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 102743 | 3 | 0.277 | 4 | 12.74 | 4 | 26662.61 | 0.00e+00 | 5 | 7 |  |
 | 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 5 | 0.188 | 3 | 8.43 | 3 | 8314.89 | 0.00e+00 | 3 | 8 |  |
 | 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 4 | 0.526 | 6 | 26.06 | 6 | 94340.59 | 0.00e+00 | 6 | 10 |  |
