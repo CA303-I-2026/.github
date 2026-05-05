@@ -194,7 +194,7 @@ G ∈ [0, 1]: G = 0 indica contribución perfectamente igualitaria; G = 1 indica
 
 **3. Prueba chi-cuadrado de bondad de ajuste (χ²)**
 
-Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):
+Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) divida entre 1000 (solo para normalizar) contra los esperados bajo distribución uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):
 
 $$\chi^2 = \sum_{i=1}^{n}\frac{(O_i - E)^2}{E}, \quad E = \frac{T}{n}, \quad gl = n-1$$
 
