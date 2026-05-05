@@ -837,7 +837,7 @@ jobs:
           qmd_lines.append("**3. Prueba chi-cuadrado de bondad de ajuste (χ²)**")
           qmd_lines.append("")
           qmd_lines.append(
-              "Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) contra los esperados bajo distribución "
+              "Compara las contribuciones netas observadas de caracteres visibles (Oᵢ) divida entre 1000 (solo para normalizar) contra los esperados bajo distribución "
               "uniforme (E = T / n, donde T = total de caracteres del grupo y n = número de integrantes):")
           qmd_lines.append("")
           qmd_lines.append(
