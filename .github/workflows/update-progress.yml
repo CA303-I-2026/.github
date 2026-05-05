@@ -495,7 +495,7 @@ jobs:
               """Chi-squared goodness-of-fit statistic for equal contribution (H0).
               χ² = Σ (Oᵢ − E)² / E  where E = total / n.
               Returns (stat, df) or (None, None) when no activity / fewer than 2 members."""
-              normalized_tracked_values = tracked_map.values()/1000
+              normalized_tracked_values = [v / 1000 for v in tracked_map.values()]
               total = sum(normalized_tracked_values)
               n = len(tracked_map)
               if total == 0 or n < 2:
