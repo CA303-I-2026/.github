@@ -45,11 +45,11 @@ git config --global user.email
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
-| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 81 | 2866 |
+| [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 89 | 2866 |
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 83 | 3121 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 120 | 3539 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 123 | 3539 |
 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 43 | 11068 |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 79 | 9053 |
+| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 81 | 9053 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Sebastian Calderon Segura<br>Katia Moreno | 49 | 1344 |
 <!-- REPOSENSE-PROGRESS-END -->
 
@@ -66,7 +66,7 @@ git config --global user.email
 | Andrey Fabricio Gonzalez Bastos | 11 | 15122 | 20.7% |
 | Anthonny William Flores Rojas | 52 | 26554 | 36.3% |
 | Randal Gabriel Picado Bermudez | 12 | 21192 | 29.0% |
-| Leonardo Martin Vega Aragon | 6 | 10217 | 14.0% |
+| Leonardo Martin Vega Aragon | 14 | 10217 | 14.0% |
 
 ### Grupo-2
 
@@ -81,10 +81,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 33 | 34974 | 23.5% |
-| Alexandra Maria Gonzalez Bermudez | 42 | 28699 | 19.3% |
-| Daniela Patricia Prado Vargas | 19 | 42053 | 28.3% |
-| Jose Miguel Rodriguez Gomez | 26 | 42949 | 28.9% |
+| Emily Estefania Mora Contreras | 36 | 36789 | 24.4% |
+| Alexandra Maria Gonzalez Bermudez | 42 | 28699 | 19.1% |
+| Daniela Patricia Prado Vargas | 19 | 42053 | 27.9% |
+| Jose Miguel Rodriguez Gomez | 26 | 42949 | 28.5% |
 
 ### Grupo-4-Martingalianos
 
@@ -99,9 +99,9 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 19 | 44693 | 43.5% |
+| Gabriel Robles Arias | 19 | 44693 | 43.4% |
 | Oscar Mario Espinoza Camacho | 10 | 11806 | 11.5% |
-| Gerardo Andres Montero Fuentes | 29 | 30796 | 30.0% |
+| Gerardo Andres Montero Fuentes | 31 | 31094 | 30.2% |
 | Cesar Ulises Salazar Amaya | 21 | 15448 | 15.0% |
 
 ### Grupo-6
@@ -127,9 +127,9 @@ git config --global user.email
 
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 148675 | 1 | 0.084 | 1 | 3.89 | 1 | 3.60 | 0.539 | 1 | 2 | 🏆 |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 150490 | 1 | 0.080 | 1 | 3.76 | 1 | 3.41 | 0.555 | 1 | 2 | 🏆 |
 | 🥈 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 132723 | 2 | 0.099 | 2 | 4.49 | 2 | 4.29 | 0.488 | 2 | 4 |  |
-| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 102743 | 3 | 0.277 | 4 | 12.74 | 4 | 26.66 | 6.93e-06 | 5 | 7 |  |
+| 🥉 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 103041 | 3 | 0.277 | 4 | 12.73 | 4 | 26.71 | 6.78e-06 | 5 | 7 |  |
 | 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 73085 | 5 | 0.188 | 3 | 8.43 | 3 | 8.31 | 0.040 | 3 | 8 |  |
 | 5 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 86830 | 4 | 0.526 | 6 | 26.06 | 6 | 94.34 | 2.56e-20 | 6 | 10 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 55820 | 6 | 0.302 | 5 | 13.66 | 5 | 16.66 | 8.28e-04 | 4 | 11 |  |
