@@ -56,7 +56,7 @@ git config --global user.email
 <!-- REPOSENSE-PROFILE-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-05-26** · Reporte generado: **Tue, 26 May 2026 17:43:15 UTC**
+> Período: **2026-03-01** → **2026-05-27** · Reporte generado: **Wed, 27 May 2026 17:41:27 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -81,10 +81,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 49 | 56187 | 24.7% |
-| Alexandra Maria Gonzalez Bermudez | 68 | 55363 | 24.4% |
-| Daniela Patricia Prado Vargas | 46 | 62032 | 27.3% |
-| Jose Miguel Rodriguez Gomez | 42 | 53621 | 23.6% |
+| Emily Estefania Mora Contreras | 49 | 56187 | 24.2% |
+| Alexandra Maria Gonzalez Bermudez | 69 | 60507 | 26.0% |
+| Daniela Patricia Prado Vargas | 46 | 62032 | 26.7% |
+| Jose Miguel Rodriguez Gomez | 42 | 53621 | 23.1% |
 
 ### Grupo-4-Martingalianos
 
@@ -127,7 +127,7 @@ git config --global user.email
 
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 227203 | 2 | 0.029 | 1 | 1.39 | 1 | 0.70 | 0.915 | 1 | 3 | 🏆 |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 232347 | 2 | 0.032 | 1 | 1.44 | 1 | 0.77 | 0.904 | 1 | 3 | 🏆 |
 | 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 251661 | 1 | 0.142 | 3 | 6.50 | 3 | 17.00 | 7.06e-04 | 4 | 4 |  |
 | 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 194964 | 3 | 0.103 | 2 | 4.87 | 2 | 7.41 | 0.060 | 2 | 5 |  |
 | 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 135256 | 5 | 0.154 | 4 | 7.22 | 4 | 11.28 | 0.010 | 3 | 9 |  |
