@@ -48,7 +48,7 @@ git config --global user.email
 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 141 | 11559 |
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 105 | 5177 |
 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 210 | 5730 |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 81 | 31433 |
+| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 82 | 31433 |
 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 111 | 9745 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Sebastian Calderon Segura<br>Katia Moreno | 88 | 3787 |
 <!-- REPOSENSE-PROGRESS-END -->
@@ -90,10 +90,10 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Sebastian Josue Miranda Ramirez | 20 | 63708 | 25.1% |
-| Gabriel de Jesus Chaves Esquivel | 19 | 69140 | 27.3% |
-| Kevin David Calderon Martinez | 28 | 37868 | 14.9% |
-| Benjamin Gutierrez Padua | 14 | 82968 | 32.7% |
+| Sebastian Josue Miranda Ramirez | 21 | 73986 | 28.0% |
+| Gabriel de Jesus Chaves Esquivel | 19 | 69140 | 26.2% |
+| Kevin David Calderon Martinez | 28 | 37868 | 14.3% |
+| Benjamin Gutierrez Padua | 14 | 82968 | 31.4% |
 
 ### Grupo-5-Alpha-Epsilon
 
@@ -129,7 +129,7 @@ git config --global user.email
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
 | 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 268999 | 1 | 0.083 | 1 | 4.46 | 2 | 8.56 | 0.036 | 2 | 2 | 🏆 |
 | 🥈 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 200552 | 3 | 0.089 | 2 | 4.09 | 1 | 5.37 | 0.147 | 1 | 5 |  |
-| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 253684 | 2 | 0.139 | 3 | 6.44 | 3 | 16.84 | 7.63e-04 | 4 | 5 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 263962 | 2 | 0.133 | 3 | 6.43 | 3 | 17.47 | 5.65e-04 | 4 | 5 |  |
 | 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 135256 | 5 | 0.154 | 4 | 7.22 | 4 | 11.28 | 0.010 | 3 | 9 |  |
 | 5 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 197589 | 4 | 0.223 | 5 | 10.11 | 5 | 32.32 | 4.48e-07 | 5 | 9 |  |
 | 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 132334 | 6 | 0.398 | 6 | 19.27 | 6 | 78.59 | 6.16e-17 | 6 | 12 |  |
