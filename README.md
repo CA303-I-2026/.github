@@ -40,23 +40,23 @@ git config --global user.email
 <!-- REPOSENSE-PROGRESS-START -->
 ## 📊 Progreso de los grupos
 
-> Período: **2026-03-01** → **2026-06-20** · Reporte generado: **Sat, 20 Jun 2026 15:59:05 UTC**
+> Período: **2026-03-01** → **2026-06-21** · Reporte generado: **Sun, 21 Jun 2026 16:15:14 UTC**
 > Fuente: [RepoSense Report](https://ca303-i-2026.github.io/publish-RepoSense)
 
 | Grupo | Repositorio | Integrantes | Commits | Líneas añadidas |
 |-------|-------------|-------------|:-------:|:---------------:|
 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | Andrey Fabricio Gonzalez Bastos<br>Anthonny William Flores Rojas<br>Randal Gabriel Picado Bermudez<br>Leonardo Martin Vega Aragon | 179 | 16411 |
 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-2) | Emily Alejandra Sanchez Mancia<br>Debbie Con Ortega<br>Ashly Mariela Garro Villanueva<br>Alessandro Umana Vega | 161 | 8958 |
-| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 287 | 11018 |
-| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 118 | 44295 |
-| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 146 | 14496 |
+| [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | Emily Estefania Mora Contreras<br>Alexandra Maria Gonzalez Bermudez<br>Daniela Patricia Prado Vargas<br>Jose Miguel Rodriguez Gomez | 298 | 12387 |
+| [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | Sebastian Josue Miranda Ramirez<br>Gabriel de Jesus Chaves Esquivel<br>Kevin David Calderon Martinez<br>Benjamin Gutierrez Padua | 119 | 44526 |
+| [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | Gabriel Robles Arias<br>Oscar Mario Espinoza Camacho<br>Gerardo Andres Montero Fuentes<br>Cesar Ulises Salazar Amaya | 156 | 14786 |
 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | [🔗 Ver repo](https://github.com/CA303-I-2026/Grupo-6) | Luis Diego Elizondo Fennell<br>Jeremy Josue Garcia Solano<br>Sebastian Calderon Segura<br>Katia Moreno | 114 | 8641 |
 <!-- REPOSENSE-PROGRESS-END -->
 
 <!-- REPOSENSE-QMD-START -->
 ## 📝 Caracteres modificados en archivos de proyecto por integrante
 
-> Período: **2026-03-01** → **2026-06-20** · Reporte generado: **Sat, 20 Jun 2026 15:59:05 UTC**
+> Período: **2026-03-01** → **2026-06-21** · Reporte generado: **Sun, 21 Jun 2026 16:15:14 UTC**
 > Archivos rastreados: `.qmd`, `.tex`, `.R`, `.py`, `.cpp` · Métrica: contribución neta de caracteres visibles = (líneas `+` − líneas `-`) por integrante en sus commits del período, sin espacios, mínimo 0
 
 ### Grupo-1-Los-bigotes-de-FM
@@ -81,28 +81,28 @@ git config --global user.email
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Emily Estefania Mora Contreras | 63 | 128876 | 24.7% |
-| Alexandra Maria Gonzalez Bermudez | 85 | 135704 | 26.0% |
-| Daniela Patricia Prado Vargas | 70 | 127277 | 24.4% |
-| Jose Miguel Rodriguez Gomez | 69 | 129334 | 24.8% |
+| Emily Estefania Mora Contreras | 66 | 142176 | 24.4% |
+| Alexandra Maria Gonzalez Bermudez | 90 | 159567 | 27.4% |
+| Daniela Patricia Prado Vargas | 72 | 147715 | 25.4% |
+| Jose Miguel Rodriguez Gomez | 70 | 133061 | 22.8% |
 
 ### Grupo-4-Martingalianos
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Sebastian Josue Miranda Ramirez | 34 | 129043 | 27.7% |
-| Gabriel de Jesus Chaves Esquivel | 27 | 96218 | 20.6% |
-| Kevin David Calderon Martinez | 42 | 155560 | 33.4% |
-| Benjamin Gutierrez Padua | 15 | 85447 | 18.3% |
+| Sebastian Josue Miranda Ramirez | 35 | 137384 | 28.9% |
+| Gabriel de Jesus Chaves Esquivel | 27 | 96218 | 20.3% |
+| Kevin David Calderon Martinez | 42 | 155560 | 32.8% |
+| Benjamin Gutierrez Padua | 15 | 85447 | 18.0% |
 
 ### Grupo-5-Alpha-Epsilon
 
 | Integrante | Commits | Caracteres | Caracteres % |
 |------------|:-------:|:----------:|:------------:|
-| Gabriel Robles Arias | 31 | 52709 | 21.3% |
-| Oscar Mario Espinoza Camacho | 18 | 97211 | 39.3% |
-| Gerardo Andres Montero Fuentes | 37 | 45125 | 18.3% |
-| Cesar Ulises Salazar Amaya | 60 | 51999 | 21.0% |
+| Gabriel Robles Arias | 33 | 61977 | 23.1% |
+| Oscar Mario Espinoza Camacho | 18 | 97211 | 36.2% |
+| Gerardo Andres Montero Fuentes | 41 | 51327 | 19.1% |
+| Cesar Ulises Salazar Amaya | 64 | 57915 | 21.6% |
 
 ### Grupo-6
 
@@ -127,12 +127,12 @@ git config --global user.email
 
 | Pos. | Grupo | Total caracteres | Rango vol. | Gini | Rango G | σ balance | Rango σ | χ² bondad | p-valor | Rango χ² | Puntaje | |
 |:----:|-------|:----------------:|:----------:|:----:|:-------:|:---------:|:-------:|:---------:|:-------:|:--------:|:-------:|:-:|
-| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 521191 | 1 | 0.012 | 1 | 0.62 | 1 | 0.32 | 0.971 | 1 | 2 | 🏆 |
-| 🥈 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 466268 | 2 | 0.130 | 3 | 5.93 | 3 | 26.24 | 8.50e-06 | 3 | 5 |  |
-| 🥉 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 297477 | 4 | 0.020 | 2 | 0.94 | 2 | 0.42 | 0.958 | 2 | 6 |  |
-| 4 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 364313 | 3 | 0.204 | 5 | 9.73 | 5 | 55.14 | 6.42e-12 | 5 | 8 |  |
-| 5 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 247044 | 6 | 0.159 | 4 | 8.37 | 4 | 27.70 | 4.20e-06 | 4 | 10 |  |
-| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 249164 | 5 | 0.363 | 6 | 17.92 | 6 | 128.05 | 1.42e-27 | 6 | 11 |  |
+| 🥇 | [Grupo-3-p-0.05](https://github.com/CA303-I-2026/Grupo-3-p-0.05) | 582519 | 1 | 0.037 | 2 | 1.65 | 2 | 2.53 | 0.647 | 2 | 3 | 🏆 |
+| 🥈 | [Grupo-2](https://github.com/CA303-I-2026/Grupo-2) | 297477 | 4 | 0.020 | 1 | 0.94 | 1 | 0.42 | 0.958 | 1 | 5 |  |
+| 🥉 | [Grupo-4-Martingalianos](https://github.com/CA303-I-2026/Grupo-4-Martingalianos) | 474609 | 2 | 0.132 | 4 | 6.07 | 3 | 27.97 | 3.68e-06 | 4 | 6 |  |
+| 4 | [Grupo-5-Alpha-Epsilon](https://github.com/CA303-I-2026/Grupo-5-Alpha-Epsilon) | 268430 | 5 | 0.132 | 3 | 6.63 | 4 | 18.87 | 2.91e-04 | 3 | 8 |  |
+| 5 | [Grupo-1-Los-bigotes-de-FM](https://github.com/CA303-I-2026/Grupo-1-Los-bigotes-de-FM) | 364313 | 3 | 0.204 | 5 | 9.73 | 5 | 55.14 | 6.42e-12 | 5 | 8 |  |
+| 6 | [Grupo-6](https://github.com/CA303-I-2026/Grupo-6) | 249164 | 6 | 0.363 | 6 | 17.92 | 6 | 128.05 | 1.42e-27 | 6 | 12 |  |
 
 ---
 
