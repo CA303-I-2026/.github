@@ -5,10 +5,10 @@ on:
   push:
     branches:
       - main
-  schedule:
-    # Runs daily at 09:00 Costa Rican time, after publish-RepoSense (00:00 UTC)
-    - cron: '0 9 * * *'
-      timezone: "America/Costa_Rica"
+  # schedule:
+    ## Runs daily at 09:00 Costa Rican time, after publish-RepoSense (00:00 UTC)
+    # - cron: '0 9 * * *'
+    #   timezone: "America/Costa_Rica"
   workflow_dispatch:
 
 permissions:
